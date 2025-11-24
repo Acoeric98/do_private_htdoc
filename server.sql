@@ -79,7 +79,7 @@ CREATE TABLE `log_player_kills` (
 CREATE TABLE `player_accounts` (
   `userId` bigint(20) NOT NULL,
   `sessionId` varchar(32) COLLATE utf8_bin NOT NULL,
-  `data` text COLLATE utf8_bin NOT NULL DEFAULT '{"uridium":0,"credits":0,"honor":0,"experience":0,"jackpot":0}',
+  `data` text COLLATE utf8_bin NOT NULL DEFAULT '{"uridium":15000,"credits":15000,"honor":0,"experience":0,"jackpot":0}',
   `bootyKeys` text COLLATE utf8_bin NOT NULL DEFAULT '{"greenKeys": 0, "redKeys": 0, "blueKeys": 0}',
   `info` text COLLATE utf8_bin NOT NULL,
   `destructions` text COLLATE utf8_bin NOT NULL DEFAULT '{"fpd":0,"dbrz":0}',
@@ -119,7 +119,7 @@ CREATE TABLE `player_equipment` (
   `config2_lasers` text COLLATE utf8_bin NOT NULL DEFAULT '[]',
   `config2_generators` text COLLATE utf8_bin NOT NULL DEFAULT '[]',
   `config2_drones` text COLLATE utf8_bin NOT NULL DEFAULT '[{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]},{"items":[],"designs":[]}]',
-  `items` text COLLATE utf8_bin NOT NULL DEFAULT '{"lf4Count":0,"havocCount":0,"herculesCount":0,"apis":false,"zeus":false,"pet":false,"petModules":[],"ships":[],"designs":{},"skillTree":{"logdisks":0,"researchPoints":0,"resetCount":0}}',
+  `items` text COLLATE utf8_bin NOT NULL DEFAULT '{"lf4Count":45,"havocCount":10,"herculesCount":10,"apis":true,"zeus":true,"pet":true,"petModules":[],"ships":[],"designs":{},"skillTree":{"logdisks":0,"researchPoints":0,"resetCount":0}}',
   `skill_points` text COLLATE utf8_bin NOT NULL DEFAULT '{"engineering":0,"shieldEngineering":0,"detonation1":0,"detonation2":0,"heatseekingMissiles":0,"rocketFusion":0,"cruelty1":0,"cruelty2":0,"explosives":0,"luck1":0,"luck2":0}',
   `modules` longtext COLLATE utf8_bin NOT NULL DEFAULT '[]',
   `boosters` longtext COLLATE utf8_bin NOT NULL DEFAULT '{}'
