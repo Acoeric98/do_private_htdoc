@@ -42,7 +42,7 @@
       <nav>
         <div class="nav-wrapper grey darken-4">
           <div class="container">
-          <a href="<?php echo DOMAIN; ?>" class="brand-logo"><?php echo SERVER_NAME; ?></a>
+          <a href="<?php echo DOMAIN; ?>" class="brand-logo">Zero-Tolerance PvP</a>
           <ul class="right hide-on-med-and-down">
             <li class="grey darken-3"><a href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a></li>
             <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Hangar<i class="material-icons right">arrow_drop_down</i></a></li>
