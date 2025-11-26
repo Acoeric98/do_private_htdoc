@@ -1,7 +1,19 @@
       <div id="main" class="index">
         <div class="container container-center">
           <div class="row form">
-            <div class="col l6 s12 offset-l3">
+            <div class="col l5 s12">
+              <div class="card glass-panel">
+                <div class="card-content">
+                  <div class="section-title">Welcome, pilot</div>
+                  <h5 class="white-text">Suit up for the next generation of space combat.</h5>
+                  <p>Join <strong><?php echo SERVER_NAME; ?></strong> and step into a neon-lit battlefield with refreshed controls, faster onboarding, and a sleeker hangar interface.</p>
+                  <div class="stat-pill"><span class="dot"></span><span>Faction wars &amp; clan diplomacy</span></div>
+                  <div class="stat-pill" style="margin-left: 8px;"><span class="dot"></span><span>Fully reworked UI theme</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col l7 s12">
               <div class="card">
 
                 <ul class="tabs grey darken-3 tabs-fixed-width tab-demo z-depth-1">
