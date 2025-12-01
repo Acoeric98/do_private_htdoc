@@ -13,6 +13,15 @@ try {
 		$currentShip = $mysqli->query("SELECT * FROM server_ships WHERE shipID = {$player['shipId']}")->fetch_assoc();
 		$notOnlineOrOnlineAndInEquipZone = !Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) || (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) && Socket::Get('IsInEquipZone', array('UserId' => $player['userId'], 'Return' => false)));
 
+                $itemsData = json_decode($equipment['items'], true) ?: [];
+
+                $lf4Count = $itemsData['lf4Count'] ?? 0;
+                $havocCount = $itemsData['havocCount'] ?? 0;
+                $herculesCount = $itemsData['herculesCount'] ?? 0;
+                $apis = $itemsData['apis'] ?? false;
+                $zeus = $itemsData['zeus'] ?? false;
+                $petBought = filter_var($itemsData['pet'] ?? false, FILTER_VALIDATE_BOOLEAN);
+                $petModules = $itemsData['petModules'] ?? [];
                 $itemsData = json_decode($equipment['items']);
 
                 $lf4Count = $itemsData->lf4Count;
@@ -252,6 +261,8 @@ try {
                                                                 },
                                                                 "pet": {
                                                                 "bought": '.($petBought ? 'true' : 'false').',
+                                                                "name": "'.$player['petName'].'",
+                                                                "modules": '.json_encode($petModules).'
                                                                 "name": "'.$player['petName'].'"
                                                                 }
                                                         },
