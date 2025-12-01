@@ -1181,8 +1181,8 @@ class Functions {
 		return $message;
 	}
 
-	public static function Buy($itemId, $amount) {
-		$mysqli = Database::GetInstance();
+    public static function Buy($itemId, $amount) {
+                $mysqli = Database::GetInstance();
 
 		$player = Functions::GetPlayer();
 		$itemId = $mysqli->real_escape_string($itemId);
@@ -1265,8 +1265,71 @@ class Functions {
 			$json['message'] = 'Something went wrong!';
 		}
 
-		return json_encode($json);
-	}
+                return json_encode($json);
+        }
+
+    public static function BuyPet($petName) {
+        $mysqli = Database::GetInstance();
+
+        $player = Functions::GetPlayer();
+        $petName = $mysqli->real_escape_string($petName);
+
+        $json = [
+            'status' => false,
+            'message' => ''
+        ];
+
+        $equipment = $mysqli->query('SELECT items FROM player_equipment WHERE userId = '.$player['userId'].'')->fetch_assoc();
+        $items = $equipment ? json_decode($equipment['items']) : null;
+        $data = json_decode($player['data']);
+
+        if (!$items) {
+            $json['message'] = 'Nem sikerült betölteni az adataidat. Próbáld újra!';
+            return json_encode($json);
+        }
+
+        if ($items->pet) {
+            $json['message'] = 'Már rendelkezel P.E.T-tel.';
+            return json_encode($json);
+        }
+
+        if (mb_strlen($petName) < 3 || mb_strlen($petName) > 20 || !preg_match('/^[A-Za-z0-9 ._-]+$/', $petName)) {
+            $json['message'] = 'A P.E.T neve 3-20 karakter hosszú legyen, és csak betűket, számokat, szóközt, pontot, kötőjelet vagy aláhúzást tartalmazhat.';
+            return json_encode($json);
+        }
+
+        $price = 50000;
+
+        if ($data->uridium < $price) {
+            $json['message'] = 'Nincs elég Uridiumod a vásárláshoz.';
+            return json_encode($json);
+        }
+
+        $data->uridium -= $price;
+        $items->pet = true;
+
+        $mysqli->begin_transaction();
+
+        try {
+            $mysqli->query("UPDATE player_accounts SET petName = '".$petName."', data = '".json_encode($data)."' WHERE userId = ".$player['userId'].");
+            $mysqli->query("UPDATE player_equipment SET items = '".json_encode($items)."' WHERE userId = ".$player['userId'].");
+
+            $json['status'] = true;
+            $json['message'] = 'Sikeresen megvásároltad a P.E.T-et.';
+            $json['newStatus'] = [
+                'uridium' => number_format($data->uridium)
+            ];
+
+            $mysqli->commit();
+        } catch (Exception $e) {
+            $json['message'] = 'Hiba történt a vásárlás során. Próbáld meg később újra.';
+            $mysqli->rollback();
+        }
+
+        $mysqli->close();
+
+        return json_encode($json);
+    }
 
   public static function ChangePilotName($newPilotName) {
     $mysqli = Database::GetInstance();

@@ -97,6 +97,35 @@
 </script>
 <?php } ?>
 
+<?php if (Functions::IsLoggedIn() && $page[0] === 'pet_15') { ?>
+<script type="text/javascript">
+  $('#buy-pet').submit(function(e) {
+    e.preventDefault();
+
+    var form = $(this);
+
+    $.ajax({
+      type: 'POST',
+      url: '<?php echo DOMAIN; ?>api/',
+      data: form.serialize() + '&action=buy_pet',
+      success: function(response) {
+        var json = jQuery.parseJSON(response);
+
+        if (json.newStatus) {
+          $('#data #uridium').text(json.newStatus.uridium);
+        }
+
+        if (json.status) {
+          location.reload();
+        } else if (json.message != '') {
+          M.toast({html: '<span>'+ json.message +'</span>'});
+        }
+      }
+    });
+  });
+</script>
+<?php } ?>
+
 <?php if (Functions::IsLoggedIn() && $page[0] === 'company_select' && (isset($player) && $player['factionId'] == 0)) { ?>
 <script type="text/javascript">
   $('.company').click(function() {
