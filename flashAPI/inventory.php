@@ -13,11 +13,14 @@ try {
 		$currentShip = $mysqli->query("SELECT * FROM server_ships WHERE shipID = {$player['shipId']}")->fetch_assoc();
 		$notOnlineOrOnlineAndInEquipZone = !Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) || (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) && Socket::Get('IsInEquipZone', array('UserId' => $player['userId'], 'Return' => false)));
 
-		$lf4Count = json_decode($equipment['items'])->lf4Count;
-		$havocCount = json_decode($equipment['items'])->havocCount;
-		$herculesCount = json_decode($equipment['items'])->herculesCount;
-		$apis = json_decode($equipment['items'])->apis;
-		$zeus = json_decode($equipment['items'])->zeus;
+                $itemsData = json_decode($equipment['items']);
+
+                $lf4Count = $itemsData->lf4Count;
+                $havocCount = $itemsData->havocCount;
+                $herculesCount = $itemsData->herculesCount;
+                $apis = $itemsData->apis;
+                $zeus = $itemsData->zeus;
+                $petBought = $itemsData->pet;
 
 		$items = [];
 		$drones = [];
@@ -244,12 +247,16 @@ try {
 									'.GetShipInformation(17, 70).',
 									'.GetAllShipInformations().'
 								],
-								"userInfo": {
-								"factionRelated": "mmo"
-								}
-							},
-							"money": {
-								"uridium": "0",
+                                                                "userInfo": {
+                                                                "factionRelated": "mmo"
+                                                                },
+                                                                "pet": {
+                                                                "bought": '.($petBought ? 'true' : 'false').',
+                                                                "name": "'.$player['petName'].'"
+                                                                }
+                                                        },
+                                                        "money": {
+                                                                "uridium": "0",
 								"credits": "0"
 							},
 							"map": {
