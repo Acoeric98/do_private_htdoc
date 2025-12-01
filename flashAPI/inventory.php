@@ -13,15 +13,23 @@ try {
 		$currentShip = $mysqli->query("SELECT * FROM server_ships WHERE shipID = {$player['shipId']}")->fetch_assoc();
 		$notOnlineOrOnlineAndInEquipZone = !Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) || (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) && Socket::Get('IsInEquipZone', array('UserId' => $player['userId'], 'Return' => false)));
 
+                $itemsData = json_decode($equipment['items'], true) ?: [];
+
+                $lf4Count = $itemsData['lf4Count'] ?? 0;
+                $havocCount = $itemsData['havocCount'] ?? 0;
+                $herculesCount = $itemsData['herculesCount'] ?? 0;
+                $apis = $itemsData['apis'] ?? false;
+                $zeus = $itemsData['zeus'] ?? false;
+                $petBought = filter_var($itemsData['pet'] ?? false, FILTER_VALIDATE_BOOLEAN);
+                $petModules = $itemsData['petModules'] ?? [];
                 $itemsData = json_decode($equipment['items']);
 
-                $lf4Count = isset($itemsData->lf4Count) ? (int) $itemsData->lf4Count : 0;
-                $havocCount = isset($itemsData->havocCount) ? (int) $itemsData->havocCount : 0;
-                $herculesCount = isset($itemsData->herculesCount) ? (int) $itemsData->herculesCount : 0;
-                $apis = isset($itemsData->apis) ? (bool) $itemsData->apis : false;
-                $zeus = isset($itemsData->zeus) ? (bool) $itemsData->zeus : false;
-                $petBought = isset($itemsData->pet) ? filter_var($itemsData->pet, FILTER_VALIDATE_BOOLEAN) : false;
-                $petModules = isset($itemsData->petModules) ? $itemsData->petModules : new stdClass();
+                $lf4Count = $itemsData->lf4Count;
+                $havocCount = $itemsData->havocCount;
+                $herculesCount = $itemsData->herculesCount;
+                $apis = $itemsData->apis;
+                $zeus = $itemsData->zeus;
+                $petBought = $itemsData->pet;
 
 		$items = [];
 		$drones = [];
@@ -255,6 +263,7 @@ try {
                                                                 "bought": '.($petBought ? 'true' : 'false').',
                                                                 "name": "'.$player['petName'].'",
                                                                 "modules": '.json_encode($petModules).'
+                                                                "name": "'.$player['petName'].'"
                                                                 }
                                                         },
                                                         "money": {
