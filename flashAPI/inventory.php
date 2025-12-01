@@ -22,6 +22,14 @@ try {
                 $zeus = $itemsData['zeus'] ?? false;
                 $petBought = filter_var($itemsData['pet'] ?? false, FILTER_VALIDATE_BOOLEAN);
                 $petModules = $itemsData['petModules'] ?? [];
+                $itemsData = json_decode($equipment['items']);
+
+                $lf4Count = $itemsData->lf4Count;
+                $havocCount = $itemsData->havocCount;
+                $herculesCount = $itemsData->herculesCount;
+                $apis = $itemsData->apis;
+                $zeus = $itemsData->zeus;
+                $petBought = $itemsData->pet;
 
 		$items = [];
 		$drones = [];
@@ -255,6 +263,7 @@ try {
                                                                 "bought": '.($petBought ? 'true' : 'false').',
                                                                 "name": "'.$player['petName'].'",
                                                                 "modules": '.json_encode($petModules).'
+                                                                "name": "'.$player['petName'].'"
                                                                 }
                                                         },
                                                         "money": {
