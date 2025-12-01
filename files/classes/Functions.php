@@ -1311,6 +1311,8 @@ class Functions {
         $mysqli->begin_transaction();
 
         try {
+            $mysqli->query("UPDATE player_accounts SET petName = '".$petName."', data = '".json_encode($data)."' WHERE userId = ".$player['userId']);
+            $mysqli->query("UPDATE player_equipment SET items = '".json_encode($items)."' WHERE userId = ".$player['userId']);
             $mysqli->query("UPDATE player_accounts SET petName = '".$petName."', data = '".json_encode($data)."' WHERE userId = ".$player['userId'].");
             $mysqli->query("UPDATE player_equipment SET items = '".json_encode($items)."' WHERE userId = ".$player['userId'].");
 
