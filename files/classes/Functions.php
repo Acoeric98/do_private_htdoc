@@ -1313,6 +1313,8 @@ class Functions {
         try {
             $mysqli->query("UPDATE player_accounts SET petName = '".$petName."', data = '".json_encode($data)."' WHERE userId = ".$player['userId']);
             $mysqli->query("UPDATE player_equipment SET items = '".json_encode($items)."' WHERE userId = ".$player['userId']);
+            $mysqli->query("UPDATE player_accounts SET petName = '".$petName."', data = '".json_encode($data)."' WHERE userId = ".$player['userId'].");
+            $mysqli->query("UPDATE player_equipment SET items = '".json_encode($items)."' WHERE userId = ".$player['userId'].");
 
             $json['status'] = true;
             $json['message'] = 'Sikeresen megvásároltad a P.E.T-et.';
