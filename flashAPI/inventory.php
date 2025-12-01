@@ -13,11 +13,15 @@ try {
 		$currentShip = $mysqli->query("SELECT * FROM server_ships WHERE shipID = {$player['shipId']}")->fetch_assoc();
 		$notOnlineOrOnlineAndInEquipZone = !Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) || (Socket::Get('IsOnline', array('UserId' => $player['userId'], 'Return' => false)) && Socket::Get('IsInEquipZone', array('UserId' => $player['userId'], 'Return' => false)));
 
-		$lf4Count = json_decode($equipment['items'])->lf4Count;
-		$havocCount = json_decode($equipment['items'])->havocCount;
-		$herculesCount = json_decode($equipment['items'])->herculesCount;
-		$apis = json_decode($equipment['items'])->apis;
-		$zeus = json_decode($equipment['items'])->zeus;
+                $itemsData = json_decode($equipment['items'], true) ?: [];
+
+                $lf4Count = $itemsData['lf4Count'] ?? 0;
+                $havocCount = $itemsData['havocCount'] ?? 0;
+                $herculesCount = $itemsData['herculesCount'] ?? 0;
+                $apis = $itemsData['apis'] ?? false;
+                $zeus = $itemsData['zeus'] ?? false;
+                $petBought = filter_var($itemsData['pet'] ?? false, FILTER_VALIDATE_BOOLEAN);
+                $petModules = $itemsData['petModules'] ?? [];
 
 		$items = [];
 		$drones = [];
@@ -244,12 +248,17 @@ try {
 									'.GetShipInformation(17, 70).',
 									'.GetAllShipInformations().'
 								],
-								"userInfo": {
-								"factionRelated": "mmo"
-								}
-							},
-							"money": {
-								"uridium": "0",
+                                                                "userInfo": {
+                                                                "factionRelated": "mmo"
+                                                                },
+                                                                "pet": {
+                                                                "bought": '.($petBought ? 'true' : 'false').',
+                                                                "name": "'.$player['petName'].'",
+                                                                "modules": '.json_encode($petModules).'
+                                                                }
+                                                        },
+                                                        "money": {
+                                                                "uridium": "0",
 								"credits": "0"
 							},
 							"map": {
