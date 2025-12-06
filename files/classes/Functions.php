@@ -2,8 +2,23 @@
 class Functions {
   public static function ObStart() {
     function minify_everything($buffer) {
-        $buffer = preg_replace(array('/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s','/<!--(.|\s)*?-->/', '/\s+/'), array('>','<','\\1','', ' '), $buffer);
-        return $buffer;
+        $parts = preg_split('/(<script\b[^>]*>.*?<\/script>|<style\b[^>]*>.*?<\/style>)/is', $buffer, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $minified = '';
+
+        foreach ($parts as $part) {
+            if (preg_match('/^<script\b|^<style\b/i', $part)) {
+                $minified .= $part;
+                continue;
+            }
+
+            $minified .= preg_replace(
+                array('/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s','/<!--(.|\s)*?-->/','/\s+/'),
+                array('>','<','\\1','', ' '),
+                $part
+            );
+        }
+
+        return $minified;
     }
     ob_start('ob_gzhandler');
     ob_start('minify_everything');
