@@ -1,12 +1,8 @@
 <?php
 class Functions {
   public static function ObStart() {
-    function minify_everything($buffer) {
-        $buffer = preg_replace(array('/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s','/<!--(.|\s)*?-->/', '/\s+/'), array('>','<','\\1','', ' '), $buffer);
-        return $buffer;
-    }
     ob_start('ob_gzhandler');
-    ob_start('minify_everything');
+    ob_start();
   }
 
   public static function LoadPage($variable) {
