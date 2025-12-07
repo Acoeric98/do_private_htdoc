@@ -104,7 +104,6 @@ a, a:active {
 
 nav {
   height: auto;
-  min-height: 150px;
 }
 
 .nav-wrapper {
@@ -135,20 +134,27 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 14px;
-  padding: 12px 0 16px;
+  gap: 12px;
+  padding: 14px 0 18px;
   z-index: 1;
 }
 
-.nav-table {
+.nav-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 40px;
-  gap: 8px;
+  grid-template-areas:
+    "hangar brand brand shop"
+    "equipment empty1 empty2 auction"
+    "pet start start settings"
+    "galaxy empty3 empty4 logout"
+    "uridium credit experience honor";
+  grid-auto-rows: 32px;
+  gap: 6px;
   width: 100%;
 }
 
-.nav-cell {
+.nav-grid__item,
+.nav-grid__empty {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -161,33 +167,49 @@ nav {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-align: center;
+  padding: 16px 24px 14px;
+}
+
+.nav-cell--brand span {
+  color: #9ab5da;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.nav-grid__item {
   text-decoration: none;
   transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
-.nav-cell:hover {
+.nav-grid__item:hover {
   color: #ffffff;
   border-color: rgba(75, 176, 255, 0.8);
   background: linear-gradient(180deg, rgba(64, 112, 160, 0.35), rgba(17, 32, 52, 0.9));
   box-shadow: 0 0 0 1px rgba(75, 176, 255, 0.35), 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
-.nav-cell--brand {
-  grid-column: span 2;
+.nav-grid__item--brand {
+  grid-area: brand;
   flex-direction: column;
   gap: 4px;
   font-size: 1.05rem;
 }
 
-.nav-cell--brand span {
-  color: #9ab5da;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  font-weight: 600;
+.nav-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  align-items: start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: linear-gradient(180deg, rgba(27, 39, 55, 0.9), rgba(14, 21, 32, 0.95));
+  border: 1px solid rgba(87, 126, 162, 0.35);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 26px rgba(0, 0, 0, 0.45);
 }
 
-.nav-cell--start {
-  grid-column: span 2;
+.nav-grid__item--start {
+  grid-area: start;
   background: linear-gradient(180deg, #63e65c 0%, #45b94b 55%, #2f7e33 100%);
   color: #0b180c;
   border: 1px solid rgba(99, 195, 92, 0.85);
@@ -195,46 +217,38 @@ nav {
   font-weight: 800;
 }
 
-.nav-cell--start:hover {
+.nav-grid__item--start:hover {
   color: #0a120b;
   background: linear-gradient(180deg, #6ef067 0%, #4ec856 55%, #368d3a 100%);
   border-color: rgba(99, 195, 92, 0.95);
 }
 
-.nav-cell--empty {
-  background: transparent;
-  border: 1px dashed rgba(87, 126, 162, 0.4);
-  color: rgba(230, 238, 251, 0.45);
-  box-shadow: none;
-  pointer-events: none;
-}
+.nav-grid__item--hangar { grid-area: hangar; }
+.nav-grid__item--shop { grid-area: shop; }
+.nav-grid__item--equipment { grid-area: equipment; }
+.nav-grid__item--auction { grid-area: auction; }
+.nav-grid__item--pet { grid-area: pet; }
+.nav-grid__item--settings { grid-area: settings; }
+.nav-grid__item--galaxy { grid-area: galaxy; }
+.nav-grid__item--logout { grid-area: logout; }
+.nav-grid__item--uridium { grid-area: uridium; }
+.nav-grid__item--credit { grid-area: credit; }
+.nav-grid__item--experience { grid-area: experience; }
+.nav-grid__item--honor { grid-area: honor; }
 
-.nav-stats-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  width: 100%;
-}
+.nav-grid__empty--first { grid-area: empty1; }
+.nav-grid__empty--second { grid-area: empty2; }
+.nav-grid__empty--third { grid-area: empty3; }
+.nav-grid__empty--fourth { grid-area: empty4; }
 
-.nav-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: linear-gradient(180deg, rgba(36, 51, 70, 0.88), rgba(18, 27, 40, 0.94));
-  border: 1px solid rgba(87, 126, 162, 0.45);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 10px 20px rgba(0, 0, 0, 0.4);
-}
-
-.nav-stat__label {
+.nav-grid__stat-label {
   color: #99b6db;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   font-weight: 600;
 }
 
-.nav-stat__value {
+.nav-grid__stat-value {
   font-size: 0.95rem;
   letter-spacing: 0.04em;
 }
@@ -246,7 +260,7 @@ nav {
   nav a.sidenav-trigger,
   nav a.sidenav-trigger i {
     height: auto;
-    min-height: 150px;
+    min-height: 140px;
     line-height: normal;
   }
 }
