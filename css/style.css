@@ -147,6 +147,7 @@ nav {
     "equipment start start auction"
     "pet settings galaxy logout"
     "uridium credit experience honor";
+  grid-auto-flow: row dense;
   grid-auto-rows: 32px;
   gap: 6px;
   width: 100%;
@@ -167,6 +168,11 @@ nav {
   letter-spacing: 0.06em;
   text-align: center;
   padding: 16px 24px 14px;
+}
+
+.nav-grid__item:empty,
+.nav-grid__empty {
+  display: none;
 }
 
 .nav-cell--brand span {
