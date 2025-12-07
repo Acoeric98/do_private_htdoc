@@ -144,9 +144,8 @@ nav {
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
     "hangar brand brand shop"
-    "equipment empty1 empty2 auction"
-    "pet start start settings"
-    "galaxy empty3 empty4 logout"
+    "equipment start start auction"
+    "pet settings galaxy logout"
     "uridium credit experience honor";
   grid-auto-rows: 32px;
   gap: 6px;
@@ -235,11 +234,6 @@ nav {
 .nav-grid__item--credit { grid-area: credit; }
 .nav-grid__item--experience { grid-area: experience; }
 .nav-grid__item--honor { grid-area: honor; }
-
-.nav-grid__empty--first { grid-area: empty1; }
-.nav-grid__empty--second { grid-area: empty2; }
-.nav-grid__empty--third { grid-area: empty3; }
-.nav-grid__empty--fourth { grid-area: empty4; }
 
 .nav-grid__stat-label {
   color: #99b6db;

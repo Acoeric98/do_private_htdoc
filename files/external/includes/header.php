@@ -32,8 +32,6 @@
               <a class="nav-grid__item nav-grid__item--shop" href="<?php echo DOMAIN; ?>shop">Shop</a>
 
               <a class="nav-grid__item nav-grid__item--equipment" href="<?php echo DOMAIN; ?>equipment">Equipment</a>
-              <span class="nav-grid__empty nav-grid__empty--first" aria-hidden="true"></span>
-              <span class="nav-grid__empty nav-grid__empty--second" aria-hidden="true"></span>
               <a class="nav-grid__item nav-grid__item--auction" href="<?php echo DOMAIN; ?>auction">Auction</a>
 
               <a class="nav-grid__item nav-grid__item--pet" href="<?php echo DOMAIN; ?>pet-15">Pet</a>
@@ -41,8 +39,6 @@
               <a class="nav-grid__item nav-grid__item--settings" href="<?php echo DOMAIN; ?>settings">Settings</a>
 
               <a class="nav-grid__item nav-grid__item--galaxy" href="<?php echo DOMAIN; ?>galaxy-gates">Galaxy Gates</a>
-              <span class="nav-grid__empty nav-grid__empty--third" aria-hidden="true"></span>
-              <span class="nav-grid__empty nav-grid__empty--fourth" aria-hidden="true"></span>
               <a class="nav-grid__item nav-grid__item--logout" href="/api/logout">Logout</a>
 
               <div class="nav-grid__item nav-grid__item--uridium">
