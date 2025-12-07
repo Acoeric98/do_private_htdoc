@@ -104,9 +104,9 @@ a, a:active {
 
 .nav-wrapper {
   text-transform: uppercase;
-  background: linear-gradient(135deg, rgba(5, 12, 24, 0.95), rgba(7, 19, 36, 0.92));
-  border-bottom: 1px solid rgba(0, 229, 255, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(180deg, #0b1119 0%, #0f1b2c 45%, #0b111a 100%);
+  border-bottom: 2px solid #1f3b52;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   position: relative;
   overflow: hidden;
 }
@@ -116,9 +116,10 @@ a, a:active {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 10% 50%, rgba(0, 229, 255, 0.12), transparent 45%),
-    radial-gradient(circle at 90% 40%, rgba(255, 64, 129, 0.08), transparent 45%);
-  opacity: 0.9;
+  background: radial-gradient(circle at 15% 40%, rgba(0, 229, 255, 0.16), transparent 40%),
+    radial-gradient(circle at 85% 45%, rgba(94, 199, 255, 0.12), transparent 40%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent 35%, transparent 65%, rgba(255, 255, 255, 0.05));
+  opacity: 0.85;
 }
 
 .nav-shell {
@@ -126,8 +127,8 @@ a, a:active {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 12px;
-  padding: 14px 0 12px;
+  gap: 14px;
+  padding: 16px 0 12px;
   z-index: 1;
 }
 
@@ -136,7 +137,7 @@ a, a:active {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   width: 100%;
-  column-gap: 24px;
+  column-gap: 18px;
 }
 
 .nav-inline {
@@ -144,7 +145,21 @@ a, a:active {
   align-items: center;
   gap: 18px;
   margin: 0;
-  padding-left: 0;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, rgba(36, 51, 70, 0.85), rgba(18, 27, 40, 0.95));
+  border: 1px solid rgba(87, 126, 162, 0.45);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 14px 28px rgba(0, 0, 0, 0.45);
+  position: relative;
+}
+
+.nav-inline::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  pointer-events: none;
 }
 
 .nav-left {
@@ -156,19 +171,54 @@ a, a:active {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 14px 18px;
+  min-width: 240px;
+  background: linear-gradient(180deg, rgba(55, 77, 99, 0.9), rgba(18, 26, 37, 0.95));
+  border: 1px solid rgba(122, 173, 214, 0.5);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 18px 30px rgba(0, 0, 0, 0.48);
+  position: relative;
+}
+
+.brand-inline::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  pointer-events: none;
 }
 
 .nav-right {
   justify-self: flex-end;
   justify-content: flex-end;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, rgba(36, 51, 70, 0.85), rgba(18, 27, 40, 0.95));
+  border: 1px solid rgba(87, 126, 162, 0.45);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 14px 28px rgba(0, 0, 0, 0.45);
+  position: relative;
+}
+
+.nav-right::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  pointer-events: none;
 }
 
 .nav-secondary {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 26px;
-  padding-top: 4px;
+  gap: 18px;
+  padding: 10px 16px;
+  background: linear-gradient(180deg, rgba(27, 39, 55, 0.9), rgba(14, 21, 32, 0.95));
+  border: 1px solid rgba(87, 126, 162, 0.35);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 26px rgba(0, 0, 0, 0.45);
 }
 
 nav .brand-logo {
@@ -178,7 +228,21 @@ nav .brand-logo {
 
 nav ul a {
   color: #e6eefb;
-  transition: color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  transition: color 200ms ease, background 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+nav ul a:hover {
+  color: #ffffff;
+  border-color: rgba(75, 176, 255, 0.8);
+  background: linear-gradient(180deg, rgba(64, 112, 160, 0.35), rgba(17, 32, 52, 0.9));
+  box-shadow: 0 0 0 1px rgba(75, 176, 255, 0.35), 0 10px 20px rgba(0, 0, 0, 0.35);
 }
 
 .nav-links li {
@@ -190,21 +254,28 @@ nav ul a {
 }
 
 .brand-stacked {
-  color: #ffffff;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  color: #e9f4ff;
+  font-weight: 800;
+  letter-spacing: 0.12em;
   font-size: 1.35rem;
   text-decoration: none;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55), 0 0 20px rgba(109, 189, 255, 0.3);
 }
 
 .nav-start {
-  border-radius: 14px;
-  padding: 0 26px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  border-radius: 18px;
+  padding: 12px 32px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 1px rgba(99, 195, 92, 0.75), 0 16px 28px rgba(0, 0, 0, 0.45), 0 0 24px rgba(101, 255, 116, 0.35);
   text-transform: uppercase;
-  background: linear-gradient(135deg, #2bd5f3, #5c7cf3);
-  color: #0b1221;
-  font-weight: 700;
+  background: linear-gradient(180deg, #63e65c 0%, #45b94b 55%, #2f7e33 100%);
+  color: #0b180c;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.nav-start:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 0 0 1px rgba(99, 195, 92, 0.9), 0 18px 32px rgba(0, 0, 0, 0.5), 0 0 28px rgba(101, 255, 116, 0.45);
+  background: linear-gradient(180deg, #6ef067 0%, #4ec856 55%, #368d3a 100%);
 }
 
 .placeholder-note {
