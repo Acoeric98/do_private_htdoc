@@ -23,38 +23,39 @@
       <nav>
         <div class="nav-wrapper grey darken-4">
           <div class="container nav-shell">
-            <div class="nav-table">
-              <ul class="nav-column nav-column--left">
-                <li><a href="<?php echo DOMAIN; ?>ships">Hangar</a></li>
-                <li><a href="<?php echo DOMAIN; ?>equipment">Equipment</a></li>
-                <li><a href="<?php echo DOMAIN; ?>galaxy-gates">Galaxy Gates</a></li>
-                <li><a href="<?php echo DOMAIN; ?>pet-15">P.E.T 15</a></li>
-              </ul>
+            <div class="nav-grid">
+              <a class="nav-grid__item nav-grid__item--hangar" href="<?php echo DOMAIN; ?>ships">Hangar</a>
+              <a class="nav-grid__item nav-grid__item--brand" href="<?php echo DOMAIN; ?>">
+                <div>Zero Tolerance PvP</div>
+                <span>Pilot ID: <?php echo $player['userId']; ?></span>
+              </a>
+              <a class="nav-grid__item nav-grid__item--shop" href="<?php echo DOMAIN; ?>shop">Shop</a>
 
-              <div class="nav-column nav-column--center">
-                <a href="<?php echo DOMAIN; ?>" class="brand-stacked">Zero-Tolerance PvP</a>
-                <div class="nav-meta">
-                  <span class="nav-meta__item">Pilot ID: <?php echo $player['userId']; ?></span>
-                </div>
-                <a class="btn nav-start grey darken-3 waves-effect waves-light" href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a>
+              <a class="nav-grid__item nav-grid__item--equipment" href="<?php echo DOMAIN; ?>equipment">Equipment</a>
+              <span class="nav-grid__empty nav-grid__empty--first" aria-hidden="true"></span>
+              <span class="nav-grid__empty nav-grid__empty--second" aria-hidden="true"></span>
+              <a class="nav-grid__item nav-grid__item--auction" href="<?php echo DOMAIN; ?>auction">Auction</a>
+
+              <a class="nav-grid__item nav-grid__item--pet" href="<?php echo DOMAIN; ?>pet-15">Pet</a>
+              <a class="nav-grid__item nav-grid__item--start" href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a>
+              <a class="nav-grid__item nav-grid__item--settings" href="<?php echo DOMAIN; ?>settings">Settings</a>
+
+              <a class="nav-grid__item nav-grid__item--galaxy" href="<?php echo DOMAIN; ?>galaxy-gates">Galaxy Gates</a>
+              <span class="nav-grid__empty nav-grid__empty--third" aria-hidden="true"></span>
+              <span class="nav-grid__empty nav-grid__empty--fourth" aria-hidden="true"></span>
+              <a class="nav-grid__item nav-grid__item--logout" href="/api/logout">Logout</a>
+
+              <div class="nav-grid__item nav-grid__item--uridium">
+                <div class="nav-grid__stat-label">Uridium</div>
+                <div class="nav-grid__stat-value" id="uridium"><?php echo number_format($data->uridium, 0, ',', '.'); ?></div>
               </div>
-
-              <ul class="nav-column nav-column--right">
-                <li><a href="<?php echo DOMAIN; ?>shop">Shop</a></li>
-                <li><a href="<?php echo DOMAIN; ?>auction">Auction</a></li>
-                <li><a href="<?php echo DOMAIN; ?>settings">Settings</a></li>
-                <li><a href="/api/logout">Logout</a></li>
-              </ul>
-            </div>
-
-            <div class="nav-stats">
-              <div class="nav-stat">
-                <span class="nav-stat__label">Uridium</span>
-                <span class="nav-stat__value" id="uridium"><?php echo number_format($data->uridium, 0, ',', '.'); ?></span>
+              <div class="nav-grid__item nav-grid__item--credit">
+                <div class="nav-grid__stat-label">Credit</div>
+                <div class="nav-grid__stat-value" id="credits"><?php echo number_format($data->credits, 0, ',', '.'); ?></div>
               </div>
-              <div class="nav-stat">
-                <span class="nav-stat__label">Credit</span>
-                <span class="nav-stat__value" id="credits"><?php echo number_format($data->credits, 0, ',', '.'); ?></span>
+              <div class="nav-grid__item nav-grid__item--experience">
+                <div class="nav-grid__stat-label">Experience</div>
+                <div class="nav-grid__stat-value"><?php echo number_format($data->experience, 0, ',', '.'); ?></div>
               </div>
               <div class="nav-stat">
                 <span class="nav-stat__label">Honor</span>

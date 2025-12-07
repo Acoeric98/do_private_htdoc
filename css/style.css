@@ -113,6 +113,9 @@ nav {
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   position: relative;
   overflow: visible;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
 }
 
 .nav-wrapper::before {
@@ -136,40 +139,33 @@ nav {
   z-index: 1;
 }
 
-.nav-table {
+.nav-grid {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: start;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "hangar brand brand shop"
+    "equipment empty1 empty2 auction"
+    "pet start start settings"
+    "galaxy empty3 empty4 logout"
+    "uridium credit experience honor";
+  grid-auto-rows: 32px;
+  gap: 6px;
   width: 100%;
-  column-gap: 18px;
-  row-gap: 10px;
 }
 
-.nav-column {
-  list-style: none;
-  margin: 0;
-  padding: 16px 18px;
-  display: grid;
-  gap: 12px;
-  background: linear-gradient(180deg, rgba(36, 51, 70, 0.85), rgba(18, 27, 40, 0.95));
+.nav-grid__item,
+.nav-grid__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(36, 51, 70, 0.88), rgba(18, 27, 40, 0.94));
   border: 1px solid rgba(87, 126, 162, 0.45);
-  border-radius: 16px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 14px 28px rgba(0, 0, 0, 0.45);
-  position: relative;
-}
-
-.nav-column::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 16px;
-  border: 1px solid rgba(0, 229, 255, 0.1);
-  pointer-events: none;
-}
-
-.nav-column--center {
-  min-width: 260px;
-  justify-items: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 10px 20px rgba(0, 0, 0, 0.4);
+  color: #e6eefb;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-align: center;
   padding: 16px 24px 14px;
 }
@@ -181,17 +177,23 @@ nav {
   font-size: 0.95rem;
 }
 
-.nav-meta__item {
-  display: block;
+.nav-grid__item {
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
-.nav-column li {
-  margin-left: 0;
+.nav-grid__item:hover {
+  color: #ffffff;
+  border-color: rgba(75, 176, 255, 0.8);
+  background: linear-gradient(180deg, rgba(64, 112, 160, 0.35), rgba(17, 32, 52, 0.9));
+  box-shadow: 0 0 0 1px rgba(75, 176, 255, 0.35), 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
-.nav-column a {
-  display: block;
-  width: 100%;
+.nav-grid__item--brand {
+  grid-area: brand;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 1.05rem;
 }
 
 .nav-stats {
@@ -206,20 +208,48 @@ nav {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 26px rgba(0, 0, 0, 0.45);
 }
 
-.nav-stat {
-  display: grid;
-  gap: 4px;
+.nav-grid__item--start {
+  grid-area: start;
+  background: linear-gradient(180deg, #63e65c 0%, #45b94b 55%, #2f7e33 100%);
+  color: #0b180c;
+  border: 1px solid rgba(99, 195, 92, 0.85);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 1px rgba(99, 195, 92, 0.75), 0 12px 24px rgba(0, 0, 0, 0.45);
+  font-weight: 800;
 }
 
-.nav-stat__label {
+.nav-grid__item--start:hover {
+  color: #0a120b;
+  background: linear-gradient(180deg, #6ef067 0%, #4ec856 55%, #368d3a 100%);
+  border-color: rgba(99, 195, 92, 0.95);
+}
+
+.nav-grid__item--hangar { grid-area: hangar; }
+.nav-grid__item--shop { grid-area: shop; }
+.nav-grid__item--equipment { grid-area: equipment; }
+.nav-grid__item--auction { grid-area: auction; }
+.nav-grid__item--pet { grid-area: pet; }
+.nav-grid__item--settings { grid-area: settings; }
+.nav-grid__item--galaxy { grid-area: galaxy; }
+.nav-grid__item--logout { grid-area: logout; }
+.nav-grid__item--uridium { grid-area: uridium; }
+.nav-grid__item--credit { grid-area: credit; }
+.nav-grid__item--experience { grid-area: experience; }
+.nav-grid__item--honor { grid-area: honor; }
+
+.nav-grid__empty--first { grid-area: empty1; }
+.nav-grid__empty--second { grid-area: empty2; }
+.nav-grid__empty--third { grid-area: empty3; }
+.nav-grid__empty--fourth { grid-area: empty4; }
+
+.nav-grid__stat-label {
   color: #99b6db;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-size: 0.78rem;
+  font-weight: 600;
 }
 
-.nav-stat__value {
-  font-weight: 700;
+.nav-grid__stat-value {
+  font-size: 0.95rem;
   letter-spacing: 0.04em;
 }
 
