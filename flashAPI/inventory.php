@@ -256,18 +256,12 @@ try {
 									'.GetShipInformation(17, 70).',
 									'.GetAllShipInformations().'
 								],
-                                                                "userInfo": {
-                                                                "factionRelated": "mmo"
-                                                                },
-                                                                "pet": {
-                                                                "bought": '.($petBought ? 'true' : 'false').',
-                                                                "name": "'.$player['petName'].'",
-                                                                "modules": '.json_encode($petModules).'
-                                                                "name": "'.$player['petName'].'"
-                                                                }
-                                                        },
-                                                        "money": {
-                                                                "uridium": "0",
+                                        "userInfo": {
+                                        "factionRelated": "mmo"
+                                }
+                            },
+                            "money": {
+                                "uridium": "0",
 								"credits": "0"
 							},
 							"map": {

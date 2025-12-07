@@ -15,6 +15,9 @@
     	
     	<!-- REQUIRED. The Localization Key for the Event Description who will be shown by the flash client -->
     	<descriptionKey>text_key_for_event_description</descriptionKey>
+
+		<!-- REQUIRED. The Localization Key for Event Point Mechanics (how to earn points) -->
+		<sourceKey>text_key_for_point_source</sourceKey>
     	
     	<!-- REQUIRED.
     		The Amount of selected Currency the user need to reset the ProgressLayer.
@@ -22,7 +25,8 @@
     		You can use:
     		uridium="xxx" and/or credits="xxx"
     	 -->
-	    <resetPrice uridium="10000" />
+
+		<resetPrice uridium="10000" />
 	    
     </attributes>
 

@@ -39,12 +39,15 @@
 
 	<textstyle  name        = "textstyle_targetedOffer_Button"
 				textColor   = "0xFDF6D0"
-				fontSize    = "22"
+				fontSize    = "20"
 				type        = "dynamic"
 				fontName    = "EurostileTMed"
 				embedFonts  = "true"
 				autoSize    = "center"
 				bold 		= "true"
+				wordWrap	= "true"
+				multiline 	= "true"
+				align		="center"
 			/>
 
 
@@ -164,8 +167,8 @@
 				/>
 
 		<button name				= "buy_button"
-				width				= "200"
-				height				= "40"
+				width				= "240"
+				height				= "70"
 				alignY 				= "bottom"
 				alignX 				= "center"
 				marginBottom 		= "20"

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+    <libraries>
+        <library id="gameclientCommonUI"/>
+        <library id="uridiumBank"/>
+        <library id="chatWindowUIAssets"/>
+
+    </libraries>
+
+    <textstyle
+            name="chrominEvent_left"
+            textColor="0xFEFEFE"
+            type="dynamic"
+            fontSize="10"
+            autoSize="right"
+            wordWrap="true"
+            multiline="true"
+            embedFonts="false"
+            fontName="Verdana"
+            align="left"/>
+
+    <textstyle
+            name="chrominEvent_right"
+            textColor="0xFEFEFE"
+            type="dynamic"
+            fontSize="10"
+            autoSize="right"
+            wordWrap="true"
+            multiline="true"
+            embedFonts="false"
+            fontName="Verdana"
+            align="right"/>
+
+
+    <skin name="chromin_progress_bar" tweenTime="0" classname="ProgressBarSkin"
+          library="uridiumBank">
+        <layer classname="BitmapLayer" libraryID="barFrameScale9_blue_inner" scale9grid="3,3,6,6">bar</layer>
+        <layer classname="BitmapLayer" libraryID="barFrameScale9_blue" scale9grid="3,3,6,6">normal</layer>
+    </skin>
+
+    <skin name="text_max" library="uridiumBank" classname="BasicSkin">
+        <layer classname="BitmapLayer" libraryID="text_max">normal</layer>
+    </skin>
+    
+    <container name="root" width="212" height="95" mouseEnabled="false" mouseChildren="true">
+        <container name="main" visible="true" width="212" height="95"
+                   alignX="center">
+
+            <container name="top_left" width="120" alignY="top" height="10" alignX="left" marginLeft="8" marginTop="7">
+                <label name="amount" text="60,000/120,000" registeredSkinName="commonui_default_label"
+                       height="10" width="120" registeredTextStyleName="chrominEvent_left" />
+
+            </container>
+
+            <container name="top_right" width="30" alignY="top" height="10" alignX="right" marginRight="30" marginTop="7" >
+                <coreponent alpha="0.5" name="img_max" registeredSkinName="text_max" width="30" height="16" marginTop="1" marginLeft="12"/>
+            </container>
+
+            <container name="middle" width="212" height="22" alignX="left" marginTop="19" marginLeft="9" layout="horizontal">
+
+                <progressbar
+                        name="progressbar"
+                        marginTop="5"
+                        marginRight="0"
+                        registeredSkinName="chromin_progress_bar"
+                        height="12"
+                        width="181">
+                </progressbar>
+                <button name="points_tip" tooltipData="localize:chromin_ttip" marginLeft="-2" tooltipTemplateID="commonui_tooltip_simple" registeredSkinName="commonui_info_button"/>
+
+            </container>
+
+            <container name="bottom" width="106" height="40" alignX="left" marginTop="40" marginLeft="57">
+                <button name="purchase_btn" text="localize:chromin_buy_btn" width="106" alignY="center"
+                        alignX="left" height="27" registeredSkinName="commonui_scale9_button_green" textMarginY="1"/>
+
+            </container>
+
+        </container>
+    </container>
+</root>
