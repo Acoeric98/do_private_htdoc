@@ -41,20 +41,26 @@
       </ul>
       <nav>
         <div class="nav-wrapper grey darken-4">
-          <div class="container nav-balanced">
-            <ul class="nav-links nav-left hide-on-med-and-down">
-              <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Hangar<i class="material-icons right">arrow_drop_down</i></a></li>
-              <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Clan<i class="material-icons right">arrow_drop_down</i></a></li>
-              <li><a href="<?php echo DOMAIN; ?>pet-15">P.E.T 15</a></li>
-            </ul>
+          <div class="container nav-shell">
+            <div class="nav-grid">
+              <ul class="nav-links nav-left nav-inline hide-on-med-and-down">
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Hangar<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Clan<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a href="<?php echo DOMAIN; ?>pet-15">P.E.T 15</a></li>
+              </ul>
 
-            <div class="nav-center">
-              <a href="<?php echo DOMAIN; ?>" class="brand-stacked">Zero-Tolerance PvP</a>
-              <a class="btn nav-start grey darken-3 waves-effect waves-light" href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a>
+              <div class="nav-center brand-inline">
+                <a href="<?php echo DOMAIN; ?>" class="brand-stacked">Zero-Tolerance PvP</a>
+              </div>
+
+              <div class="nav-right nav-inline">
+                <a class="btn nav-start grey darken-3 waves-effect waves-light" href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a>
+              </div>
             </div>
 
-            <ul class="nav-links nav-right hide-on-med-and-down">
+            <ul class="nav-links nav-secondary hide-on-med-and-down">
               <li><a href="<?php echo DOMAIN; ?>galaxy-gates">Galaxy Gates</a></li>
+              <li><a href="<?php echo DOMAIN; ?>auction">Auction</a></li>
               <li><a href="<?php echo DOMAIN; ?>shop">Shop</a></li>
               <li><a href="<?php echo DOMAIN; ?>settings">Settings</a></li>
               <li><a href="/api/logout">Logout</a></li>
