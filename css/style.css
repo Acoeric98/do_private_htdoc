@@ -144,8 +144,9 @@ nav {
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
     "hangar brand brand shop"
-    "equipment start start auction"
-    "pet settings galaxy logout"
+    "equipment empty1 empty2 auction"
+    "pet start start settings"
+    "galaxy empty3 empty4 logout"
     "uridium credit experience honor";
   grid-auto-flow: row dense;
   grid-auto-rows: 32px;
