@@ -104,33 +104,63 @@ a, a:active {
 
 .nav-wrapper {
   text-transform: uppercase;
-  background: linear-gradient(90deg, rgba(0, 229, 255, 0.12), rgba(255, 64, 129, 0.18));
+  background: linear-gradient(135deg, rgba(5, 12, 24, 0.95), rgba(7, 19, 36, 0.92));
   border-bottom: 1px solid rgba(0, 229, 255, 0.2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 10% 50%, rgba(0, 229, 255, 0.12), transparent 45%),
+    radial-gradient(circle at 90% 40%, rgba(255, 64, 129, 0.08), transparent 45%);
+  opacity: 0.9;
 }
 
 .nav-balanced {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0 10px;
+  z-index: 1;
+}
+
+.nav-row {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
 }
 
-.nav-links {
+.nav-inline {
   display: flex;
   align-items: center;
+  gap: 18px;
   margin: 0;
-  gap: 10px;
+  padding-left: 0;
 }
 
-.nav-left {
-  justify-content: flex-start;
+.nav-primary .nav-left {
   flex: 1;
 }
 
-.nav-right {
-  justify-content: flex-end;
-  flex: 1;
+.brand-inline {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-secondary {
+  width: 100%;
+  justify-content: center;
+  gap: 28px;
 }
 
 nav .brand-logo {
@@ -148,10 +178,6 @@ nav ul a {
 }
 
 .nav-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
   text-align: center;
 }
 
@@ -166,8 +192,11 @@ nav ul a {
 .nav-start {
   border-radius: 14px;
   padding: 0 26px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
   text-transform: uppercase;
+  background: linear-gradient(135deg, #2bd5f3, #5c7cf3);
+  color: #0b1221;
+  font-weight: 700;
 }
 
 .eyebrow {
@@ -314,7 +343,7 @@ nav ul a {
 
 nav ul li {
   border-radius: 14px;
-  margin-left: 6px;
+  margin-left: 0;
 }
 
 nav ul li a:hover,
