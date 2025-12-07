@@ -57,13 +57,9 @@
                 <div class="nav-grid__stat-label">Experience</div>
                 <div class="nav-grid__stat-value"><?php echo number_format($data->experience, 0, ',', '.'); ?></div>
               </div>
-              <div class="nav-stat">
-                <span class="nav-stat__label">Honor</span>
-                <span class="nav-stat__value"><?php echo number_format($data->honor, 0, ',', '.'); ?></span>
-              </div>
-              <div class="nav-stat">
-                <span class="nav-stat__label">Experience</span>
-                <span class="nav-stat__value"><?php echo number_format($data->experience, 0, ',', '.'); ?></span>
+              <div class="nav-grid__item nav-grid__item--honor">
+                <div class="nav-grid__stat-label">Honor</div>
+                <div class="nav-grid__stat-value"><?php echo number_format($data->honor, 0, ',', '.'); ?></div>
               </div>
             </div>
           </div>
