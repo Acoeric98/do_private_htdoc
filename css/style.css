@@ -102,6 +102,10 @@ a, a:active {
   vertical-align: middle;
 }
 
+nav {
+  height: auto;
+}
+
 .nav-wrapper {
   text-transform: uppercase;
   background: linear-gradient(180deg, #0b1119 0%, #0f1b2c 45%, #0b111a 100%);
@@ -127,8 +131,8 @@ a, a:active {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 14px;
-  padding: 18px 0 16px;
+  gap: 12px;
+  padding: 14px 0 18px;
   z-index: 1;
 }
 
@@ -167,13 +171,14 @@ a, a:active {
   min-width: 260px;
   justify-items: center;
   text-align: center;
-  padding: 18px 24px;
+  padding: 16px 24px 14px;
 }
 
 .nav-meta {
   color: #9ab5da;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .nav-meta__item {
@@ -191,7 +196,8 @@ a, a:active {
 
 .nav-stats {
   display: grid;
-  grid-template-columns: 1fr 1fr 1.2fr;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  align-items: start;
   gap: 12px;
   padding: 14px 16px;
   background: linear-gradient(180deg, rgba(27, 39, 55, 0.9), rgba(14, 21, 32, 0.95));
@@ -217,13 +223,22 @@ a, a:active {
   letter-spacing: 0.04em;
 }
 
-.nav-stat--wide {
-  grid-column: span 1;
+@media only screen and (min-width: 601px) {
+  nav,
+  nav .nav-wrapper,
+  nav .nav-wrapper i,
+  nav a.sidenav-trigger,
+  nav a.sidenav-trigger i {
+    height: auto;
+    min-height: 140px;
+    line-height: normal;
+  }
 }
 
 nav .brand-logo {
   letter-spacing: 0.08em;
   font-weight: 700;
+  font-size: 1.25rem;
 }
 
 nav ul a {
@@ -236,6 +251,8 @@ nav ul a {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   letter-spacing: 0.05em;
   font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.3;
 }
 
 nav ul a:hover {
@@ -257,7 +274,7 @@ nav ul a:hover {
   color: #e9f4ff;
   font-weight: 800;
   letter-spacing: 0.12em;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   text-decoration: none;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55), 0 0 20px rgba(109, 189, 255, 0.3);
 }

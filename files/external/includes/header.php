@@ -56,9 +56,13 @@
                 <span class="nav-stat__label">Credit</span>
                 <span class="nav-stat__value" id="credits"><?php echo number_format($data->credits, 0, ',', '.'); ?></span>
               </div>
-              <div class="nav-stat nav-stat--wide">
-                <span class="nav-stat__label">Honor + Experience</span>
-                <span class="nav-stat__value"><?php echo number_format($data->honor, 0, ',', '.'); ?> / <?php echo number_format($data->experience, 0, ',', '.'); ?></span>
+              <div class="nav-stat">
+                <span class="nav-stat__label">Honor</span>
+                <span class="nav-stat__value"><?php echo number_format($data->honor, 0, ',', '.'); ?></span>
+              </div>
+              <div class="nav-stat">
+                <span class="nav-stat__label">Experience</span>
+                <span class="nav-stat__value"><?php echo number_format($data->experience, 0, ',', '.'); ?></span>
               </div>
             </div>
           </div>
