@@ -109,6 +109,30 @@ a, a:active {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
+.nav-balanced {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  gap: 10px;
+}
+
+.nav-left {
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.nav-right {
+  justify-content: flex-end;
+  flex: 1;
+}
+
 nav .brand-logo {
   letter-spacing: 0.08em;
   font-weight: 700;
@@ -117,6 +141,33 @@ nav .brand-logo {
 nav ul a {
   color: #e6eefb;
   transition: color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+}
+
+.nav-links li {
+  margin-left: 0;
+}
+
+.nav-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.brand-stacked {
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 1.35rem;
+  text-decoration: none;
+}
+
+.nav-start {
+  border-radius: 14px;
+  padding: 0 26px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  text-transform: uppercase;
 }
 
 .eyebrow {
