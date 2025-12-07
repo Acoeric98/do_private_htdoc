@@ -170,7 +170,7 @@ nav {
   padding: 16px 24px 14px;
 }
 
-.nav-meta {
+.nav-cell--brand span {
   color: #9ab5da;
   letter-spacing: 0.04em;
   font-weight: 600;
@@ -196,7 +196,7 @@ nav {
   font-size: 1.05rem;
 }
 
-.nav-stats {
+.nav-stats-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   align-items: start;
