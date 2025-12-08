@@ -20,6 +20,10 @@ if (session_start()) {
 define('SERVER_NAME', 'DarkOrbit');
 define('MAINTENANCE', FALSE);
 
+define('SOCKET_HOST', '127.0.0.1');
+define('SOCKET_PORT', 4301);
+define('SOCKET_TIMEOUT', 2);
+
 define('MYSQL_HOST', 'localhost');
 define('MYSQL_USER', 'root');
 define('MYSQL_PASSWORD', '');
