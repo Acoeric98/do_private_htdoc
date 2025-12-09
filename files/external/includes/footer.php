@@ -473,6 +473,7 @@ $('#request_diplomacy').submit(function(e) {
           <tr id="diplomacy-'+ json.declared.id +'">
             <td>'+ json.declared.clan.name +'</td>
             <td>'+ json.declared.form +'</td>
+            <td>'+ json.declared.initiator +' (You)</td>
             <td>'+ json.declared.date +'</td>
             <td><button data-clan-id="'+ json.declared.clan.id +'" data-diplomacy-clan-name="'+ json.declared.clan.name +'" data-diplomacy-form="End War" class="end-war btn grey darken-1 waves-effect waves-light col s12 modal-trigger" href="#modal2">CANCEL</button></td>
           </tr>');
@@ -597,13 +598,25 @@ $('#accept').click(function() {
         }
 
         if (json.acceptedRequest) {
-          $('#clan-diplomacy tbody').append('
-            <tr id="diplomacy-'+ json.acceptedRequest.id +'">
-              <td>'+ json.acceptedRequest.name +'</td>
-              <td>'+ json.acceptedRequest.form +'</td>
-              <td>'+ json.acceptedRequest.date +'</td>
-              <td><button data-diplomacy-id="'+ json.acceptedRequest.id +'" class="end-diplomacy btn grey darken-1 waves-effect waves-light col s12">CANCEL</button></td>
-            </tr>');
+          if (json.acceptedRequest.diplomacyType == 3) {
+            $('#clan-diplomacy tbody').append('
+              <tr id="diplomacy-'+ json.acceptedRequest.id +'">
+                <td>'+ json.acceptedRequest.name +'</td>
+                <td>'+ json.acceptedRequest.form +'</td>
+                <td>'+ json.acceptedRequest.initiator +'</td>
+                <td>'+ json.acceptedRequest.date +'</td>
+                <td><button data-clan-id="'+ json.acceptedRequest.clanId +'" data-diplomacy-clan-name="'+ json.acceptedRequest.name +'" data-diplomacy-form="End War" class="end-war btn grey darken-1 waves-effect waves-light col s12 modal-trigger" href="#modal2">CANCEL</button></td>
+              </tr>');
+          } else {
+            $('#clan-diplomacy tbody').append('
+              <tr id="diplomacy-'+ json.acceptedRequest.id +'">
+                <td>'+ json.acceptedRequest.name +'</td>
+                <td>'+ json.acceptedRequest.form +'</td>
+                <td>'+ json.acceptedRequest.initiator +'</td>
+                <td>'+ json.acceptedRequest.date +'</td>
+                <td><button data-diplomacy-id="'+ json.acceptedRequest.id +'" class="end-diplomacy btn grey darken-1 waves-effect waves-light col s12">CANCEL</button></td>
+              </tr>');
+          }
         }
 
         if (json.message != '') {

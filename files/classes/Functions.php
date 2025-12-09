@@ -465,6 +465,7 @@ class Functions {
                     'id' => $declaredId,
                     'date' => date('d.m.Y'),
                     'form' => ($diplomacyType == 1 ? 'Alliance' : ($diplomacyType == 2 ? 'NAP' : 'War')),
+                    'initiator' => $clan['name'],
                     'clan' => [
                       'id' => $toClan['id'],
                       'name' => $toClan['name']
@@ -1043,8 +1044,10 @@ class Functions {
 
               $json['acceptedRequest'] = [
                 'id' => $diplomacyId,
+                'clanId' => $fetch['senderClanId'],
                 'name' => $senderClanName,
                 'form' => $form,
+                'initiator' => $senderClanName,
                 'diplomacyType' => $fetch['diplomacyType'],
                 'date' => date('d.m.Y')
               ];

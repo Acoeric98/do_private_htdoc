@@ -8,6 +8,7 @@ $openApplications = $mysqli->query('SELECT * FROM server_clan_diplomacy_applicat
       <tr>
         <th>Name</th>
         <th>Form</th>
+        <th>Initiator</th>
         <th>Date</th>
         <th>Activity</th>
       </tr>
@@ -16,10 +17,12 @@ $openApplications = $mysqli->query('SELECT * FROM server_clan_diplomacy_applicat
       <?php foreach ($mysqli->query('SELECT * FROM server_clan_diplomacy WHERE toClanId = '.$player['clanId'].' OR senderClanId = '.$player['clanId'].'')->fetch_all(MYSQLI_ASSOC) as $value) {
         $clanId = ($player['clanId'] == $value['senderClanId'] ? $value['toClanId'] : $value['senderClanId'] );
         $clanName = $mysqli->query('SELECT name FROM server_clans WHERE id = '.$clanId.'')->fetch_assoc()['name'];
+        $initiatorName = $mysqli->query('SELECT name FROM server_clans WHERE id = '.$value['senderClanId'].'')->fetch_assoc()['name'];
         ?>
         <tr id="diplomacy-<?php echo $value['id']; ?>">
           <td><?php echo $clanName; ?></td>
           <td><?php echo ($value['diplomacyType'] == 1 ? 'Alliance' : ($value['diplomacyType'] == 2 ? 'NAP' : 'War')); ?></td>
+          <td><?php echo $initiatorName.($value['senderClanId'] == $player['clanId'] ? ' (You)' : ''); ?></td>
           <td><?php echo date('d.m.Y', strtotime($value['date'])); ?></td>
           <td>
             <?php if ($value['diplomacyType'] == 3) { ?>
