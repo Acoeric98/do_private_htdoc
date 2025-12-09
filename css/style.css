@@ -147,10 +147,12 @@ nav {
   flex-direction: column;
   align-items: stretch;
   gap: 12px;
-  padding: 14px 0 18px;
+  width: 100%;
+  max-width: var(--page-max-width);
+  padding: 14px var(--page-gutter) 18px;
+  margin: 0 auto;
   z-index: 1;
   width: min(var(--page-max-width), calc(100% - (var(--page-gutter) * 2)));
-  margin: 0 auto;
 }
 
 .nav-grid {
@@ -166,6 +168,40 @@ nav {
   grid-auto-rows: 32px;
   gap: 6px;
   width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .nav-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      "brand brand brand"
+      "hangar shop equipment"
+      "auction pet settings"
+      "start start start"
+      "galaxy uridium credit"
+      "experience honor logout";
+    grid-auto-rows: minmax(32px, auto);
+  }
+}
+
+@media (max-width: 780px) {
+  .nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "brand brand"
+      "hangar shop"
+      "equipment auction"
+      "pet start"
+      "settings galaxy"
+      "uridium credit"
+      "experience honor"
+      "logout logout";
+    row-gap: 10px;
+  }
+
+  .nav-grid__item {
+    padding: 14px 16px 12px;
+  }
 }
 
 .nav-grid__item,
