@@ -38,6 +38,7 @@
               <a class="nav-grid__item nav-grid__item--pet" href="<?php echo DOMAIN; ?>pet-15">Pet</a>
               <a class="nav-grid__item nav-grid__item--skill-tree" href="<?php echo DOMAIN; ?>skill_tree">Skill Tree</a>
               <a class="nav-grid__item nav-grid__item--start" href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a>
+              <a class="nav-grid__item nav-grid__item--clan" href="<?php echo DOMAIN; ?>clan-hub">Clan</a>
               <a class="nav-grid__item nav-grid__item--settings" href="<?php echo DOMAIN; ?>settings">Settings</a>
 
               <a class="nav-grid__item nav-grid__item--galaxy" href="<?php echo DOMAIN; ?>galaxy-gates">Galaxy Gates</a>
