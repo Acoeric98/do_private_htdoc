@@ -1782,10 +1782,16 @@ class Functions {
       if (isset($_SESSION['account'])) {
         if (isset($_SESSION['account']['id'], $_SESSION['account']['session'])) {
           $id = $mysqli->real_escape_string(Functions::s($_SESSION['account']['id']));
-          $fetch = $mysqli->query('SELECT sessionId FROM player_accounts WHERE userId = '.$id.'')->fetch_assoc();
+          $result = $mysqli->query('SELECT sessionId FROM player_accounts WHERE userId = '.$id.'');
 
-          if ($fetch['sessionId'] === $_SESSION['account']['session']) {
-            return true;
+          if ($result !== false) {
+            $fetch = $result->fetch_assoc();
+
+            if (isset($fetch['sessionId']) && $fetch['sessionId'] === $_SESSION['account']['session']) {
+              return true;
+            } else {
+              return false;
+            }
           } else {
             return false;
           }
