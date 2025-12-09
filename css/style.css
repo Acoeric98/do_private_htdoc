@@ -140,16 +140,8 @@ nav {
 }
 
 .nav-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-areas:
-    "hangar brand brand shop"
-    "equipment empty1 empty2 auction"
-    "pet start start settings"
-    "galaxy empty3 empty4 logout"
-    "uridium credit experience honor";
-  grid-auto-flow: row dense;
-  grid-auto-rows: 32px;
+  display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   width: 100%;
 }
@@ -169,6 +161,8 @@ nav {
   letter-spacing: 0.06em;
   text-align: center;
   padding: 16px 24px 14px;
+  flex: 1 1 calc(25% - 6px);
+  min-width: 190px;
 }
 
 .nav-grid__item:empty,
@@ -227,6 +221,32 @@ nav {
   color: #0a120b;
   background: linear-gradient(180deg, #6ef067 0%, #4ec856 55%, #368d3a 100%);
   border-color: rgba(99, 195, 92, 0.95);
+}
+
+.nav-grid__item--brand,
+.nav-grid__item--start {
+  flex-basis: calc(50% - 6px);
+}
+
+@supports (display: grid) {
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "hangar brand brand shop"
+      "equipment empty1 empty2 auction"
+      "pet start start settings"
+      "galaxy empty3 empty4 logout"
+      "uridium credit experience honor";
+    grid-auto-flow: row dense;
+    grid-auto-rows: 32px;
+  }
+
+  .nav-grid__item,
+  .nav-grid__empty {
+    flex: initial;
+    min-width: initial;
+  }
 }
 
 .nav-grid__item--hangar { grid-area: hangar; }
