@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DarkOrbit 10.0</title>
+    <title>Zero Tolerance PVP</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/style.css"/>
@@ -36,6 +36,7 @@
               <a class="nav-grid__item nav-grid__item--auction" href="<?php echo DOMAIN; ?>auction">Auction</a>
 
               <a class="nav-grid__item nav-grid__item--pet" href="<?php echo DOMAIN; ?>pet-15">Pet</a>
+              <a class="nav-grid__item nav-grid__item--skill-tree" href="<?php echo DOMAIN; ?>skill_tree">Skill Tree</a>
               <a class="nav-grid__item nav-grid__item--start" href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a>
               <a class="nav-grid__item nav-grid__item--settings" href="<?php echo DOMAIN; ?>settings">Settings</a>
 
