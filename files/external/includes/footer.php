@@ -18,6 +18,22 @@
 <script type="text/javascript" src="<?php echo DOMAIN; ?>js/materialize.min.js"></script>
 <script type="text/javascript" src="<?php echo DOMAIN; ?>js/main.js"></script>
 
+<script type="text/javascript">
+function safeParseJson(response) {
+  try {
+    return jQuery.parseJSON(response);
+  } catch (error) {
+    console.error('JSON parsing failed', error, response);
+
+    if (typeof M !== 'undefined' && M.toast) {
+      M.toast({html: '<span>Hiba történt az adatok feldolgozása közben.</span>'});
+    }
+
+    return null;
+  }
+}
+</script>
+
 <?php if (!Functions::IsLoggedIn() && $page[0] === 'index') { ?>
 <script type="text/javascript">
   $('#modal #agree').click(function() {
@@ -35,7 +51,10 @@
         url: '<?php echo DOMAIN; ?>api/',
         data: form.serialize() + '&action=register',
         success: function(response) {
-          var json = jQuery.parseJSON(response);
+          var json = safeParseJson(response);
+          if (!json) {
+            return;
+          }
 
           for (var input in json.inputs) {
             $('#register input[name='+input+'] + label + span').attr('data-error', json.inputs[input].error);
@@ -63,7 +82,10 @@
       url: '<?php echo DOMAIN; ?>api/',
       data: form.serialize() + '&action=login',
       success: function(response) {
-        var json = jQuery.parseJSON(response);
+        var json = safeParseJson(response);
+        if (!json) {
+          return;
+        }
 
         if (json.status) {
           location.reload();
@@ -86,7 +108,11 @@
       url: '<?php echo DOMAIN; ?>api/',
       data: { action: 'send_link_again', username: $('#l-username').val() },
       success: function(response) {
-        var json = jQuery.parseJSON(response);
+            var json = safeParseJson(response);
+
+            if (!json) {
+              return;
+            }
 
         if (json.message != '') {
           M.toast({html: '<span>'+ json.message +'</span>'});
@@ -109,7 +135,11 @@
       url: '<?php echo DOMAIN; ?>api/',
       data: form.serialize() + '&action=buy_pet',
       success: function(response) {
-        var json = jQuery.parseJSON(response);
+            var json = safeParseJson(response);
+
+            if (!json) {
+              return;
+            }
 
         if (json.newStatus) {
           $('#data #uridium').text(json.newStatus.uridium);
@@ -135,8 +165,12 @@
       type: 'POST',
       url: '<?php echo DOMAIN; ?>api/',
       data: { action: 'company_select', company: company },
-      success: function(response) {
-        var json = jQuery.parseJSON(response);
+          success: function(response) {
+            var json = safeParseJson(response);
+
+            if (!json) {
+              return;
+            }
 
         if (json.status) {
           location.reload();
@@ -154,20 +188,24 @@
   $('.ship').click(function() {
     var ship = $(this).attr('id');
 
-    $.ajax({
-      type: 'POST',
-      url: '<?php echo DOMAIN; ?>api/',
-      data: { action: 'change_ship', ship: ship },
-      success: function(response) {
-        var json = jQuery.parseJSON(response);
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo DOMAIN; ?>api/',
+        data: { action: 'change_ship', ship: ship },
+        success: function(response) {
+          var json = safeParseJson(response);
 
-        if (json.status) {
-          $(location).attr('href', "<?php echo DOMAIN;?>equipment");
-        } else if (json.message != '') {
-          M.toast({html: '<span>'+ json.message +'</span>'});
+          if (!json) {
+            return;
+          }
+
+          if (json.status) {
+            $(location).attr('href', "<?php echo DOMAIN;?>equipment");
+          } else if (json.message != '') {
+            M.toast({html: '<span>'+ json.message +'</span>'});
+          }
         }
-      }
-    });
+      });
   });
 </script>
 <?php } ?>
@@ -183,7 +221,11 @@
         url: '<?php echo DOMAIN; ?>api/',
         data: { action: 'exchange_logdisks' },
         success: function(response) {
-          var json = jQuery.parseJSON(response);
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
           if (json.newStatus) {
             $('#logdisks').text(json.newStatus.logdisks);
@@ -214,7 +256,11 @@
         url: '<?php echo DOMAIN; ?>api/',
         data: { action: 'reset_skills' },
         success: function(response) {
-          var json = jQuery.parseJSON(response);
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
           if (json.status) {
             location.reload();
@@ -235,7 +281,11 @@
         url: '<?php echo DOMAIN; ?>api/',
         data: { action: 'use_researchPoints', skill: skill },
         success: function(response) {
-          var json = jQuery.parseJSON(response);
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
           if (json.newStatus) {
             $('#'+ skill +'').find('.currentLevel').text(json.newStatus.currentLevel);
@@ -304,8 +354,12 @@
         url: '<?php echo DOMAIN; ?>api/',
         data: { action: 'buy', itemId: currentItemId, amount: amount },
         type: 'POST',
-        success:function(response) {
-          var json = jQuery.parseJSON(response);
+          success:function(response) {
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
           if (json.newStatus) {
             $('#data #uridium').text(json.newStatus.uridium);
@@ -364,7 +418,11 @@
         url: '<?php echo DOMAIN; ?>api/',
         data: { action: 'withdraw_pending_application', clanId: currentWpClanId },
         success: function(response) {
-          var json = jQuery.parseJSON(response);
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
           if (json.status) {
             if (table.find('tbody tr').length <= 1) {
@@ -393,10 +451,14 @@
         url: '<?php echo DOMAIN; ?>api/',
         data: { action: 'search_clan', keywords: value },
         type: 'POST',
-        success:function(response) {
-          $('#clan-list tbody').html('');
+          success:function(response) {
+            $('#clan-list tbody').html('');
 
-          var json = jQuery.parseJSON(response);
+            var json = safeParseJson(response);
+
+            if (!json) {
+              return;
+            }
           for (var index in json) {
             $('#clan-list tbody').append('
               <tr>
@@ -423,11 +485,15 @@ $('input[name=keywords]').on('keyup keypress keydown click', function() {
       url: '<?php echo DOMAIN; ?>api/',
       data: { action: 'diplomacy_search_clan', keywords: value },
       type: 'POST',
-      success:function(response) {
-        $('#dropdown3').html('');
-        $('#dropdown3').css({display: 'block', opacity: 1});
+        success:function(response) {
+          $('#dropdown3').html('');
+          $('#dropdown3').css({display: 'block', opacity: 1});
 
-        var json = jQuery.parseJSON(response);
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
         for (var index in json) {
           $('#dropdown3').append('
             <li>
@@ -453,7 +519,11 @@ $('#request_diplomacy').submit(function(e) {
     data: form.serialize() + '&action=request_diplomacy',
     type: 'POST',
     success:function(response) {
-      var json = jQuery.parseJSON(response);
+      var json = safeParseJson(response);
+
+      if (!json) {
+        return;
+      }
 
       if (json.request) {
         $('#open_applications_button').css({display: 'inline-block'});
@@ -494,7 +564,11 @@ $('body').on('click', '.cancel-request', function() {
     url: '<?php echo DOMAIN; ?>api/',
     data: { action: 'cancel_diplomacy_request', requestId: requestId },
     success: function(response) {
-      var json = jQuery.parseJSON(response);
+      var json = safeParseJson(response);
+
+      if (!json) {
+        return;
+      }
 
       if (json.status) {
         $('#pending-requests').find('#pending-request-'+ requestId +'').remove();
@@ -520,7 +594,11 @@ $('body').on('click', '.end-diplomacy', function() {
     url: '<?php echo DOMAIN; ?>api/',
     data: { action: 'end_diplomacy', diplomacyId: diplomacyId },
     success: function(response) {
-      var json = jQuery.parseJSON(response);
+      var json = safeParseJson(response);
+
+      if (!json) {
+        return;
+      }
 
       if (json.status) {
         $('#diplomacy-'+ diplomacyId +'').remove();
@@ -566,7 +644,11 @@ $('#decline').click(function() {
       url: '<?php echo DOMAIN; ?>api/',
       data: { action: 'decline_diplomacy_request', requestId: currentDrId },
       success: function(response) {
-        var json = jQuery.parseJSON(response);
+        var json = safeParseJson(response);
+
+        if (!json) {
+          return;
+        }
 
         if (json.status) {
           $('#request-'+ currentDrId +'').remove();
@@ -587,7 +669,11 @@ $('#accept').click(function() {
       url: '<?php echo DOMAIN; ?>api/',
       data: { action: 'accept_diplomacy_request', requestId: currentDrId },
       success: function(response) {
-        var json = jQuery.parseJSON(response);
+        var json = safeParseJson(response);
+
+        if (!json) {
+          return;
+        }
 
         if (json.status) {
           $('#request-'+ currentDrId +'').remove();
@@ -659,7 +745,11 @@ $('#end-war').click(function() {
       url: '<?php echo DOMAIN; ?>api/',
       data: { action: 'end_war_request', clanId: currentEwdClanId },
       success: function(response) {
-        var json = jQuery.parseJSON(response);
+        var json = safeParseJson(response);
+
+        if (!json) {
+          return;
+        }
 
         if (json.request) {
           $('#open_applications_button').css({display: 'inline-block'});
@@ -705,8 +795,12 @@ $('#end-war').click(function() {
       url: '<?php echo DOMAIN; ?>api/',
       data: form.serialize() + '&action=send_clan_application',
       type: 'POST',
-      success:function(response) {
-        var json = jQuery.parseJSON(response);
+          success:function(response) {
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
         if (json.status) {
           $('#send_clan_application textarea[name=text]').val('').attr('placeholder', 'Your application to this Clan is pending.').attr('disabled', true);
@@ -733,8 +827,12 @@ $('#end-war').click(function() {
       url: '<?php echo DOMAIN; ?>api/',
       data: form.serialize() + '&action=change_pilot_name',
       type: 'POST',
-      success:function(response) {
-        var json = jQuery.parseJSON(response);
+        success:function(response) {
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
         for (var input in json.inputs) {
           $('#change_pilot_name input[name='+input+'] + label + span').attr('data-error', json.inputs[input].error);
@@ -755,8 +853,12 @@ $('#end-war').click(function() {
       url: '<?php echo DOMAIN; ?>api/',
       data: { action: 'change_version', version: version },
       type: 'POST',
-      success:function(response) {
-        var json = jQuery.parseJSON(response);
+        success:function(response) {
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
         if (json.message != '') {
           M.toast({html: '<span>'+ json.message +'</span>'});
@@ -778,8 +880,12 @@ $('#end-war').click(function() {
       url: '<?php echo DOMAIN; ?>api/',
       data: form.serialize() + '&action=found_clan',
       type: 'POST',
-      success:function(response) {
-        var json = jQuery.parseJSON(response);
+        success:function(response) {
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
         for (var input in json.inputs) {
           var inputType = input !== 'description' ? 'input' : 'textarea';
@@ -824,7 +930,11 @@ $('#end-war').click(function() {
         url: '<?php echo DOMAIN; ?>api/',
         data: { action: 'company_select', company: currentFactionCode },
         success: function(response) {
-          var json = jQuery.parseJSON(response);
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
           if (json.status) {
             location.reload();
@@ -867,8 +977,12 @@ $('#end-war').click(function() {
         type: 'POST',
         url: '<?php echo DOMAIN; ?>api/',
         data: { action: 'accept_clan_application', userId: currentVUserId },
-        success: function(response) {
-          var json = jQuery.parseJSON(response);
+          success: function(response) {
+            var json = safeParseJson(response);
+
+            if (!json) {
+              return;
+            }
 
           if (json.status) {
             var user = json.acceptedUser;
@@ -915,8 +1029,12 @@ $('#end-war').click(function() {
         type: 'POST',
         url: '<?php echo DOMAIN; ?>api/',
         data: { action: 'decline_clan_application', userId: currentVUserId },
-        success: function(response) {
-          var json = jQuery.parseJSON(response);
+          success: function(response) {
+            var json = safeParseJson(response);
+
+            if (!json) {
+              return;
+            }
 
           if (json.status) {
             if ($('#applications').length <= 1) {
@@ -952,7 +1070,11 @@ $('#end-war').click(function() {
         data: { action: 'dismiss_clan_member', userId: dismissMemberId },
         type: 'POST',
         success:function(response) {
-          var json = jQuery.parseJSON(response);
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
           if (json.status) {
             $('#user-'+ dismissMemberId +'').parent().remove();
@@ -971,8 +1093,12 @@ $('#end-war').click(function() {
       url: '<?php echo DOMAIN; ?>api/',
       data: { action: 'delete_clan' },
       type: 'POST',
-      success:function(response) {
-        var json = jQuery.parseJSON(response);
+          success:function(response) {
+            var json = safeParseJson(response);
+
+            if (!json) {
+              return;
+            }
 
         if (json.status) {
           location.reload();
@@ -990,8 +1116,12 @@ $('#end-war').click(function() {
       url: '<?php echo DOMAIN; ?>api/',
       data: { action: 'leave_clan' },
       type: 'POST',
-      success:function(response) {
-        var json = jQuery.parseJSON(response);
+        success:function(response) {
+          var json = safeParseJson(response);
+
+          if (!json) {
+            return;
+          }
 
         if (json.status) {
           location.reload();
