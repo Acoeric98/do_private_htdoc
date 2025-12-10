@@ -1330,6 +1330,72 @@ class Functions {
         return json_encode($json);
     }
 
+    public static function ChangePetName($petName) {
+        $mysqli = Database::GetInstance();
+
+        $player = Functions::GetPlayer();
+        $petName = $mysqli->real_escape_string($petName);
+
+        $json = [
+            'status' => false,
+            'message' => ''
+        ];
+
+        $equipment = $mysqli->query('SELECT items FROM player_equipment WHERE userId = '.$player['userId'].'')->fetch_assoc();
+        $items = $equipment ? json_decode($equipment['items']) : null;
+        $data = json_decode($player['data']);
+
+        if (!$items) {
+            $json['message'] = 'Nem sikerült betölteni az adataidat. Próbáld újra!';
+            return json_encode($json);
+        }
+
+        if (!isset($items->pet) || !$items->pet) {
+            $json['message'] = 'Nincs P.E.T egységed.';
+            return json_encode($json);
+        }
+
+        if (mb_strlen($petName) < 3 || mb_strlen($petName) > 20 || !preg_match('/^[A-Za-z0-9 ._-]+$/', $petName)) {
+            $json['message'] = 'A P.E.T neve 3-20 karakter hosszú legyen, és csak betűket, számokat, szóközt, pontot, kötőjelet vagy aláhúzást tartalmazhat.';
+            return json_encode($json);
+        }
+
+        if ($player['petName'] === $petName) {
+            $json['message'] = 'Az új név nem lehet azonos a jelenlegivel.';
+            return json_encode($json);
+        }
+
+        $price = 3000;
+
+        if ($data->uridium < $price) {
+            $json['message'] = 'Nincs elég Uridiumod a névváltoztatáshoz.';
+            return json_encode($json);
+        }
+
+        $data->uridium -= $price;
+
+        $mysqli->begin_transaction();
+
+        try {
+            $mysqli->query("UPDATE player_accounts SET petName = '".$petName."', data = '".json_encode($data)."' WHERE userId = ".$player['userId']);
+
+            $json['status'] = true;
+            $json['message'] = 'Sikeresen megváltoztattad a P.E.T nevét.';
+            $json['newStatus'] = [
+                'uridium' => number_format($data->uridium)
+            ];
+
+            $mysqli->commit();
+        } catch (Exception $e) {
+            $json['message'] = 'Hiba történt a névváltoztatás során. Próbáld meg később újra.';
+            $mysqli->rollback();
+        }
+
+        $mysqli->close();
+
+        return json_encode($json);
+    }
+
   public static function ChangePilotName($newPilotName) {
     $mysqli = Database::GetInstance();
 

@@ -53,7 +53,7 @@
                         <div class="card-content">
                           <span class="card-title">P.E.T adatok</span>
                           <p class="pet-label">Név</p>
-                          <p class="pet-value"><?php echo $petName; ?></p>
+                          <p class="pet-value" id="pet-name-display"><?php echo $petName; ?></p>
                           <p class="pet-label">Állapot</p>
                           <p class="pet-value status-active">Aktív</p>
                           <p class="pet-label">Energia</p>
@@ -97,6 +97,26 @@
                               <?php } ?>
                             </div>
                           <?php } ?>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col s12 m6 offset-m3">
+                      <div class="card grey darken-3 pet-card">
+                        <div class="card-content left-align">
+                          <span class="card-title">P.E.T név módosítása</span>
+                          <p class="pet-subtitle">Változtasd meg a P.E.T nevét 3.000 Uridiumért.</p>
+                          <form id="rename-pet" class="pet-form" method="post">
+                            <div class="input-field">
+                              <input type="text" name="petName" id="pet-rename" maxlength="20" value="<?php echo $petName; ?>">
+                              <label for="pet-rename"<?php echo $petName ? ' class="active"' : ''; ?>>Új P.E.T név</label>
+                              <span class="helper-text">3-20 karakter, betűkkel, számokkal, szóközzel, ponttal, kötőjellel vagy aláhúzással.</span>
+                            </div>
+                            <p>Költség: <strong>3.000 Uridium</strong></p>
+                            <button class="btn grey darken-1 waves-effect waves-light" type="submit">Név megváltoztatása</button>
+                          </form>
                         </div>
                       </div>
                     </div>
