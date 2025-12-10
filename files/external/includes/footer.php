@@ -153,6 +153,37 @@ function safeParseJson(response) {
       }
     });
   });
+
+  $('#rename-pet').submit(function(e) {
+    e.preventDefault();
+
+    var form = $(this);
+
+    $.ajax({
+      type: 'POST',
+      url: '<?php echo DOMAIN; ?>api/',
+      data: form.serialize() + '&action=change_pet_name',
+      success: function(response) {
+            var json = safeParseJson(response);
+
+            if (!json) {
+              return;
+            }
+
+        if (json.newStatus) {
+          $('#data #uridium').text(json.newStatus.uridium);
+        }
+
+        if (json.status) {
+          $('#pet-name-display').text(form.find('input[name=petName]').val());
+        }
+
+        if (json.message != '') {
+          M.toast({html: '<span>'+ json.message +'</span>'});
+        }
+      }
+    });
+  });
 </script>
 <?php } ?>
 
