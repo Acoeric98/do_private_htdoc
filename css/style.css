@@ -156,44 +156,65 @@ nav {
   width: min(var(--page-max-width), calc(100% - (var(--page-gutter) * 2)));
 }
 
+
 .nav-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "hangar brand brand shop"
+    "equipment company-change ships-boosters auction"
+    "pet start start clan"
+    "skill-tree start start settings"
+    "galaxy home home logout"
+    "uridium credit experience honor";
+  grid-auto-flow: row dense;
+  grid-auto-rows: 48px;
   gap: 10px;
   width: 100%;
   align-items: stretch;
   justify-content: center;
 }
 
-.nav-grid__item {
-  flex: 0 0 calc(25% - 10px);
-  max-width: calc(25% - 10px);
-}
-
 .nav-grid__item--brand,
 .nav-grid__item--start,
 .nav-grid__item--home {
-  flex-basis: calc(50% - 10px);
-  max-width: calc(50% - 10px);
+  grid-column: span 2;
 }
 
 .nav-grid__empty {
-  flex: 0 0 calc(25% - 10px);
-  max-width: calc(25% - 10px);
-  border-radius: 10px;
-  min-height: 48px;
-  visibility: hidden;
+  display: none;
 }
 
-.nav-grid__empty--auction-gap { order: 6; }
-.nav-grid__empty--logout-gap { order: 14; }
-
 @supports not (display: grid) {
+  .nav-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
   .nav-grid__item,
   .nav-grid__empty {
     flex: 0 0 calc(25% - 10px);
     max-width: calc(25% - 10px);
   }
+
+  .nav-grid__item--brand,
+  .nav-grid__item--start,
+  .nav-grid__item--home {
+    flex-basis: calc(50% - 10px);
+    max-width: calc(50% - 10px);
+    grid-column: auto;
+  }
+
+  .nav-grid__empty {
+    display: block;
+    border-radius: 10px;
+    min-height: 48px;
+    visibility: hidden;
+  }
+
+  .nav-grid__empty--auction-gap { order: 6; }
+  .nav-grid__empty--logout-gap { order: 14; }
 
   .nav-grid__item--start {
     min-height: 68px;
@@ -209,33 +230,6 @@ nav {
       margin: 5px;
     }
   }
-}
-
-@supports (display: grid) {
-  .nav-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-      grid-template-areas:
-        "hangar brand brand shop"
-        "equipment company-change ships-boosters auction"
-        "pet start start clan"
-        "skill-tree start start settings"
-        "galaxy home home logout"
-        "uridium credit experience honor";
-      grid-auto-flow: row dense;
-      grid-auto-rows: 48px;
-      gap: 10px;
-    }
-
-  .nav-grid__item,
-    .nav-grid__empty {
-      grid-auto-flow: initial;
-      flex: unset;
-    }
-
-    .nav-grid__empty {
-      display: none;
-    }
 }
 
 @media (max-width: 1100px) {
