@@ -141,6 +141,7 @@ nav {
   opacity: 0.85;
 }
 
+
 .nav-shell {
   position: relative;
   display: flex;
@@ -155,27 +156,37 @@ nav {
   width: min(var(--page-max-width), calc(100% - (var(--page-gutter) * 2)));
 }
 
+.nav-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+  align-items: stretch;
+}
 
+.nav-grid__item {
+  flex: 1 1 calc(25% - 6px);
+}
+
+.nav-grid__item--brand,
+.nav-grid__item--start {
+  flex-basis: calc(50% - 6px);
+}
+
+.nav-grid__empty {
+  flex: 1 1 calc(25% - 6px);
+  border-radius: 10px;
+  min-height: 32px;
+  visibility: hidden;
+}
+
+.nav-grid__empty--auction-gap { order: 6; }
+.nav-grid__empty--logout-gap { order: 14; }
+
+@supports (display: grid) {
   .nav-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    width: 100%;
-  }
-
-  .nav-grid__item {
-    flex: 1 1 calc(25% - 6px);
-  }
-
-  .nav-grid__item--brand,
-  .nav-grid__item--start {
-    flex-basis: calc(50% - 6px);
-  }
-
-  @supports (display: grid) {
-    .nav-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
       grid-template-areas:
         "hangar brand brand shop"
         "equipment company-change empty2 auction"
@@ -187,12 +198,16 @@ nav {
       grid-auto-rows: 32px;
     }
 
-    .nav-grid__item,
+  .nav-grid__item,
     .nav-grid__empty {
       grid-auto-flow: initial;
       flex: unset;
     }
-  }
+
+    .nav-grid__empty {
+      display: none;
+    }
+}
 
 @media (max-width: 1100px) {
   .nav-grid {
@@ -231,8 +246,7 @@ nav {
   }
 }
 
-.nav-grid__item,
-.nav-grid__empty {
+.nav-grid__item {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -248,8 +262,7 @@ nav {
   padding: 16px 24px 14px;
 }
 
-.nav-grid__item:empty,
-.nav-grid__empty {
+.nav-grid__item:empty {
   display: none;
 }
 
@@ -306,21 +319,23 @@ nav {
   border-color: rgba(99, 195, 92, 0.95);
 }
 
-.nav-grid__item--hangar { grid-area: hangar; }
-.nav-grid__item--shop { grid-area: shop; }
-.nav-grid__item--equipment { grid-area: equipment; }
-.nav-grid__item--auction { grid-area: auction; }
-.nav-grid__item--pet { grid-area: pet; }
-.nav-grid__item--skill-tree { grid-area: skill-tree; }
-.nav-grid__item--clan { grid-area: clan; }
-.nav-grid__item--settings { grid-area: settings; }
-.nav-grid__item--company-change { grid-area: company-change; }
-.nav-grid__item--galaxy { grid-area: galaxy; }
-.nav-grid__item--logout { grid-area: logout; }
-.nav-grid__item--uridium { grid-area: uridium; }
-.nav-grid__item--credit { grid-area: credit; }
-.nav-grid__item--experience { grid-area: experience; }
-.nav-grid__item--honor { grid-area: honor; }
+.nav-grid__item--hangar { grid-area: hangar; order: 1; }
+.nav-grid__item--brand { grid-area: brand; order: 2; }
+.nav-grid__item--shop { grid-area: shop; order: 3; }
+.nav-grid__item--equipment { grid-area: equipment; order: 4; }
+.nav-grid__item--company-change { grid-area: company-change; order: 5; }
+.nav-grid__item--auction { grid-area: auction; order: 7; }
+.nav-grid__item--pet { grid-area: pet; order: 8; }
+.nav-grid__item--start { grid-area: start; order: 9; }
+.nav-grid__item--clan { grid-area: clan; order: 10; }
+.nav-grid__item--skill-tree { grid-area: skill-tree; order: 11; }
+.nav-grid__item--settings { grid-area: settings; order: 12; }
+.nav-grid__item--galaxy { grid-area: galaxy; order: 13; }
+.nav-grid__item--logout { grid-area: logout; order: 16; }
+.nav-grid__item--uridium { grid-area: uridium; order: 17; }
+.nav-grid__item--credit { grid-area: credit; order: 18; }
+.nav-grid__item--experience { grid-area: experience; order: 19; }
+.nav-grid__item--honor { grid-area: honor; order: 20; }
 
 .nav-grid__stat-label {
   color: #99b6db;

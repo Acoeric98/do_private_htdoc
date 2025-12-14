@@ -42,7 +42,11 @@
               <a class="nav-grid__item nav-grid__item--settings" href="<?php echo DOMAIN; ?>settings">Settings</a>
               <a class="nav-grid__item nav-grid__item--company-change" href="<?php echo DOMAIN; ?>company-change">Megbízóváltás</a>
 
+              <div class="nav-grid__empty nav-grid__empty--auction-gap" aria-hidden="true"></div>
+
               <a class="nav-grid__item nav-grid__item--galaxy" href="<?php echo DOMAIN; ?>galaxy-gates">Galaxy Gates</a>
+              <div class="nav-grid__empty nav-grid__empty--logout-gap" aria-hidden="true"></div>
+              <div class="nav-grid__empty nav-grid__empty--logout-gap" aria-hidden="true"></div>
               <a class="nav-grid__item nav-grid__item--logout" href="/api/logout">Logout</a>
 
               <div class="nav-grid__item nav-grid__item--uridium">
