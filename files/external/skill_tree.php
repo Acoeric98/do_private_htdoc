@@ -9,8 +9,6 @@ $skills = Functions::GetSkills($skillPoints);
       <div id="main">
         <div class="container">
           <div class="row">
-            <?php require_once(INCLUDES . 'data.php'); ?>
-
             <div class="col s12">
               <div class="card white-text grey darken-4 padding-15">
                 <h5>SKILL TREE</h5>
