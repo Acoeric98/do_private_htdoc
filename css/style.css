@@ -160,7 +160,7 @@ nav {
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas:
       "hangar brand brand shop"
-      "equipment empty1 empty2 auction"
+      "equipment company-change empty2 auction"
       "pet start start clan"
       "skill-tree start start settings"
       "galaxy empty3 empty4 logout"
@@ -179,9 +179,9 @@ nav {
       "hangar shop equipment"
       "auction pet clan"
       "skill-tree start start"
-      "settings galaxy uridium"
-      "credit experience honor"
-      "logout logout logout";
+      "company-change settings galaxy"
+      "uridium credit experience"
+      "honor logout logout";
     grid-auto-rows: minmax(32px, auto);
   }
 }
@@ -196,9 +196,10 @@ nav {
       "pet start"
       "skill-tree start"
       "clan settings"
-      "galaxy uridium"
-      "credit experience"
-      "honor logout";
+      "company-change galaxy"
+      "uridium credit"
+      "experience honor"
+      "logout logout";
     row-gap: 10px;
   }
 
@@ -290,6 +291,7 @@ nav {
 .nav-grid__item--skill-tree { grid-area: skill-tree; }
 .nav-grid__item--clan { grid-area: clan; }
 .nav-grid__item--settings { grid-area: settings; }
+.nav-grid__item--company-change { grid-area: company-change; }
 .nav-grid__item--galaxy { grid-area: galaxy; }
 .nav-grid__item--logout { grid-area: logout; }
 .nav-grid__item--uridium { grid-area: uridium; }

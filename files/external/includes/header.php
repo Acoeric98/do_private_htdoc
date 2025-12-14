@@ -40,6 +40,7 @@
               <a class="nav-grid__item nav-grid__item--start" href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a>
               <a class="nav-grid__item nav-grid__item--clan" href="<?php echo DOMAIN; ?>clan-hub">Clan</a>
               <a class="nav-grid__item nav-grid__item--settings" href="<?php echo DOMAIN; ?>settings">Settings</a>
+              <a class="nav-grid__item nav-grid__item--company-change" href="<?php echo DOMAIN; ?>#company">Megbízóváltás</a>
 
               <a class="nav-grid__item nav-grid__item--galaxy" href="<?php echo DOMAIN; ?>galaxy-gates">Galaxy Gates</a>
               <a class="nav-grid__item nav-grid__item--logout" href="/api/logout">Logout</a>
