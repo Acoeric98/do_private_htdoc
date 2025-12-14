@@ -936,7 +936,7 @@ $('#end-war').click(function() {
 </script>
 <?php } ?>
 
-<?php if (Functions::IsLoggedIn() && ((isset($page[1]) && $page[1] === 'company') || (isset($page[0]) && $page[0] === 'home'))) { ?>
+<?php if (Functions::IsLoggedIn() && ((isset($page[1]) && $page[1] === 'company') || (isset($page[0]) && $page[0] === 'company_change'))) { ?>
 <script type="text/javascript">
   var currentFactionCode = "";
   var currentFactionName = "%faction_name%";
