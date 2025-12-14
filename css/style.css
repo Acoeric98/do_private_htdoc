@@ -599,6 +599,136 @@ nav ul a:hover {
   letter-spacing: 0.06em;
 }
 
+.beta-banner {
+  margin-bottom: 18px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 196, 0, 0.1), rgba(255, 64, 129, 0.18));
+  border: 1px solid rgba(255, 196, 0, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.beta-banner__eyebrow {
+  margin: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: #ffd666;
+}
+
+.beta-banner__title {
+  margin: 4px 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffe3a1;
+}
+
+.beta-banner__hint {
+  margin: 0;
+  color: #f5e6c8;
+}
+
+.pet-config-card {
+  margin-top: 18px;
+}
+
+.pet-config__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.pet-config__cost {
+  text-align: right;
+  padding: 10px 14px;
+  background: rgba(255, 196, 0, 0.12);
+  border: 1px solid rgba(255, 196, 0, 0.4);
+  border-radius: 10px;
+}
+
+.pet-config__cost-label {
+  margin: 0;
+  color: #ffe3a1;
+  font-size: 0.85rem;
+}
+
+.pet-config__cost-value {
+  margin: 4px 0 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.pet-config__cost-value span {
+  font-size: 0.9rem;
+  color: #ffe3a1;
+}
+
+.pet-config__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.pet-slot {
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pet-slot:hover,
+.pet-slot:focus-within {
+  border-color: rgba(0, 229, 255, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.pet-slot__header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pet-slot__title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.pet-slot__hint {
+  margin: 2px 0 0;
+  color: #9db2d6;
+  font-size: 0.9rem;
+}
+
+.pet-slot__lock {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 196, 0, 0.12);
+  border: 1px solid rgba(255, 196, 0, 0.35);
+  color: #ffe3a1;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.pet-slot__select {
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 12px;
+}
+
 nav ul li {
   border-radius: 14px;
   margin-left: 0;

@@ -33,6 +33,12 @@
         <div class="container">
           <div class="row">
             <div class="col s12">
+              <div class="beta-banner">
+                <p class="beta-banner__eyebrow">BÉTA ÜZEMMÓD</p>
+                <p class="beta-banner__title">A P.E.T konfigurátor még béta, nem működik, viszont az uridiumot levonja.</p>
+                <p class="beta-banner__hint">Minden slot feloldása 5.000 Uridiumba kerül, használat előtt ellenőrizd az egyenleget!</p>
+              </div>
+
               <div class="card white-text grey darken-4 padding-15">
                 <div class="pet-hero">
                   <div>
@@ -43,6 +49,86 @@
                   <div class="pet-visual">
                     <div class="pet-visual__glow"></div>
                     <img src="<?php echo DOMAIN.(isset($petVisuals[$petDesign]) ? $petVisuals[$petDesign] : $petVisuals['pet10-4']); ?>" alt="P.E.T kinézet">
+                  </div>
+                </div>
+
+                <div class="card grey darken-3 pet-card pet-config-card">
+                  <div class="card-content">
+                    <div class="pet-config__header">
+                      <div>
+                        <p class="eyebrow">Konfiguráció</p>
+                        <span class="card-title">P.E.T modul kiosztás (Béta)</span>
+                        <p class="pet-subtitle">Állítsd össze a P.E.T felszerelését. A mezők kattinthatók, legördülő menükből választhatsz.</p>
+                      </div>
+                      <div class="pet-config__cost">
+                        <p class="pet-config__cost-label">Feloldási díj</p>
+                        <p class="pet-config__cost-value">5.000 <span>Uridium</span></p>
+                      </div>
+                    </div>
+
+                    <div class="pet-config__grid">
+                      <div class="pet-slot">
+                        <div class="pet-slot__header">
+                          <span class="material-icons">bolt</span>
+                          <div>
+                            <p class="pet-slot__title">Lézer</p>
+                            <p class="pet-slot__hint">Kattints és válassz típust</p>
+                          </div>
+                          <span class="pet-slot__lock">5000</span>
+                        </div>
+                        <select class="browser-default pet-slot__select">
+                          <option>B02</option>
+                          <option>LF4</option>
+                        </select>
+                      </div>
+
+                      <div class="pet-slot">
+                        <div class="pet-slot__header">
+                          <span class="material-icons">tune</span>
+                          <div>
+                            <p class="pet-slot__title">Generátor</p>
+                            <p class="pet-slot__hint">Válaszd ki a beszerelni kívánt generátort</p>
+                          </div>
+                          <span class="pet-slot__lock">5000</span>
+                        </div>
+                        <select class="browser-default pet-slot__select">
+                          <option>B02</option>
+                          <option>LF4</option>
+                        </select>
+                      </div>
+
+                      <div class="pet-slot">
+                        <div class="pet-slot__header">
+                          <span class="material-icons">precision_manufacturing</span>
+                          <div>
+                            <p class="pet-slot__title">Berendezés</p>
+                            <p class="pet-slot__hint">Állítsd be a működési módot</p>
+                          </div>
+                          <span class="pet-slot__lock">5000</span>
+                        </div>
+                        <select class="browser-default pet-slot__select">
+                          <option>Kamikaze</option>
+                          <option>Védelmi mód</option>
+                          <option>Gyűjtő</option>
+                        </select>
+                      </div>
+
+                      <div class="pet-slot">
+                        <div class="pet-slot__header">
+                          <span class="material-icons">radar</span>
+                          <div>
+                            <p class="pet-slot__title">Protokollok</p>
+                            <p class="pet-slot__hint">Válassz a legördülő listából</p>
+                          </div>
+                          <span class="pet-slot__lock">5000</span>
+                        </div>
+                        <select class="browser-default pet-slot__select">
+                          <option>Lézersebzés radar protokoll</option>
+                          <option>Radar protokoll</option>
+                          <option>Kamikaze</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
