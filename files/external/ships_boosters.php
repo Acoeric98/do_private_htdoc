@@ -66,8 +66,8 @@
                           continue;
                         }
 
-                        $lootId = str_replace('_', '/', $ship['lootID']);
-                        $lootId = Functions::ApplyCompanyShipVariant($lootId, $player['factionId']);
+                        $lootId = Functions::ApplyCompanyShipVariant($ship['lootID'], $player['factionId']);
+                        $lootId = str_replace('_', '/', $lootId);
                     ?>
                     <div id="ship-card-<?php echo $ship['shipID']; ?>" class="col s12 m6 l4 ship-card">
                       <div class="card grey darken-3">
