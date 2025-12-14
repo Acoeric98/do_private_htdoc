@@ -67,6 +67,7 @@
                         }
 
                         $lootId = str_replace('_', '/', $ship['lootID']);
+                        $lootId = Functions::ApplyCompanyShipVariant($lootId, $player['factionId']);
                     ?>
                     <div id="ship-card-<?php echo $ship['shipID']; ?>" class="col s12 m6 l4 ship-card">
                       <div class="card grey darken-3">
@@ -108,7 +109,15 @@
                     <?php foreach ($availableBoosters as $boosterType => $boosterData) { ?>
                       <div class="col s12 m6 l4 booster-card">
                         <div class="card grey darken-3">
-                          <div class="card-content">
+                          <div class="card-content ship-card__content booster-card__content">
+                            <?php
+                              $boosterImage = strtolower(str_replace('_', '-', $boosterData['name']));
+                              $boosterImagePath = DOMAIN.'do_img/global/booster/booster_'.$boosterImage.'_100x100.png';
+                            ?>
+                            <div class="ship-card__image booster-card__image">
+                              <div class="ship-card__glow"></div>
+                              <img src="<?php echo $boosterImagePath; ?>" alt="<?php echo str_replace('_', '-', $boosterData['name']); ?>">
+                            </div>
                             <span class="card-title"><?php echo str_replace('_', '-', $boosterData['name']); ?></span>
                             <p class="ship-card__price"><?php echo number_format($boosterPrice, 0, '.', '.'); ?> Uridium</p>
                             <p class="grey-text text-lighten-1">Időtartam: 10 óra (<?php echo number_format($boosterDuration); ?> mp)</p>
