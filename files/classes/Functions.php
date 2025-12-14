@@ -1218,8 +1218,8 @@ class Functions {
 		return $message;
 	}
 
-    public static function Buy($itemId, $amount) {
-                $mysqli = Database::GetInstance();
+  public static function Buy($itemId, $amount) {
+    $mysqli = Database::GetInstance();
 
 		$player = Functions::GetPlayer();
 		$itemId = $mysqli->real_escape_string($itemId);
@@ -1305,6 +1305,38 @@ class Functions {
                 return json_encode($json);
         }
 
+  public static function GetAvailableBoosters() {
+    return [
+      0 => ['name' => 'DMG_B01', 'category' => 2],
+      1 => ['name' => 'DMG_B02', 'category' => 2],
+      2 => ['name' => 'EP_B01', 'category' => 3],
+      3 => ['name' => 'EP_B02', 'category' => 3],
+      4 => ['name' => 'EP50', 'category' => 3],
+      5 => ['name' => 'HON_B01', 'category' => 1],
+      6 => ['name' => 'HON_B02', 'category' => 1],
+      7 => ['name' => 'HON50', 'category' => 1],
+      8 => ['name' => 'HP_B01', 'category' => 7],
+      9 => ['name' => 'HP_B02', 'category' => 7],
+      10 => ['name' => 'REP_B01', 'category' => 4],
+      11 => ['name' => 'REP_B02', 'category' => 4],
+      12 => ['name' => 'REP_S01', 'category' => 4],
+      13 => ['name' => 'RES_B01', 'category' => 5],
+      14 => ['name' => 'RES_B02', 'category' => 5],
+      15 => ['name' => 'SHD_B01', 'category' => 6],
+      16 => ['name' => 'SHD_B02', 'category' => 6],
+      17 => ['name' => 'SREG_B01', 'category' => 8],
+      18 => ['name' => 'SREG_B02', 'category' => 8],
+      19 => ['name' => 'BB_01', 'category' => 9],
+      20 => ['name' => 'QR_01', 'category' => 10],
+      21 => ['name' => 'CD_B01', 'category' => 11],
+      22 => ['name' => 'CD_B02', 'category' => 11],
+      23 => ['name' => 'KAPPA_B01', 'category' => 12],
+      24 => ['name' => 'HONM_1', 'category' => 1],
+      25 => ['name' => 'XPM_1', 'category' => 3],
+      26 => ['name' => 'DMGM_1', 'category' => 2]
+    ];
+  }
+
   public static function BuyShip($shipId) {
     $mysqli = Database::GetInstance();
 
@@ -1366,6 +1398,98 @@ class Functions {
       $json['status'] = true;
       $json['message'] = 'Sikeres vásárlás: '.$ship['name'].' hajó a flottádban.';
       $json['purchasedShipId'] = $shipId;
+      $json['newStatus'] = [
+        'uridium' => number_format($data->uridium),
+        'credits' => number_format($data->credits)
+      ];
+
+      $mysqli->commit();
+    } catch (Exception $e) {
+      $json['message'] = 'An error occurred. Please try again later.';
+      $mysqli->rollback();
+    }
+
+    $mysqli->close();
+
+    return json_encode($json);
+  }
+
+  public static function BuyBooster($boosterType) {
+    $mysqli = Database::GetInstance();
+
+    $player = Functions::GetPlayer();
+    $boosterType = (int)$mysqli->real_escape_string($boosterType);
+
+    $json = [
+      'status' => false,
+      'message' => ''
+    ];
+
+    $availableBoosters = Functions::GetAvailableBoosters();
+
+    if (!array_key_exists($boosterType, $availableBoosters)) {
+      $json['message'] = 'Something went wrong!';
+      return json_encode($json);
+    }
+
+    $equipmentRow = $mysqli->query('SELECT boosters FROM player_equipment WHERE userId = '.$player['userId'].'')->fetch_assoc();
+    $data = json_decode($player['data']);
+
+    if (!$equipmentRow || !$data) {
+      $json['message'] = 'Nem sikerült betölteni az adataidat. Próbáld újra!';
+      return json_encode($json);
+    }
+
+    $boosters = $equipmentRow['boosters'] ? json_decode($equipmentRow['boosters'], true) : [];
+
+    if (!is_array($boosters)) {
+      $boosters = [];
+    }
+
+    $price = 10000;
+    $duration = 36000;
+
+    if ($data->uridium < $price) {
+      $json['message'] = 'Nincs elég Uridiumod a vásárláshoz.';
+      return json_encode($json);
+    }
+
+    $boosterCategory = (string)$availableBoosters[$boosterType]['category'];
+
+    if (!isset($boosters[$boosterCategory]) || !is_array($boosters[$boosterCategory])) {
+      $boosters[$boosterCategory] = [];
+    }
+
+    $added = false;
+
+    foreach ($boosters[$boosterCategory] as &$booster) {
+      if ((int)$booster['Type'] === $boosterType) {
+        $booster['Seconds'] += $duration;
+        $added = true;
+        break;
+      }
+    }
+
+    unset($booster);
+
+    if (!$added) {
+      $boosters[$boosterCategory][] = [
+        'Type' => $boosterType,
+        'Seconds' => $duration
+      ];
+    }
+
+    $data->uridium -= $price;
+
+    $mysqli->begin_transaction();
+
+    try {
+      $mysqli->query("UPDATE player_accounts SET data = '".json_encode($data)."' WHERE userId = ".$player['userId']."");
+      $mysqli->query("UPDATE player_equipment SET boosters = '".json_encode($boosters)."' WHERE userId = ".$player['userId']."");
+
+      $json['status'] = true;
+      $json['message'] = 'Sikeresen megvásároltad a '.$availableBoosters[$boosterType]['name'].' boostert.';
+      $json['purchasedBoosterType'] = $boosterType;
       $json['newStatus'] = [
         'uridium' => number_format($data->uridium),
         'credits' => number_format($data->credits)

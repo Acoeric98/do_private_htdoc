@@ -290,6 +290,43 @@ function safeParseJson(response) {
       }
     });
   });
+
+  $('.buy-booster').click(function() {
+    var button = $(this);
+
+    if (button.prop('disabled')) {
+      return;
+    }
+
+    button.prop('disabled', true);
+
+    $.ajax({
+      type: 'POST',
+      url: '<?php echo DOMAIN; ?>api/',
+      data: { action: 'buy_booster', boosterType: button.data('booster-type') },
+      success: function(response) {
+        var json = safeParseJson(response);
+
+        if (!json) {
+          button.prop('disabled', false);
+          return;
+        }
+
+        if (json.newStatus) {
+          $('#data #uridium').text(json.newStatus.uridium);
+          $('#data #credits').text(json.newStatus.credits);
+        }
+
+        if (!json.status) {
+          button.prop('disabled', false);
+        }
+
+        if (json.message != '') {
+          M.toast({html: '<span>'+ json.message +'</span>'});
+        }
+      }
+    });
+  });
 </script>
 <?php } ?>
 
