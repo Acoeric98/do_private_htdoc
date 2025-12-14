@@ -43,6 +43,8 @@ $chatBan = $mysqli->query('SELECT * FROM server_bans WHERE userId = '.$player['u
               </div>
               <div id="chat-fallback" class="chat-card__fallback" style="display: none;">
                 <p>The chat client could not be loaded. Please ensure Flash support is available in your browser.</p>
+                <p id="chat-fallback-reason"></p>
+                <p>Configuration files (base_563.xml and extended_563_0.xml) are already passed to the embed script; the usual cause of this error is missing Flash support.</p>
               </div>
             </div>
           <?php } ?>
