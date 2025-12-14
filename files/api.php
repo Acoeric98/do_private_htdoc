@@ -90,11 +90,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 if (isset($_POST['petName'])) {
                         echo Functions::BuyPet(Functions::s($_POST['petName']));
                 }
+        } else if ($request === 'change_pet_name') {
+                if (isset($_POST['petName'])) {
+                        echo Functions::ChangePetName(Functions::s($_POST['petName']));
+                }
         } else if ($request === 'use_researchPoints') {
                 if (isset($_POST['skill'])) {
                         echo Functions::UseResearchPoints(Functions::s($_POST['skill']));
                 }
-	} else if ($request === 'exchange_logdisks') {
+        } else if ($request === 'exchange_logdisks') {
 		echo Functions::ExchangeLogdisks();
 	} else if ($request === 'reset_skills') {
 		echo Functions::ResetSkills();

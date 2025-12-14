@@ -11,6 +11,11 @@ body {
   overflow-x: hidden;
 }
 
+:root {
+  --page-max-width: 1200px;
+  --page-gutter: 24px;
+}
+
 html, body {
   width: 100%;
   height: 100%;
@@ -74,6 +79,11 @@ a, a:active {
   min-height: 100vh;
 }
 
+#main > .container {
+  width: min(var(--page-max-width), calc(100% - (var(--page-gutter) * 2)));
+  margin: 0 auto;
+}
+
 .index {
   min-height: 100vh;
   position: relative;
@@ -116,6 +126,8 @@ nav {
   min-height: 150px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding: 0 var(--page-gutter);
 }
 
 .nav-wrapper::before {
@@ -135,23 +147,64 @@ nav {
   flex-direction: column;
   align-items: stretch;
   gap: 12px;
-  padding: 14px 0 18px;
+  width: 100%;
+  max-width: var(--page-max-width);
+  padding: 14px var(--page-gutter) 18px;
+  margin: 0 auto;
   z-index: 1;
+  width: min(var(--page-max-width), calc(100% - (var(--page-gutter) * 2)));
 }
 
-.nav-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-areas:
-    "hangar brand brand shop"
-    "equipment empty1 empty2 auction"
-    "pet start start settings"
-    "galaxy empty3 empty4 logout"
-    "uridium credit experience honor";
-  grid-auto-flow: row dense;
-  grid-auto-rows: 32px;
-  gap: 6px;
-  width: 100%;
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "hangar brand brand shop"
+      "equipment empty1 empty2 auction"
+      "pet start start clan"
+      "skill-tree start start settings"
+      "galaxy empty3 empty4 logout"
+      "uridium credit experience honor";
+    grid-auto-flow: row dense;
+    grid-auto-rows: 32px;
+    gap: 6px;
+    width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .nav-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      "brand brand brand"
+      "hangar shop equipment"
+      "auction pet clan"
+      "skill-tree start start"
+      "settings galaxy uridium"
+      "credit experience honor"
+      "logout logout logout";
+    grid-auto-rows: minmax(32px, auto);
+  }
+}
+
+@media (max-width: 780px) {
+  .nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "brand brand"
+      "hangar shop"
+      "equipment auction"
+      "pet start"
+      "skill-tree start"
+      "clan settings"
+      "galaxy uridium"
+      "credit experience"
+      "honor logout";
+    row-gap: 10px;
+  }
+
+  .nav-grid__item {
+    padding: 14px 16px 12px;
+  }
 }
 
 .nav-grid__item,
@@ -234,6 +287,8 @@ nav {
 .nav-grid__item--equipment { grid-area: equipment; }
 .nav-grid__item--auction { grid-area: auction; }
 .nav-grid__item--pet { grid-area: pet; }
+.nav-grid__item--skill-tree { grid-area: skill-tree; }
+.nav-grid__item--clan { grid-area: clan; }
 .nav-grid__item--settings { grid-area: settings; }
 .nav-grid__item--galaxy { grid-area: galaxy; }
 .nav-grid__item--logout { grid-area: logout; }

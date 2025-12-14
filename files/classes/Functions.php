@@ -435,9 +435,10 @@ class Functions {
     $diplomacyType = $mysqli->real_escape_string($diplomacyType);
 		$clan = $mysqli->query('SELECT * FROM server_clans WHERE id = '.$player['clanId'].'')->fetch_assoc();
 
-		$json = [
-			'message' => ''
-		];
+    $json = [
+      'status' => false,
+      'message' => ''
+    ];
 
     if ($clanId != 0) {
       if ($clan != NULL) {
@@ -459,12 +460,14 @@ class Functions {
 
                   $mysqli->query('DELETE FROM server_clan_diplomacy_applications WHERE senderClanId = '.$clan['id'].' AND toClanId = '.$toClan['id'].'');
 
+                  $json['status'] = true;
                   $json['message'] = 'You declared war on the '.$toClan['name'].' clan.';
 
                   $json['declared'] = [
                     'id' => $declaredId,
                     'date' => date('d.m.Y'),
                     'form' => ($diplomacyType == 1 ? 'Alliance' : ($diplomacyType == 2 ? 'NAP' : 'War')),
+                    'initiator' => $clan['name'],
                     'clan' => [
                       'id' => $toClan['id'],
                       'name' => $toClan['name']
@@ -478,6 +481,7 @@ class Functions {
 
                     $requestId = $mysqli->insert_id;
 
+                    $json['status'] = true;
                     $json['message'] = 'Your diplomacy request was sent.';
 
                     $json['request'] = [
@@ -1043,8 +1047,10 @@ class Functions {
 
               $json['acceptedRequest'] = [
                 'id' => $diplomacyId,
+                'clanId' => $fetch['senderClanId'],
                 'name' => $senderClanName,
                 'form' => $form,
+                'initiator' => $senderClanName,
                 'diplomacyType' => $fetch['diplomacyType'],
                 'date' => date('d.m.Y')
               ];
@@ -1319,6 +1325,72 @@ class Functions {
             $mysqli->commit();
         } catch (Exception $e) {
             $json['message'] = 'Hiba történt a vásárlás során. Próbáld meg később újra.';
+            $mysqli->rollback();
+        }
+
+        $mysqli->close();
+
+        return json_encode($json);
+    }
+
+    public static function ChangePetName($petName) {
+        $mysqli = Database::GetInstance();
+
+        $player = Functions::GetPlayer();
+        $petName = $mysqli->real_escape_string($petName);
+
+        $json = [
+            'status' => false,
+            'message' => ''
+        ];
+
+        $equipment = $mysqli->query('SELECT items FROM player_equipment WHERE userId = '.$player['userId'].'')->fetch_assoc();
+        $items = $equipment ? json_decode($equipment['items']) : null;
+        $data = json_decode($player['data']);
+
+        if (!$items) {
+            $json['message'] = 'Nem sikerült betölteni az adataidat. Próbáld újra!';
+            return json_encode($json);
+        }
+
+        if (!isset($items->pet) || !$items->pet) {
+            $json['message'] = 'Nincs P.E.T egységed.';
+            return json_encode($json);
+        }
+
+        if (mb_strlen($petName) < 3 || mb_strlen($petName) > 20 || !preg_match('/^[A-Za-z0-9 ._-]+$/', $petName)) {
+            $json['message'] = 'A P.E.T neve 3-20 karakter hosszú legyen, és csak betűket, számokat, szóközt, pontot, kötőjelet vagy aláhúzást tartalmazhat.';
+            return json_encode($json);
+        }
+
+        if ($player['petName'] === $petName) {
+            $json['message'] = 'Az új név nem lehet azonos a jelenlegivel.';
+            return json_encode($json);
+        }
+
+        $price = 3000;
+
+        if ($data->uridium < $price) {
+            $json['message'] = 'Nincs elég Uridiumod a névváltoztatáshoz.';
+            return json_encode($json);
+        }
+
+        $data->uridium -= $price;
+
+        $mysqli->begin_transaction();
+
+        try {
+            $mysqli->query("UPDATE player_accounts SET petName = '".$petName."', data = '".json_encode($data)."' WHERE userId = ".$player['userId']);
+
+            $json['status'] = true;
+            $json['message'] = 'Sikeresen megváltoztattad a P.E.T nevét.';
+            $json['newStatus'] = [
+                'uridium' => number_format($data->uridium)
+            ];
+
+            $mysqli->commit();
+        } catch (Exception $e) {
+            $json['message'] = 'Hiba történt a névváltoztatás során. Próbáld meg később újra.';
             $mysqli->rollback();
         }
 
@@ -1782,10 +1854,16 @@ class Functions {
       if (isset($_SESSION['account'])) {
         if (isset($_SESSION['account']['id'], $_SESSION['account']['session'])) {
           $id = $mysqli->real_escape_string(Functions::s($_SESSION['account']['id']));
-          $fetch = $mysqli->query('SELECT sessionId FROM player_accounts WHERE userId = '.$id.'')->fetch_assoc();
+          $result = $mysqli->query('SELECT sessionId FROM player_accounts WHERE userId = '.$id.'');
 
-          if ($fetch['sessionId'] === $_SESSION['account']['session']) {
-            return true;
+          if ($result !== false) {
+            $fetch = $result->fetch_assoc();
+
+            if (isset($fetch['sessionId']) && $fetch['sessionId'] === $_SESSION['account']['session']) {
+              return true;
+            } else {
+              return false;
+            }
           } else {
             return false;
           }
