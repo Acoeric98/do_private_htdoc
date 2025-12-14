@@ -73,9 +73,9 @@ class Functions {
 
   public static function GetFactionCode($factionId) {
     switch ((int)$factionId) {
-      case 2:
-        return 'mmo';
       case 1:
+        return 'mmo';
+      case 2:
         return 'eic';
       case 3:
         return 'vru';
