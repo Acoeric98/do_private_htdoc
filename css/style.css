@@ -159,25 +159,29 @@ nav {
 .nav-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 10px;
   width: 100%;
   align-items: stretch;
+  justify-content: center;
 }
 
 .nav-grid__item {
-  flex: 1 1 calc(25% - 6px);
+  flex: 0 0 calc(25% - 10px);
+  max-width: calc(25% - 10px);
 }
 
 .nav-grid__item--brand,
 .nav-grid__item--start,
 .nav-grid__item--home {
-  flex-basis: calc(50% - 6px);
+  flex-basis: calc(50% - 10px);
+  max-width: calc(50% - 10px);
 }
 
 .nav-grid__empty {
-  flex: 1 1 calc(25% - 6px);
+  flex: 0 0 calc(25% - 10px);
+  max-width: calc(25% - 10px);
   border-radius: 10px;
-  min-height: 32px;
+  min-height: 48px;
   visibility: hidden;
 }
 
@@ -187,21 +191,22 @@ nav {
 @supports not (display: grid) {
   .nav-grid__item,
   .nav-grid__empty {
-    flex: 0 0 calc(25% - 6px);
+    flex: 0 0 calc(25% - 10px);
+    max-width: calc(25% - 10px);
   }
 
   .nav-grid__item--start {
     min-height: 68px;
   }
 
-  @supports not (gap: 6px) {
+  @supports not (gap: 10px) {
     .nav-grid {
-      margin: -3px;
+      margin: -5px;
     }
 
     .nav-grid__item,
     .nav-grid__empty {
-      margin: 3px;
+      margin: 5px;
     }
   }
 }
@@ -218,7 +223,8 @@ nav {
         "galaxy home home logout"
         "uridium credit experience honor";
       grid-auto-flow: row dense;
-      grid-auto-rows: 32px;
+      grid-auto-rows: 48px;
+      gap: 10px;
     }
 
   .nav-grid__item,
@@ -244,7 +250,7 @@ nav {
       "company-change ships-boosters galaxy"
       "uridium credit experience"
       "honor logout logout";
-    grid-auto-rows: minmax(32px, auto);
+    grid-auto-rows: minmax(48px, auto);
   }
 }
 
@@ -277,6 +283,7 @@ nav {
   align-items: center;
   justify-content: center;
   padding: 6px 8px;
+  min-height: 48px;
   border-radius: 10px;
   background: linear-gradient(180deg, rgba(36, 51, 70, 0.88), rgba(18, 27, 40, 0.94));
   border: 1px solid rgba(87, 126, 162, 0.45);
