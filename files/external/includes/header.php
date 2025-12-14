@@ -13,7 +13,7 @@
     <?php if (Functions::IsLoggedIn() && (isset($page[0]) && $page[0] === 'skill_tree')) { ?>
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/skill-tree.css"/>
     <?php } ?>
-    <?php if (Functions::IsLoggedIn() && (isset($page[0]) && $page[0] === 'ships')) { ?>
+    <?php if (Functions::IsLoggedIn() && (isset($page[0]) && ($page[0] === 'ships' || $page[0] === 'ships-boosters'))) { ?>
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/ships.css"/>
     <?php } ?>
   </head>

@@ -1,9 +1,12 @@
 .ships {
   display: flex;
+  flex-direction: column;
   gap: 15px;
   padding: 10px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
 }
 
 .ship {
@@ -12,7 +15,7 @@
   margin: 0;
   min-width: 225px;
   min-height: 250px;
-  flex: 0 0 225px;
+  flex: 0 0 250px;
   text-align: center;
   border: 2px solid #4c4c4c;
   position: relative;
@@ -37,7 +40,7 @@
 }
 
 .ships::-webkit-scrollbar {
-  height: 8px;
+  width: 8px;
 }
 
 .ships::-webkit-scrollbar-thumb {
