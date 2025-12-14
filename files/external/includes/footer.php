@@ -1260,9 +1260,13 @@ $('#end-war').click(function() {
   <script type="text/javascript" src="<?php echo DOMAIN; ?>js/darkorbit/jquery.flashembed.js"></script>
   <script type="text/javascript">
     (function() {
-      function showFallback($) {
+      function showFallback($, reason) {
         $('#chat-wrapper').hide();
         $('#chat-fallback').show();
+
+        if (reason) {
+          $('#chat-fallback-reason').text(reason);
+        }
       }
 
       function initChat() {
@@ -1273,17 +1277,17 @@ $('#end-war').click(function() {
         var $ = window.jQuery;
 
         if (typeof flashembed === 'undefined') {
-          showFallback($);
+          showFallback($, 'The Flash embedding library is not available.');
           return;
         }
 
         if (typeof flashembed.isSupported === 'function' && !flashembed.isSupported([11, 0])) {
-          showFallback($);
+          showFallback($, 'Flash Player 11+ is not available in this browser.');
           return;
         }
 
         flashembed('chat-swf', {
-          onFail: function() { showFallback($); },
+          onFail: function() { showFallback($, 'The chat client could not be embedded.'); },
           src: '<?php echo DOMAIN; ?>gamechat/as3/chat.swf',
           version: [11, 0],
           width: '100%',
