@@ -189,10 +189,10 @@ nav {
     grid-template-columns: repeat(4, 1fr);
       grid-template-areas:
         "hangar brand brand shop"
-        "equipment company-change empty2 auction"
+        "equipment company-change ships-boosters auction"
         "pet start start clan"
         "skill-tree start start settings"
-        "galaxy empty3 empty4 logout"
+        "galaxy home home logout"
         "uridium credit experience honor";
       grid-auto-flow: row dense;
       grid-auto-rows: 32px;
@@ -217,7 +217,8 @@ nav {
       "hangar shop equipment"
       "auction pet clan"
       "skill-tree start start"
-      "company-change settings galaxy"
+      "home start start"
+      "company-change ships-boosters galaxy"
       "uridium credit experience"
       "honor logout logout";
     grid-auto-rows: minmax(32px, auto);
@@ -233,8 +234,10 @@ nav {
       "equipment auction"
       "pet start"
       "skill-tree start"
+      "home start"
       "clan settings"
-      "company-change galaxy"
+      "company-change ships-boosters"
+      "galaxy galaxy"
       "uridium credit"
       "experience honor"
       "logout logout";
@@ -323,14 +326,16 @@ nav {
 .nav-grid__item--brand { grid-area: brand; order: 2; }
 .nav-grid__item--shop { grid-area: shop; order: 3; }
 .nav-grid__item--equipment { grid-area: equipment; order: 4; }
+.nav-grid__item--ships-boosters { grid-area: ships-boosters; order: 6; }
 .nav-grid__item--company-change { grid-area: company-change; order: 5; }
 .nav-grid__item--auction { grid-area: auction; order: 7; }
 .nav-grid__item--pet { grid-area: pet; order: 8; }
 .nav-grid__item--start { grid-area: start; order: 9; }
-.nav-grid__item--clan { grid-area: clan; order: 10; }
-.nav-grid__item--skill-tree { grid-area: skill-tree; order: 11; }
-.nav-grid__item--settings { grid-area: settings; order: 12; }
-.nav-grid__item--galaxy { grid-area: galaxy; order: 13; }
+.nav-grid__item--home { grid-area: home; order: 10; }
+.nav-grid__item--clan { grid-area: clan; order: 11; }
+.nav-grid__item--skill-tree { grid-area: skill-tree; order: 12; }
+.nav-grid__item--settings { grid-area: settings; order: 13; }
+.nav-grid__item--galaxy { grid-area: galaxy; order: 14; }
 .nav-grid__item--logout { grid-area: logout; order: 16; }
 .nav-grid__item--uridium { grid-area: uridium; order: 17; }
 .nav-grid__item--credit { grid-area: credit; order: 18; }

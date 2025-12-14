@@ -26,18 +26,20 @@
           <div class="container nav-shell">
             <div class="nav-grid">
               <a class="nav-grid__item nav-grid__item--hangar" href="<?php echo DOMAIN; ?>ships">Hangar</a>
-              <a class="nav-grid__item nav-grid__item--brand" href="<?php echo DOMAIN; ?>">
+              <div class="nav-grid__item nav-grid__item--brand">
                 <div>Zero Tolerance PvP</div>
                 <span>Pilot ID: <?php echo $player['userId']; ?></span>
-              </a>
+              </div>
               <a class="nav-grid__item nav-grid__item--shop" href="<?php echo DOMAIN; ?>shop">Shop</a>
 
               <a class="nav-grid__item nav-grid__item--equipment" href="<?php echo DOMAIN; ?>equipment">Equipment</a>
+              <a class="nav-grid__item nav-grid__item--ships-boosters" href="<?php echo DOMAIN; ?>ships-boosters">Ships &amp; Boosters</a>
               <a class="nav-grid__item nav-grid__item--auction" href="<?php echo DOMAIN; ?>auction">Auction</a>
 
               <a class="nav-grid__item nav-grid__item--pet" href="<?php echo DOMAIN; ?>pet-15">Pet</a>
               <a class="nav-grid__item nav-grid__item--skill-tree" href="<?php echo DOMAIN; ?>skill_tree">Skill Tree</a>
               <a class="nav-grid__item nav-grid__item--start" href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a>
+              <a class="nav-grid__item nav-grid__item--home" href="<?php echo DOMAIN; ?>home">Főoldal</a>
               <a class="nav-grid__item nav-grid__item--clan" href="<?php echo DOMAIN; ?>clan-hub">Clan</a>
               <a class="nav-grid__item nav-grid__item--settings" href="<?php echo DOMAIN; ?>settings">Settings</a>
               <a class="nav-grid__item nav-grid__item--company-change" href="<?php echo DOMAIN; ?>company-change">Megbízóváltás</a>
