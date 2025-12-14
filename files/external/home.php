@@ -33,7 +33,6 @@
                     <li class="tab"><a href="#pilots">PILOTS</a></li>
                     <li class="tab"><a href="#clans">CLANS</a></li>
                     <li class="tab"><a href="#warRanks">WAR RANKS</a></li>
-                    <li class="tab"><a href="#company">MEGBÍZÓ VÁLTÁS</a></li>
                   </ul>
                   <div id="pilots">
                     <table class="striped highlight">
@@ -64,10 +63,6 @@
                       <?php } ?>
                       </tbody>
                     </table>
-                  </div>
-                  <div id="company" class="padding-15">
-                    <p class="left-align grey-text text-lighten-1">Válts céget, ha más megbízót szeretnél szolgálni. A váltás 5 000 uridiumba kerül és a becsületed felét viszi tovább.</p>
-                    <?php require(INCLUDES . 'clan/company.php'); ?>
                   </div>
                   <div id="clans">
                     <table class="striped highlight">

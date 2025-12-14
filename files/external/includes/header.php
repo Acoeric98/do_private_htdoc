@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/style.css"/>
-    <?php if (Functions::IsLoggedIn() && ((isset($page[0]) && $page[0] === 'company_select') || (isset($page[0]) && $page[0] === 'home') || (isset($page[0]) && $page[0] === 'clan' && isset($page[1]) && $page[1] === 'company'))) { ?>
+    <?php if (Functions::IsLoggedIn() && ((isset($page[0]) && $page[0] === 'company_select') || (isset($page[0]) && $page[0] === 'company_change') || (isset($page[0]) && $page[0] === 'clan' && isset($page[1]) && $page[1] === 'company'))) { ?>
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/company-select.css"/>
     <?php } ?>
     <?php if (Functions::IsLoggedIn() && (isset($page[0]) && $page[0] === 'skill_tree')) { ?>
@@ -40,7 +40,7 @@
               <a class="nav-grid__item nav-grid__item--start" href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a>
               <a class="nav-grid__item nav-grid__item--clan" href="<?php echo DOMAIN; ?>clan-hub">Clan</a>
               <a class="nav-grid__item nav-grid__item--settings" href="<?php echo DOMAIN; ?>settings">Settings</a>
-              <a class="nav-grid__item nav-grid__item--company-change" href="<?php echo DOMAIN; ?>#company">Megbízóváltás</a>
+              <a class="nav-grid__item nav-grid__item--company-change" href="<?php echo DOMAIN; ?>company-change">Megbízóváltás</a>
 
               <a class="nav-grid__item nav-grid__item--galaxy" href="<?php echo DOMAIN; ?>galaxy-gates">Galaxy Gates</a>
               <a class="nav-grid__item nav-grid__item--logout" href="/api/logout">Logout</a>
