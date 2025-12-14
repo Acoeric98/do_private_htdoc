@@ -169,7 +169,8 @@ nav {
 }
 
 .nav-grid__item--brand,
-.nav-grid__item--start {
+.nav-grid__item--start,
+.nav-grid__item--home {
   flex-basis: calc(50% - 6px);
 }
 
@@ -182,6 +183,28 @@ nav {
 
 .nav-grid__empty--auction-gap { order: 6; }
 .nav-grid__empty--logout-gap { order: 14; }
+
+@supports not (display: grid) {
+  .nav-grid__item,
+  .nav-grid__empty {
+    flex: 0 0 calc(25% - 6px);
+  }
+
+  .nav-grid__item--start {
+    min-height: 68px;
+  }
+
+  @supports not (gap: 6px) {
+    .nav-grid {
+      margin: -3px;
+    }
+
+    .nav-grid__item,
+    .nav-grid__empty {
+      margin: 3px;
+    }
+  }
+}
 
 @supports (display: grid) {
   .nav-grid {
