@@ -1256,6 +1256,60 @@ $('#end-war').click(function() {
 </script>
 <?php } ?>
 
+<?php if (Functions::IsLoggedIn() && $page[0] === 'chat') { ?>
+  <script type="text/javascript" src="<?php echo DOMAIN; ?>js/darkorbit/jquery.flashembed.js"></script>
+  <script type="text/javascript">
+    (function() {
+      function showFallback($) {
+        $('#chat-wrapper').hide();
+        $('#chat-fallback').show();
+      }
+
+      function initChat() {
+        if (typeof window.jQuery === 'undefined') {
+          return window.setTimeout(initChat, 50);
+        }
+
+        var $ = window.jQuery;
+
+        if (typeof flashembed === 'undefined') {
+          showFallback($);
+          return;
+        }
+
+        if (typeof flashembed.isSupported === 'function' && !flashembed.isSupported([11, 0])) {
+          showFallback($);
+          return;
+        }
+
+        flashembed('chat-swf', {
+          onFail: function() { showFallback($); },
+          src: '<?php echo DOMAIN; ?>gamechat/as3/chat.swf',
+          version: [11, 0],
+          width: '100%',
+          height: '500',
+          wmode: 'direct',
+          bgcolor: '#000000',
+          id: 'chatClient',
+          allowfullscreen: 'true',
+          allowFullScreenInteractive: 'true'
+        }, {
+          lang: 'en',
+          userID: '<?php echo $player['userId']; ?>',
+          sessionID: '<?php echo $player['sessionId']; ?>',
+          basePath: 'gamechat/as3',
+          pid: '563',
+          configXML: '<?php echo DOMAIN; ?>gamechat/as3/cfg/base_563.xml',
+          configExtXML: '<?php echo DOMAIN; ?>gamechat/as3/cfg/extended_563_0.xml',
+          langXML: '<?php echo DOMAIN; ?>gamechat/as3/lang/en/resource.xml'
+        });
+      }
+
+      initChat();
+    })();
+  </script>
+<?php } ?>
+
 <?php if (Functions::IsLoggedIn() && $page[0] === 'equipment') { ?>
   <script type="text/javascript" src="<?php echo DOMAIN; ?>js/darkorbit/jquery.flashembed.js"></script>
   <script type='text/javascript'>
