@@ -1,8 +1,8 @@
 .ships {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  padding: 10px 0 5px;
   max-height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
@@ -10,33 +10,98 @@
 }
 
 .ship {
-  padding: 15px;
-  background: #4c4c4c;
+  --ship-accent: #b1b1b1;
+  padding: 0;
+  background: linear-gradient(180deg, #4c4c4c 0%, #373737 100%);
   margin: 0;
   min-width: 225px;
-  min-height: 250px;
-  flex: 0 0 250px;
+  min-height: 260px;
+  flex: 0 0 260px;
   text-align: center;
   border: 2px solid #4c4c4c;
   position: relative;
   scroll-snap-align: start;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .ship img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  max-width: 140px;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.55));
 }
 .ship:hover {
   cursor: pointer;
-  transition: all 0.3s;
-  background: #3c3c3c;
-  border-color: #3c3c3c;
+  transform: translateY(-2px);
+  border-color: #5a5a5a;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
 .ship.active {
-  border-color: #b1b1b1;
+  border-color: var(--ship-accent);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.6), 0 10px 24px rgba(0,0,0,0.65);
+}
+
+.ship__image {
+  position: relative;
+  height: 175px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.12), transparent 50%);
+}
+
+.ship__image-glow {
+  position: absolute;
+  inset: 20px 30px;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.22), rgba(0,0,0,0));
+  filter: blur(6px);
+  opacity: 0.5;
+  display: block;
+}
+
+.ship__meta {
+  padding: 12px 16px 16px;
+  background: rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: left;
+}
+
+.ship__name {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+}
+
+.ship__company {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid var(--ship-accent);
+  color: var(--ship-accent);
+  background: rgba(255,255,255,0.04);
+}
+
+.ship--mmo {
+  --ship-accent: #ff9800;
+}
+
+.ship--eic {
+  --ship-accent: #00bcd4;
+}
+
+.ship--vru {
+  --ship-accent: #8bc34a;
 }
 
 .ships::-webkit-scrollbar {
