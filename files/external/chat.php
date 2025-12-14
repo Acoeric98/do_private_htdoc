@@ -73,6 +73,11 @@ $chatBan = $mysqli->query('SELECT * FROM server_bans WHERE userId = '.$player['u
           return;
         }
 
+        if (typeof flashembed.isSupported === 'function' && !flashembed.isSupported([11, 0])) {
+          showFallback($);
+          return;
+        }
+
         flashembed('chat-swf', {
           onFail: function() { showFallback($); },
           src: '<?php echo DOMAIN; ?>gamechat/as3/chat.swf',
