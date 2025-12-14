@@ -604,7 +604,7 @@ $('body').on('click', '.cancel-request', function() {
       if (json.status) {
         $('#pending-requests').find('#pending-request-'+ requestId +'').remove();
 
-        if ($('#pending-requests').length <= 1) {
+        if ($('#pending-requests tbody tr').length <= 0) {
           $('#modal').modal('close');
           $('#open_applications_button').css({display: 'none'});
         }
@@ -936,7 +936,7 @@ $('#end-war').click(function() {
 </script>
 <?php } ?>
 
-<?php if (Functions::IsLoggedIn() && isset($page[1]) && $page[1] === 'company') { ?>
+<?php if (Functions::IsLoggedIn() && ((isset($page[1]) && $page[1] === 'company') || (isset($page[0]) && $page[0] === 'home'))) { ?>
 <script type="text/javascript">
   var currentFactionCode = "";
   var currentFactionName = "%faction_name%";

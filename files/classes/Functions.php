@@ -435,9 +435,10 @@ class Functions {
     $diplomacyType = $mysqli->real_escape_string($diplomacyType);
 		$clan = $mysqli->query('SELECT * FROM server_clans WHERE id = '.$player['clanId'].'')->fetch_assoc();
 
-		$json = [
-			'message' => ''
-		];
+    $json = [
+      'status' => false,
+      'message' => ''
+    ];
 
     if ($clanId != 0) {
       if ($clan != NULL) {
@@ -459,6 +460,7 @@ class Functions {
 
                   $mysqli->query('DELETE FROM server_clan_diplomacy_applications WHERE senderClanId = '.$clan['id'].' AND toClanId = '.$toClan['id'].'');
 
+                  $json['status'] = true;
                   $json['message'] = 'You declared war on the '.$toClan['name'].' clan.';
 
                   $json['declared'] = [
@@ -479,6 +481,7 @@ class Functions {
 
                     $requestId = $mysqli->insert_id;
 
+                    $json['status'] = true;
                     $json['message'] = 'Your diplomacy request was sent.';
 
                     $json['request'] = [
