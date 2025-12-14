@@ -1264,6 +1264,83 @@ class Functions {
                 return json_encode($json);
         }
 
+  public static function BuyShip($shipId) {
+    $mysqli = Database::GetInstance();
+
+    $player = Functions::GetPlayer();
+    $shipId = (int)$mysqli->real_escape_string($shipId);
+
+    $json = [
+      'status' => false,
+      'message' => ''
+    ];
+
+    $availableShips = [1, 2, 3, 4, 5, 6, 7, 9, 49, 69, 70, 156];
+
+    if (!in_array($shipId, $availableShips)) {
+      $json['message'] = 'Something went wrong!';
+      return json_encode($json);
+    }
+
+    $ship = $mysqli->query('SELECT shipID, name FROM server_ships WHERE shipID = '.$shipId.'')->fetch_assoc();
+    $equipmentRow = $mysqli->query('SELECT items FROM player_equipment WHERE userId = '.$player['userId'].'')->fetch_assoc();
+
+    if (!$ship || !$equipmentRow) {
+      $json['message'] = 'Something went wrong!';
+      return json_encode($json);
+    }
+
+    $items = json_decode($equipmentRow['items']);
+    $data = json_decode($player['data']);
+
+    if (!$items) {
+      $items = new stdClass();
+    }
+
+    if (!isset($items->ships) || !is_array($items->ships)) {
+      $items->ships = [];
+    }
+
+    if (in_array($shipId, $items->ships)) {
+      $json['message'] = 'Már rendelkezel ezzel a hajóval.';
+      return json_encode($json);
+    }
+
+    $price = 10000;
+
+    if ($data->uridium < $price) {
+      $json['message'] = "Nincs elég Uridiumod a vásárláshoz.";
+      return json_encode($json);
+    }
+
+    $items->ships[] = $shipId;
+    $data->uridium -= $price;
+
+    $mysqli->begin_transaction();
+
+    try {
+      $mysqli->query("UPDATE player_accounts SET data = '".json_encode($data)."' WHERE userId = ".$player['userId']."");
+      $mysqli->query("UPDATE player_equipment SET items = '".json_encode($items)."' WHERE userId = ".$player['userId']."");
+
+      $json['status'] = true;
+      $json['message'] = 'Sikeres vásárlás: '.$ship['name'].' hajó a flottádban.';
+      $json['purchasedShipId'] = $shipId;
+      $json['newStatus'] = [
+        'uridium' => number_format($data->uridium),
+        'credits' => number_format($data->credits)
+      ];
+
+      $mysqli->commit();
+    } catch (Exception $e) {
+      $json['message'] = 'An error occurred. Please try again later.';
+      $mysqli->rollback();
+    }
+
+    $mysqli->close();
+
+    return json_encode($json);
+  }
+
     public static function BuyPet($petName) {
         $mysqli = Database::GetInstance();
 
