@@ -71,6 +71,41 @@ class Functions {
     ob_end_flush();
   }
 
+  public static function GetFactionCode($factionId) {
+    switch ((int)$factionId) {
+      case 2:
+        return 'mmo';
+      case 1:
+        return 'eic';
+      case 3:
+        return 'vru';
+      default:
+        return '';
+    }
+  }
+
+  public static function ApplyCompanyShipVariant($lootId, $factionId) {
+    if (!is_string($lootId) || $lootId === '') {
+      return $lootId;
+    }
+
+    $company = Functions::GetFactionCode($factionId);
+
+    if ($company === '') {
+      return $lootId;
+    }
+
+    $companyShips = ['ship_aegis', 'ship_citadel', 'ship_spearhead'];
+
+    foreach ($companyShips as $shipId) {
+      if (strpos($lootId, $shipId) !== false && strpos($lootId, $shipId . '-') === false) {
+        return str_replace($shipId, $shipId . '-' . $company, $lootId);
+      }
+    }
+
+    return $lootId;
+  }
+
   public static function Register($username, $password, $password_confirm, $email) {
     $mysqli = Database::GetInstance();
 

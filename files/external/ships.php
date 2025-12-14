@@ -14,6 +14,7 @@
                     $ship = $mysqli->query('SELECT * FROM server_ships WHERE shipID = '.$shipId.'')->fetch_assoc();
                     $currentShip = $mysqli->query('SELECT * FROM server_ships WHERE shipID = '.$player['shipId'].'')->fetch_assoc();
                     $lootId = $currentShip['baseShipId'] != $shipId ? $ship['lootID'] : ($player['shipId'] == 153 ? 'ship_goliath_design_razer' : $currentShip['lootID']);
+                    $lootId = Functions::ApplyCompanyShipVariant($lootId, $player['factionId']);
                     $lootId = str_replace('_', '/', $lootId);
                   ?>
                   <div id="<?php echo $ship['lootID']; ?>" class="ship<?php echo $currentShip['baseShipId'] == $shipId ? ' active' : ''; ?>">
