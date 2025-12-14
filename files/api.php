@@ -86,6 +86,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 if (isset($_POST['itemId'], $_POST['amount'])) {
                         echo Functions::Buy(Functions::s($_POST['itemId']), Functions::s($_POST['amount']));
                 }
+        } else if ($request === 'buy_ship') {
+                if (isset($_POST['shipId'])) {
+                        echo Functions::BuyShip(Functions::s($_POST['shipId']));
+                }
         } else if ($request === 'buy_pet') {
                 if (isset($_POST['petName'])) {
                         echo Functions::BuyPet(Functions::s($_POST['petName']));

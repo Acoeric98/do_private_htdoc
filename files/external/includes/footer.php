@@ -241,6 +241,58 @@ function safeParseJson(response) {
 </script>
 <?php } ?>
 
+<?php if (Functions::IsLoggedIn() && $page[0] === 'ships_boosters') { ?>
+<script type="text/javascript">
+  $('.buy-ship').click(function() {
+    var button = $(this);
+
+    if (button.prop('disabled')) {
+      return;
+    }
+
+    button.prop('disabled', true);
+
+    $.ajax({
+      type: 'POST',
+      url: '<?php echo DOMAIN; ?>api/',
+      data: { action: 'buy_ship', shipId: button.data('ship-id') },
+      success: function(response) {
+        var json = safeParseJson(response);
+
+        if (!json) {
+          button.prop('disabled', false);
+          return;
+        }
+
+        if (json.newStatus) {
+          $('#data #uridium').text(json.newStatus.uridium);
+          $('#data #credits').text(json.newStatus.credits);
+        }
+
+        if (json.purchasedShipId) {
+          var card = $('#ship-card-'+ json.purchasedShipId);
+          card.fadeOut(200, function() {
+            $(this).remove();
+
+            if (!$('.ship-card').length) {
+              $('#no-ship-info').show();
+            }
+          });
+        }
+
+        if (!json.status) {
+          button.prop('disabled', false);
+        }
+
+        if (json.message != '') {
+          M.toast({html: '<span>'+ json.message +'</span>'});
+        }
+      }
+    });
+  });
+</script>
+<?php } ?>
+
 <?php if (Functions::IsLoggedIn() && $page[0] === 'skill_tree') { ?>
 <script type="text/javascript">
   $('#exchangeLogdisks').click(function() {
