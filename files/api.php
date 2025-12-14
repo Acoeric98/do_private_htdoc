@@ -90,6 +90,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 if (isset($_POST['shipId'])) {
                         echo Functions::BuyShip(Functions::s($_POST['shipId']));
                 }
+        } else if ($request === 'buy_booster') {
+                if (isset($_POST['boosterType'])) {
+                        echo Functions::BuyBooster(Functions::s($_POST['boosterType']));
+                }
         } else if ($request === 'buy_pet') {
                 if (isset($_POST['petName'])) {
                         echo Functions::BuyPet(Functions::s($_POST['petName']));
