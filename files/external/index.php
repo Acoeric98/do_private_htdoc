@@ -4,11 +4,11 @@
             <div class="col l5 s12">
               <div class="card glass-panel">
                 <div class="card-content">
-                  <div class="section-title">Welcome, pilot</div>
-                  <h5 class="white-text">Suit up for the next generation of space combat.</h5>
-                  <p>Join <strong><?php echo SERVER_NAME; ?></strong> and step into a neon-lit battlefield with refreshed controls, faster onboarding, and a sleeker hangar interface.</p>
-                  <div class="stat-pill"><span class="dot"></span><span>Faction wars &amp; clan diplomacy</span></div>
-                  <div class="stat-pill" style="margin-left: 8px;"><span class="dot"></span><span>Fully reworked UI theme</span></div>
+                  <div class="section-title">Üdv, pilóta</div>
+                  <h5 class="white-text">Megérkezett a következő generációs űrcsata.</h5>
+                  <p>Csatlakozz a <strong><?php echo SERVER_NAME; ?></strong> univerzumához: frissítettük az irányítást, gyorsabb lett a belépés és letisztultabb, modernebb hangár vár rád.</p>
+                  <div class="stat-pill"><span class="dot"></span><span>Frakcióháborúk és klándiplomácia</span></div>
+                  <div class="stat-pill" style="margin-left: 8px;"><span class="dot"></span><span>Teljesen átdolgozott felület</span></div>
                 </div>
               </div>
             </div>
