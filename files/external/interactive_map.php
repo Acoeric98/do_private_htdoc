@@ -324,8 +324,9 @@ TXT;
     };
 
     for (const [g, list] of byG) {
-      const colX = (COL_X[g] ?? COL_X[0]) * w;
-      const span = spans[g] ?? spans[0];
+      const colVal = (COL_X[g] !== undefined && COL_X[g] !== null) ? COL_X[g] : COL_X[0];
+      const span = (spans[g] !== undefined && spans[g] !== null) ? spans[g] : spans[0];
+      const colX = colVal * w;
       const count = Math.max(1, list.length);
 
       for (let i = 0; i < list.length; i++) {
