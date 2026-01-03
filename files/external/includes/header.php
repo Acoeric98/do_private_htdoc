@@ -27,51 +27,59 @@
       <nav>
         <div class="nav-wrapper grey darken-4">
           <div class="container nav-shell">
-            <div class="nav-grid">
-              <a class="nav-grid__item nav-grid__item--hangar" href="<?php echo DOMAIN; ?>ships">Hangar</a>
-              <div class="nav-grid__item nav-grid__item--brand">
-                <div>Zero Tolerance PvP</div>
-                <span>Pilot ID: <?php echo $player['userId']; ?></span>
-              </div>
-              <a class="nav-grid__item nav-grid__item--shop" href="<?php echo DOMAIN; ?>shop">Shop</a>
-
-              <a class="nav-grid__item nav-grid__item--equipment" href="<?php echo DOMAIN; ?>equipment">Equipment</a>
-              <a class="nav-grid__item nav-grid__item--ships-boosters" href="<?php echo DOMAIN; ?>ships-boosters">Ships &amp; Boosters</a>
-              <a class="nav-grid__item nav-grid__item--auction" href="<?php echo DOMAIN; ?>auction">Auction</a>
-
-              <a class="nav-grid__item nav-grid__item--pet" href="<?php echo DOMAIN; ?>pet-15">Pet</a>
-              <a class="nav-grid__item nav-grid__item--skill-tree" href="<?php echo DOMAIN; ?>skill_tree">Skill Tree</a>
-              <a class="nav-grid__item nav-grid__item--start" href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a>
-              <a class="nav-grid__item nav-grid__item--map" href="<?php echo DOMAIN; ?>interactive_map">Térkép</a>
-              <a class="nav-grid__item nav-grid__item--home" href="<?php echo DOMAIN; ?>home">Főoldal</a>
-              <a class="nav-grid__item nav-grid__item--settings" href="<?php echo DOMAIN; ?>settings">Settings</a>
-              <a class="nav-grid__item nav-grid__item--clan" href="<?php echo DOMAIN; ?>clan-hub">Clan</a>
-              <a class="nav-grid__item nav-grid__item--company-change" href="<?php echo DOMAIN; ?>company-change">Megbízóváltás</a>
-
-              <div class="nav-grid__empty nav-grid__empty--auction-gap" aria-hidden="true"></div>
-
-              <a class="nav-grid__item nav-grid__item--galaxy" href="<?php echo DOMAIN; ?>galaxy-gates">Galaxy Gates</a>
-              <div class="nav-grid__empty nav-grid__empty--logout-gap" aria-hidden="true"></div>
-              <div class="nav-grid__empty nav-grid__empty--logout-gap" aria-hidden="true"></div>
-              <a class="nav-grid__item nav-grid__item--logout" href="/api/logout">Logout</a>
-
-              <div class="nav-grid__item nav-grid__item--uridium">
-                <div class="nav-grid__stat-label">Uridium</div>
-                <div class="nav-grid__stat-value" id="uridium"><?php echo number_format($data->uridium, 0, ',', '.'); ?></div>
-              </div>
-              <div class="nav-grid__item nav-grid__item--credit">
-                <div class="nav-grid__stat-label">Credit</div>
-                <div class="nav-grid__stat-value" id="credits"><?php echo number_format($data->credits, 0, ',', '.'); ?></div>
-              </div>
-              <div class="nav-grid__item nav-grid__item--experience">
-                <div class="nav-grid__stat-label">Experience</div>
-                <div class="nav-grid__stat-value"><?php echo number_format($data->experience, 0, ',', '.'); ?></div>
-              </div>
-              <div class="nav-grid__item nav-grid__item--honor">
-                <div class="nav-grid__stat-label">Honor</div>
-                <div class="nav-grid__stat-value"><?php echo number_format($data->honor, 0, ',', '.'); ?></div>
-              </div>
-            </div>
+            <table class="nav-table" role="presentation">
+              <thead>
+                <tr>
+                  <th><a href="<?php echo DOMAIN; ?>ships">HANGAR</a></th>
+                  <th class="nav-table__brand" colspan="2">
+                    <div class="nav-table__brand-title">ZERO TOLERANCE PVP</div>
+                    <div class="nav-table__brand-id">Pilot ID: <?php echo $player['userId']; ?></div>
+                  </th>
+                  <th><a href="<?php echo DOMAIN; ?>shop">SHOP</a></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="<?php echo DOMAIN; ?>equipment">EQUIPMENT</a></td>
+                  <td><a href="<?php echo DOMAIN; ?>company-change">MEGBÍZÓ VÁLTÁS</a></td>
+                  <td><a href="<?php echo DOMAIN; ?>ships-boosters">SHIP &amp; BOOSTER</a></td>
+                  <td><a href="<?php echo DOMAIN; ?>auction">AUCTION</a></td>
+                </tr>
+                <tr>
+                  <td><a href="<?php echo DOMAIN; ?>pet-15">PET</a></td>
+                  <td class="nav-table__start" colspan="2" rowspan="2"><a href="<?php echo DOMAIN; ?>map-revolution" target="_blank" rel="noreferrer">START</a></td>
+                  <td><a href="<?php echo DOMAIN; ?>clan-hub">CLAN</a></td>
+                </tr>
+                <tr>
+                  <td><a href="<?php echo DOMAIN; ?>skill_tree">SKILL TREE</a></td>
+                  <td><a href="<?php echo DOMAIN; ?>settings">SETTINGS</a></td>
+                </tr>
+                <tr>
+                  <td><a href="<?php echo DOMAIN; ?>galaxy-gates">GALAXY GATE</a></td>
+                  <td><a href="<?php echo DOMAIN; ?>home">FŐOLDAL</a></td>
+                  <td><a href="<?php echo DOMAIN; ?>interactive_map">MAP</a></td>
+                  <td><a href="/api/logout">LOGOUT</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="nav-table__stat-label">URIDIUM</span>
+                    <span class="nav-table__stat-value" id="uridium"><?php echo number_format($data->uridium, 0, ',', '.'); ?></span>
+                  </td>
+                  <td>
+                    <span class="nav-table__stat-label">CREDIT</span>
+                    <span class="nav-table__stat-value" id="credits"><?php echo number_format($data->credits, 0, ',', '.'); ?></span>
+                  </td>
+                  <td>
+                    <span class="nav-table__stat-label">EXPERIENCE</span>
+                    <span class="nav-table__stat-value"><?php echo number_format($data->experience, 0, ',', '.'); ?></span>
+                  </td>
+                  <td>
+                    <span class="nav-table__stat-label">HONOR</span>
+                    <span class="nav-table__stat-value"><?php echo number_format($data->honor, 0, ',', '.'); ?></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </nav>
