@@ -309,6 +309,78 @@ nav {
   transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
+.nav-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(36, 51, 70, 0.9), rgba(18, 27, 40, 0.95));
+  border: 1px solid rgba(87, 126, 162, 0.45);
+  color: #e6eefb;
+}
+
+.nav-table th,
+.nav-table td {
+  padding: 12px 10px;
+  border: 1px solid rgba(87, 126, 162, 0.35);
+}
+
+.nav-table a {
+  color: #e6eefb;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  display: block;
+  padding: 8px 4px;
+}
+
+.nav-table a:hover {
+  color: #ffffff;
+}
+
+.nav-table__brand {
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+}
+
+.nav-table__brand-title {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.nav-table__brand-id {
+  color: #9ab5da;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
+.nav-table__start {
+  background: linear-gradient(180deg, #63e65c 0%, #45b94b 55%, #2f7e33 100%);
+  color: #0b180c;
+  font-weight: 800;
+}
+
+.nav-table__start a {
+  color: inherit;
+}
+
+.nav-table__start a:hover {
+  color: #0b180c;
+}
+
+.nav-table__stat-label {
+  display: block;
+  color: #99b6db;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+.nav-table__stat-value {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
 .nav-grid__item:hover {
   color: #ffffff;
   border-color: rgba(75, 176, 255, 0.8);
