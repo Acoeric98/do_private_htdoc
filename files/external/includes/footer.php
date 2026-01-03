@@ -580,13 +580,13 @@ function safeParseJson(response) {
               return;
             }
           for (var index in json) {
-            $('#clan-list tbody').append('
+            $('#clan-list tbody').append(`
               <tr>
-                <td><a href="<?php echo DOMAIN; ?>clan/clan-details/'+json[index].id+'">['+ json[index].tag +'] '+json[index].name+'</a></td>
-                <td>'+ json[index].members +'</td>
-                <td>'+ json[index].rank +'</td>
-                <td>'+ json[index].rankPoints +'</td>
-              </tr>');
+                <td><a href="<?php echo DOMAIN; ?>clan/clan-details/${json[index].id}">[${json[index].tag}] ${json[index].name}</a></td>
+                <td>${json[index].members}</td>
+                <td>${json[index].rank}</td>
+                <td>${json[index].recruiting ? 'Recruiting' : 'Closed'}</td>
+              </tr>`);
           }
         }
       });
@@ -615,10 +615,10 @@ $('input[name=keywords]').on('keyup keypress keydown click', function() {
             return;
           }
         for (var index in json) {
-          $('#dropdown3').append('
+          $('#dropdown3').append(`
             <li>
-              <a href="javascript:void(0)" data-clan-id="'+ json[index].id +'">['+ json[index].tag +'] '+ json[index].name +'</a>
-            </li>');
+              <a href="javascript:void(0)" data-clan-id="${json[index].id}">[${json[index].tag}] ${json[index].name}</a>
+            </li>`);
         }
       }
     });
@@ -648,25 +648,25 @@ $('#request_diplomacy').submit(function(e) {
       if (json.request) {
         $('#open_applications_button').css({display: 'inline-block'});
 
-        $('#pending-requests tbody').append('
-          <tr id="pending-request-'+ json.request.id +'">
-            <td>'+ json.request.date +'</td>
-            <td>'+ json.request.clan.name +'</td>
-            <td>'+ json.request.form +'</td>
+        $('#pending-requests tbody').append(`
+          <tr id="pending-request-${json.request.id}">
+            <td>${json.request.date}</td>
+            <td>${json.request.clan.name}</td>
+            <td>${json.request.form}</td>
             <td>Waiting...</td>
-            <td><button data-request-id="'+ json.request.id +'" class="cancel-request btn grey darken-1 waves-effect waves-light col s12">CANCEL</button></td>
-          </tr>');
+            <td><button data-request-id="${json.request.id}" class="cancel-request btn grey darken-1 waves-effect waves-light col s12">CANCEL</button></td>
+          </tr>`);
       }
 
       if (json.declared) {
-        $('#clan-diplomacy tbody').append('
-          <tr id="diplomacy-'+ json.declared.id +'">
-            <td>'+ json.declared.clan.name +'</td>
-            <td>'+ json.declared.form +'</td>
-            <td>'+ json.declared.initiator +' (You)</td>
-            <td>'+ json.declared.date +'</td>
-            <td><button data-clan-id="'+ json.declared.clan.id +'" data-diplomacy-clan-name="'+ json.declared.clan.name +'" data-diplomacy-form="End War" class="end-war btn grey darken-1 waves-effect waves-light col s12 modal-trigger" href="#modal2">CANCEL</button></td>
-          </tr>');
+        $('#clan-diplomacy tbody').append(`
+          <tr id="diplomacy-${json.declared.id}">
+            <td>${json.declared.clan.name}</td>
+            <td>${json.declared.form}</td>
+            <td>${json.declared.initiator} (You)</td>
+            <td>${json.declared.date}</td>
+            <td><button data-clan-id="${json.declared.clan.id}" data-diplomacy-clan-name="${json.declared.clan.name}" data-diplomacy-form="End War" class="end-war btn grey darken-1 waves-effect waves-light col s12 modal-trigger" href="#modal2">CANCEL</button></td>
+          </tr>`);
       }
 
       if (json.message != '') {
@@ -805,23 +805,23 @@ $('#accept').click(function() {
 
         if (json.acceptedRequest) {
           if (json.acceptedRequest.diplomacyType == 3) {
-            $('#clan-diplomacy tbody').append('
-              <tr id="diplomacy-'+ json.acceptedRequest.id +'">
-                <td>'+ json.acceptedRequest.name +'</td>
-                <td>'+ json.acceptedRequest.form +'</td>
-                <td>'+ json.acceptedRequest.initiator +'</td>
-                <td>'+ json.acceptedRequest.date +'</td>
-                <td><button data-clan-id="'+ json.acceptedRequest.clanId +'" data-diplomacy-clan-name="'+ json.acceptedRequest.name +'" data-diplomacy-form="End War" class="end-war btn grey darken-1 waves-effect waves-light col s12 modal-trigger" href="#modal2">CANCEL</button></td>
-              </tr>');
+            $('#clan-diplomacy tbody').append(`
+              <tr id="diplomacy-${json.acceptedRequest.id}">
+                <td>${json.acceptedRequest.name}</td>
+                <td>${json.acceptedRequest.form}</td>
+                <td>${json.acceptedRequest.initiator}</td>
+                <td>${json.acceptedRequest.date}</td>
+                <td><button data-clan-id="${json.acceptedRequest.clanId}" data-diplomacy-clan-name="${json.acceptedRequest.name}" data-diplomacy-form="End War" class="end-war btn grey darken-1 waves-effect waves-light col s12 modal-trigger" href="#modal2">CANCEL</button></td>
+              </tr>`);
           } else {
-            $('#clan-diplomacy tbody').append('
-              <tr id="diplomacy-'+ json.acceptedRequest.id +'">
-                <td>'+ json.acceptedRequest.name +'</td>
-                <td>'+ json.acceptedRequest.form +'</td>
-                <td>'+ json.acceptedRequest.initiator +'</td>
-                <td>'+ json.acceptedRequest.date +'</td>
-                <td><button data-diplomacy-id="'+ json.acceptedRequest.id +'" class="end-diplomacy btn grey darken-1 waves-effect waves-light col s12">CANCEL</button></td>
-              </tr>');
+            $('#clan-diplomacy tbody').append(`
+              <tr id="diplomacy-${json.acceptedRequest.id}">
+                <td>${json.acceptedRequest.name}</td>
+                <td>${json.acceptedRequest.form}</td>
+                <td>${json.acceptedRequest.initiator}</td>
+                <td>${json.acceptedRequest.date}</td>
+                <td><button data-diplomacy-id="${json.acceptedRequest.id}" class="end-diplomacy btn grey darken-1 waves-effect waves-light col s12">CANCEL</button></td>
+              </tr>`);
           }
         }
 
@@ -874,14 +874,14 @@ $('#end-war').click(function() {
         if (json.request) {
           $('#open_applications_button').css({display: 'inline-block'});
 
-          $('#pending-requests tbody').append('
-            <tr id="pending-request-'+ json.request.id +'">
-              <td>'+ json.request.date +'</td>
-              <td>'+ json.request.clan.name +'</td>
-              <td>'+ json.request.form +'</td>
+          $('#pending-requests tbody').append(`
+            <tr id="pending-request-${json.request.id}">
+              <td>${json.request.date}</td>
+              <td>${json.request.clan.name}</td>
+              <td>${json.request.form}</td>
               <td>Waiting...</td>
-              <td><button data-request-id="'+ json.request.id +'" class="cancel-request btn grey darken-1 waves-effect waves-light col s12">CANCEL</button></td>
-            </tr>');
+              <td><button data-request-id="${json.request.id}" class="cancel-request btn grey darken-1 waves-effect waves-light col s12">CANCEL</button></td>
+            </tr>`);
         }
 
         if (json.message != '') {
@@ -1106,32 +1106,33 @@ $('#end-war').click(function() {
 
           if (json.status) {
             var user = json.acceptedUser;
-            $('#members').append('<div class="col s12">
-                  <div id="user-'+ user.userId +'" class="card white-text grey darken-3 padding-5">
-                    <div class="row">
-                      <div class="col s4">
-                        <h6>'+ user.pilotName +'</h6>
-                        <p>EP: '+ user.experience +'</p>
-                        <p>Rank: <img src="<?php echo DOMAIN; ?>img/ranks/rank_'+ user.rank.id +'.png"> '+ user.rank.name +'</p>
-                      </div>
-                      <div class="col s4">
-                        <p>Joined: '+ user.joined_date +'</p>
-                        <p>Function: Member</p>
-                        <p>Position: </p>
-                      </div>
-                      <div class="col s4">
-                        <p>Company: '+ user.company +'</p>
-                        <a data-user-id="'+ user.userId +'" class="dismiss-member btn grey darken-2 waves-effect waves-light s6 modal-trigger" href="#modal1">DISMISS CLAN MEMBER</a>
-                      </div>
+            $('#members').append(`
+              <div class="col s12">
+                <div id="user-${user.userId}" class="card white-text grey darken-3 padding-5">
+                  <div class="row">
+                    <div class="col s4">
+                      <h6>${user.pilotName}</h6>
+                      <p>EP: ${user.experience}</p>
+                      <p>Rank: <img src="<?php echo DOMAIN; ?>img/ranks/rank_${user.rank.id}.png"> ${user.rank.name}</p>
+                    </div>
+                    <div class="col s4">
+                      <p>Joined: ${user.joined_date}</p>
+                      <p>Function: Member</p>
+                      <p>Position: </p>
+                    </div>
+                    <div class="col s4">
+                      <p>Company: ${user.company}</p>
+                      <a data-user-id="${user.userId}" class="dismiss-member btn grey darken-2 waves-effect waves-light s6 modal-trigger" href="#modal1">DISMISS CLAN MEMBER</a>
                     </div>
                   </div>
-                </div>');
+                </div>
+              </div>`);
 
-            if ($('#applications').length <= 1) {
+            if ($('#applications .card').length <= 1) {
               $('#applications').prev().remove();
               $('#applications').remove();
             } else {
-              $('#applications').find('#application-user-'+ currentWpClanId +'').remove();
+              $('#applications').find('#application-user-'+ currentVUserId +'').remove();
             }
           }
 
@@ -1157,11 +1158,11 @@ $('#end-war').click(function() {
             }
 
           if (json.status) {
-            if ($('#applications').length <= 1) {
+            if ($('#applications .card').length <= 1) {
               $('#applications').prev().remove();
               $('#applications').remove();
             } else {
-              $('#applications').find('#application-user-'+ currentWpClanId +'').remove();
+              $('#applications').find('#application-user-'+ currentVUserId +'').remove();
             }
           }
 
