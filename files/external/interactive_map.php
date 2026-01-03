@@ -214,7 +214,7 @@ TXT;
   // ===== Parse portal rows (FROM pos TO pos) =====
   function parsePortalRows(text) {
     const lines = text.split(/\r?\n/).map(normalizeLine).filter(Boolean);
-    const headerish = lines[0]?.toLowerCase().includes("from") && lines[0]?.toLowerCase().includes("to");
+    const headerish = lines[0] && lines[0].toLowerCase().includes("from") && lines[0].toLowerCase().includes("to");
     const dataLines = headerish ? lines.slice(1) : lines;
 
     const rows = [];
@@ -290,8 +290,10 @@ TXT;
     const adj = new Map();
     for (const n of nodes.values()) adj.set(n.id, new Set());
     for (const e of edges) {
-      adj.get(e.source)?.add(e.target);
-      adj.get(e.target)?.add(e.source);
+      const srcAdj = adj.get(e.source);
+      const tgtAdj = adj.get(e.target);
+      if (srcAdj) srcAdj.add(e.target);
+      if (tgtAdj) tgtAdj.add(e.source);
     }
 
     return { nodes: Array.from(nodes.values()), edges, adj };
@@ -703,7 +705,7 @@ TXT;
       const res = await fetch(url, { cache: "no-cache" });
       if (!res.ok) return fallback;
       const t = await res.text();
-      return t?.trim() ? t : fallback;
+      return t && t.trim() ? t : fallback;
     } catch (err) {
       console.warn("Fetch failed", url, err);
       return fallback;
