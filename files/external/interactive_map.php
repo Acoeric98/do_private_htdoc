@@ -18,6 +18,66 @@ $cbsText = read_file_safely($cbsPath);
 $portalUrl = DOMAIN . 'maps.txt';
 $cbsUrl = DOMAIN . 'cbs.txt';
 
+$cbsFromDb = [];
+$mysqli = isset($mysqli) ? $mysqli : (class_exists('Database') ? Database::GetInstance() : null);
+
+if ($mysqli instanceof mysqli && !$mysqli->connect_errno) {
+  $query = $mysqli->query('
+    SELECT
+      bs.mapId,
+      bs.positionX,
+      bs.positionY,
+      bs.clanId,
+      c.tag AS clanTag,
+      c.name AS clanName,
+      m.name AS mapName
+    FROM server_battlestations bs
+    LEFT JOIN server_clans c ON c.id = bs.clanId
+    LEFT JOIN server_maps m ON m.mapID = bs.mapId
+  ');
+
+  if ($query instanceof mysqli_result) {
+    while ($row = $query->fetch_assoc()) {
+      $mapName = trim((string)($row['mapName'] ?? ''));
+      if ($mapName === '' && isset($row['mapId'])) {
+        $mapName = (string)$row['mapId'];
+      }
+
+      $posX = is_numeric($row['positionX'] ?? null) ? round(((float)$row['positionX']) / 100, 2) : null;
+      $posY = is_numeric($row['positionY'] ?? null) ? round(((float)$row['positionY']) / 100, 2) : null;
+
+      if ($mapName === '' || $posX === null || $posY === null) {
+        continue;
+      }
+
+      $clanId = (int)($row['clanId'] ?? 0);
+      $owner = 'Szabad';
+
+      if ($clanId > 0) {
+        $tag = trim((string)($row['clanTag'] ?? ''));
+        $name = trim((string)($row['clanName'] ?? ''));
+        $ownerParts = [];
+
+        if ($tag !== '') {
+          $ownerParts[] = '[' . $tag . ']';
+        }
+        if ($name !== '') {
+          $ownerParts[] = $name;
+        }
+
+        $owner = $ownerParts ? implode(' ', $ownerParts) : 'Clan #' . $clanId;
+      }
+
+      $cbsFromDb[] = [
+        'map' => $mapName,
+        'x' => $posX,
+        'y' => $posY,
+        'owner' => $owner
+      ];
+    }
+  }
+}
+
 $samplePortals = <<<TXT
 FROM\tpos\tTO\tpos
 3-1\t20/20\t3-2\t185/115
@@ -71,7 +131,7 @@ TXT;
       <span class="stat" id="stat">csomópontok: 0 • élek: 0</span>
     </div>
     <div class="hint">
-      Automatikusan beolvas a <b>maps.txt</b> és <b>cbs.txt</b> fájlokból (szerver gyökérmappa).<br/>
+      Automatikusan beolvas a <b>maps.txt</b> fájlból (szerver gyökérmappa), és a <b>server_battlestations</b> + <b>server_clans</b> táblákból tölti be a CBS tulajokat (ha nincs adat, a <b>cbs.txt</b> fájl a tartalék).<br/>
       Rendezett nézet: minden csoport (1-*,2-*,3-*,4-*,5-*) a második szám szerint (fentről lefelé) kerül sorba.
       Színek: 1-* piros, 2-* kék, 3-* zöld, PVP (4-1..4-5) narancs.
       Kattints egy hexára a szomszédok kiemeléséhez és a portálpozíciók megnyitásához.
@@ -131,6 +191,7 @@ TXT;
 (function () {
   var SERVER_PORTAL_TEXT = <?php echo json_encode($portalText); ?>;
   var SERVER_CBS_TEXT = <?php echo json_encode($cbsText); ?>;
+  var SERVER_CBS_DATA = <?php echo json_encode($cbsFromDb); ?>;
   var PORTAL_URL = <?php echo json_encode($portalUrl); ?>;
   var CBS_URL = <?php echo json_encode($cbsUrl); ?>;
   var SAMPLE_PORTALS = <?php echo json_encode($samplePortals); ?>;
@@ -288,6 +349,27 @@ TXT;
       out[map].push({ x: pos.x, y: pos.y, owner: owner });
     }
     return out;
+  }
+
+  function loadCbsData(list) {
+    cbsByMap = {};
+    if (!list || typeof list !== "object" || typeof list.length !== "number") return;
+
+    for (var i = 0; i < list.length; i++) {
+      var entry = list[i];
+      if (!entry || entry.map === undefined || entry.map === null) continue;
+      var map = String(entry.map);
+      var x = Number(entry.x);
+      var y = Number(entry.y);
+      if (!isFinite(x) || !isFinite(y)) continue;
+
+      if (!cbsByMap[map]) cbsByMap[map] = [];
+      cbsByMap[map].push({
+        x: x,
+        y: y,
+        owner: (entry.owner && String(entry.owner).trim()) || "Szabad"
+      });
+    }
   }
 
   // ===== Graph build =====
@@ -822,6 +904,12 @@ TXT;
     var cbsFallback = SERVER_CBS_TEXT || SAMPLE_CBS;
     fetchText(PORTAL_URL, portalFallback, function (portalText) {
       loadPortalText(portalText);
+
+      if (SERVER_CBS_DATA && typeof SERVER_CBS_DATA.length === "number" && SERVER_CBS_DATA.length > 0) {
+        loadCbsData(SERVER_CBS_DATA);
+        return;
+      }
+
       fetchText(CBS_URL, cbsFallback, function (cbsText) {
         if (cbsText && cbsText.replace(/\s/g, "").length) {
           loadCbsText(cbsText);
