@@ -128,72 +128,72 @@ TXT;
 </div>
 
 <script>
-(() => {
-  const SERVER_PORTAL_TEXT = <?php echo json_encode($portalText); ?>;
-  const SERVER_CBS_TEXT = <?php echo json_encode($cbsText); ?>;
-  const PORTAL_URL = <?php echo json_encode($portalUrl); ?>;
-  const CBS_URL = <?php echo json_encode($cbsUrl); ?>;
-  const SAMPLE_PORTALS = <?php echo json_encode($samplePortals); ?>;
-  const SAMPLE_CBS = <?php echo json_encode($sampleCbs); ?>;
+(function () {
+  var SERVER_PORTAL_TEXT = <?php echo json_encode($portalText); ?>;
+  var SERVER_CBS_TEXT = <?php echo json_encode($cbsText); ?>;
+  var PORTAL_URL = <?php echo json_encode($portalUrl); ?>;
+  var CBS_URL = <?php echo json_encode($cbsUrl); ?>;
+  var SAMPLE_PORTALS = <?php echo json_encode($samplePortals); ?>;
+  var SAMPLE_CBS = <?php echo json_encode($sampleCbs); ?>;
 
   // ===== Config =====
-  const DEFAULT_MAP = { w: 210, h: 130 };
-  const SPECIAL_SIZES = {
+  var DEFAULT_MAP = { w: 210, h: 130 };
+  var SPECIAL_SIZES = {
     "4-4": { w: 418, h: 260 },
-    "4-5": { w: 418, h: 260 },
+    "4-5": { w: 418, h: 260 }
   };
-  const PVP_ORANGE = new Set(["4-1","4-2","4-3","4-4","4-5"]);
-  const getMapSize = (name) => SPECIAL_SIZES[name] || DEFAULT_MAP;
+  var PVP_ORANGE = { "4-1": true, "4-2": true, "4-3": true, "4-4": true, "4-5": true };
+  function getMapSize(name) { return SPECIAL_SIZES[name] || DEFAULT_MAP; }
 
   // Galaxy placement columns (left->right)
-  const COL_X = { 3: 0.18, 4: 0.50, 2: 0.82, 1: 0.30, 5: 0.52, 0: 0.50 };
+  var COL_X = { 3: 0.18, 4: 0.50, 2: 0.82, 1: 0.30, 5: 0.52, 0: 0.50 };
 
   // ===== Elements =====
-  const svg = document.getElementById("svg");
-  const view = document.getElementById("view");
-  const stat = document.getElementById("stat");
+  var svg = document.getElementById("svg");
+  var view = document.getElementById("view");
+  var stat = document.getElementById("stat");
 
-  const relayoutBtn = document.getElementById("relayoutBtn");
-  const resetViewBtn = document.getElementById("resetViewBtn");
+  var relayoutBtn = document.getElementById("relayoutBtn");
+  var resetViewBtn = document.getElementById("resetViewBtn");
 
-  const modal = document.getElementById("modal");
-  const closeModalBtn = document.getElementById("closeModal");
-  const modalTitle = document.getElementById("modalTitle");
-  const mapWrap = document.getElementById("mapWrap");
-  const portalList = document.getElementById("portalList");
-  const mapSizeTag = document.getElementById("mapSizeTag");
-  const portalCountTag = document.getElementById("portalCountTag");
-  const cbsTag = document.getElementById("cbsTag");
+  var modal = document.getElementById("modal");
+  var closeModalBtn = document.getElementById("closeModal");
+  var modalTitle = document.getElementById("modalTitle");
+  var mapWrap = document.getElementById("mapWrap");
+  var portalList = document.getElementById("portalList");
+  var mapSizeTag = document.getElementById("mapSizeTag");
+  var portalCountTag = document.getElementById("portalCountTag");
+  var cbsTag = document.getElementById("cbsTag");
 
   // ===== Helpers =====
-  const NS = "http://www.w3.org/2000/svg";
-  function clear(el){ while (el.firstChild) el.removeChild(el.firstChild); }
-  function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+  var NS = "http://www.w3.org/2000/svg";
+  function clear(el) { while (el.firstChild) { el.removeChild(el.firstChild); } }
+  function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
 
   function normalizeLine(line) {
-    return line.trim().replace(/\u00A0/g, " ");
+    return line.replace(/^\s+|\s+$/g, "").replace(/\u00A0/g, " ");
   }
 
   function parsePos(posStr) {
     if (!posStr) return null;
-    const m = String(posStr).trim().match(/^(\d+)\s*\/\s*(\d+)$/);
+    var m = String(posStr).replace(/^\s+|\s+$/g, "").match(/^(\d+)\s*\/\s*(\d+)$/);
     if (!m) return null;
-    const x = Number(m[1]), y = Number(m[2]);
-    if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
-    return { x, y };
+    var x = Number(m[1]), y = Number(m[2]);
+    if (!isFinite(x) || !isFinite(y)) return null;
+    return { x: x, y: y };
   }
 
   function groupOf(id) {
-    const m = id.match(/^(\d+)\-/);
+    var m = id.match(/^(\d+)\-/);
     return m ? Number(m[1]) : 0;
   }
   function secondOf(id) {
-    const m = id.match(/^\d+\-(\d+)$/);
+    var m = id.match(/^\d+\-(\d+)$/);
     return m ? Number(m[1]) : 0;
   }
   function colorClass(id) {
-    const g = groupOf(id);
-    if (PVP_ORANGE.has(id)) return "g4";
+    var g = groupOf(id);
+    if (PVP_ORANGE[id]) return "g4";
     if (g === 1) return "g1";
     if (g === 2) return "g2";
     if (g === 3) return "g3";
@@ -203,31 +203,47 @@ TXT;
   }
 
   function hexPoints(cx, cy, r) {
-    const pts = [];
-    for (let i = 0; i < 6; i++) {
-      const a = (Math.PI / 180) * (60 * i); // flat-top
+    var pts = [];
+    for (var i = 0; i < 6; i++) {
+      var a = (Math.PI / 180) * (60 * i); // flat-top
       pts.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]);
     }
-    return pts.map(p => p[0].toFixed(2) + "," + p[1].toFixed(2)).join(" ");
+    var pieces = [];
+    for (var j = 0; j < pts.length; j++) {
+      pieces.push(pts[j][0].toFixed(2) + "," + pts[j][1].toFixed(2));
+    }
+    return pieces.join(" ");
   }
 
   // ===== Parse portal rows (FROM pos TO pos) =====
   function parsePortalRows(text) {
-    const lines = text.split(/\r?\n/).map(normalizeLine).filter(Boolean);
-    const headerish = lines[0] && lines[0].toLowerCase().includes("from") && lines[0].toLowerCase().includes("to");
-    const dataLines = headerish ? lines.slice(1) : lines;
+    var lines = text.split(/\r?\n/);
+    var cleaned = [];
+    for (var i = 0; i < lines.length; i++) {
+      var ln = normalizeLine(lines[i]);
+      if (ln) cleaned.push(ln);
+    }
+    var headerish = cleaned[0] && cleaned[0].toLowerCase().indexOf("from") !== -1 && cleaned[0].toLowerCase().indexOf("to") !== -1;
+    var dataLines = headerish ? cleaned.slice(1) : cleaned;
 
-    const rows = [];
-    for (const line of dataLines) {
-      let parts = line.split("\t").map(s => s.trim()).filter(Boolean);
-      if (parts.length < 4) parts = line.split(/\s+/).map(s => s.trim()).filter(Boolean);
+    var rows = [];
+    for (var k = 0; k < dataLines.length; k++) {
+      var line = dataLines[k];
+      var parts = line.split("\t");
+      for (var p = parts.length - 1; p >= 0; p--) { parts[p] = parts[p].replace(/^\s+|\s+$/g, ""); }
+      parts = parts.filter(function (s) { return !!s; });
+      if (parts.length < 4) {
+        parts = line.split(/\s+/);
+        for (p = parts.length - 1; p >= 0; p--) { parts[p] = parts[p].replace(/^\s+|\s+$/g, ""); }
+        parts = parts.filter(function (s) { return !!s; });
+      }
       if (parts.length < 4) continue;
 
       rows.push({
         from: parts[0],
         fromPosRaw: parts[1],
         to: parts[2],
-        toPosRaw: parts[3],
+        toPosRaw: parts[3]
       });
     }
     return rows;
@@ -236,170 +252,200 @@ TXT;
   // ===== Parse CBS file (MAP POS) =====
   // Supports format with header: MAP POS
   function parseCbs(text) {
-    const lines = text.split(/\r?\n/).map(normalizeLine).filter(Boolean);
+    var lines = text.split(/\r?\n/);
+    var cleaned = [];
+    for (var i = 0; i < lines.length; i++) {
+      var ln = normalizeLine(lines[i]);
+      if (ln) cleaned.push(ln);
+    }
 
-    // drop header if present
-    let start = 0;
-    if (lines[0] && lines[0].toLowerCase().includes("map") && lines[0].toLowerCase().includes("pos")) {
+    var start = 0;
+    if (cleaned[0] && cleaned[0].toLowerCase().indexOf("map") !== -1 && cleaned[0].toLowerCase().indexOf("pos") !== -1) {
       start = 1;
     }
 
-    const out = new Map();
-    for (const line of lines.slice(start)) {
-      let parts = line.split("\t").map(s => s.trim()).filter(Boolean);
-      if (parts.length < 2) parts = line.split(/\s+/).map(s => s.trim()).filter(Boolean);
+    var out = {};
+    for (var idx = start; idx < cleaned.length; idx++) {
+      var line = cleaned[idx];
+      var parts = line.split("\t");
+      for (var p = parts.length - 1; p >= 0; p--) { parts[p] = parts[p].replace(/^\s+|\s+$/g, ""); }
+      parts = parts.filter(function (s) { return !!s; });
+      if (parts.length < 2) {
+        parts = line.split(/\s+/);
+        for (p = parts.length - 1; p >= 0; p--) { parts[p] = parts[p].replace(/^\s+|\s+$/g, ""); }
+        parts = parts.filter(function (s) { return !!s; });
+      }
       if (parts.length < 2) continue;
 
-      const map = parts[0];
-      const pos = parsePos(parts[1]);
+      var map = parts[0];
+      var pos = parsePos(parts[1]);
       if (!map || !pos) continue;
 
-      if (!out.has(map)) out.set(map, []);
-      out.get(map).push(pos);
+      if (!out[map]) out[map] = [];
+      out[map].push(pos);
     }
     return out;
   }
 
   // ===== Graph build =====
   function buildGraph(rows) {
-    const nodes = new Map();
-    const edgeSet = new Set();
+    var nodesById = {};
+    var nodes = [];
+    var edgeSet = {};
+    var edges = [];
 
     function ensure(name) {
       if (!name || name === "LOW") return null;
-      if (!nodes.has(name)) {
-        const isBig = (name === "4-4" || name === "4-5");
-        nodes.set(name, { id: name, x: 0, y: 0, vx: 0, vy: 0, r: isBig ? 34 : 26, tx: 0, ty: 0 });
+      if (!nodesById[name]) {
+        var isBig = (name === "4-4" || name === "4-5");
+        nodesById[name] = { id: name, x: 0, y: 0, vx: 0, vy: 0, r: isBig ? 34 : 26, tx: 0, ty: 0 };
+        nodes.push(nodesById[name]);
       }
-      return nodes.get(name);
+      return nodesById[name];
     }
 
-    for (const r of rows) {
-      const a = ensure(r.from);
-      const b = ensure(r.to);
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      var a = ensure(r.from);
+      var b = ensure(r.to);
       if (!a || !b) continue;
-      const key = a.id < b.id ? `${a.id}__${b.id}` : `${b.id}__${a.id}`;
-      edgeSet.add(key);
+      var key = a.id < b.id ? a.id + "__" + b.id : b.id + "__" + a.id;
+      if (!edgeSet[key]) {
+        edgeSet[key] = true;
+        edges.push({ source: a.id, target: b.id });
+      }
     }
 
-    const edges = Array.from(edgeSet).map(k => {
-      const [s, t] = k.split("__");
-      return { source: s, target: t };
-    });
-
-    const adj = new Map();
-    for (const n of nodes.values()) adj.set(n.id, new Set());
-    for (const e of edges) {
-      const srcAdj = adj.get(e.source);
-      const tgtAdj = adj.get(e.target);
-      if (srcAdj) srcAdj.add(e.target);
-      if (tgtAdj) tgtAdj.add(e.source);
+    var adj = {};
+    for (var id in nodesById) {
+      if (nodesById.hasOwnProperty(id)) adj[id] = [];
+    }
+    for (var e = 0; e < edges.length; e++) {
+      var src = edges[e].source;
+      var tgt = edges[e].target;
+      if (adj[src].indexOf(tgt) === -1) adj[src].push(tgt);
+      if (adj[tgt].indexOf(src) === -1) adj[tgt].push(src);
     }
 
-    return { nodes: Array.from(nodes.values()), edges, adj };
+    return { nodes: nodes, edges: edges, adj: adj };
   }
 
   // ===== Ordered targets =====
   function assignOrderedTargets(nodes) {
-    const w = svg.clientWidth;
-    const h = svg.clientHeight;
+    var w = svg.clientWidth;
+    var h = svg.clientHeight;
 
-    const byG = new Map();
-    for (const n of nodes) {
-      const g = groupOf(n.id);
-      if (!byG.has(g)) byG.set(g, []);
-      byG.get(g).push(n);
+    var byG = {};
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      var g = groupOf(node.id);
+      if (!byG[g]) byG[g] = [];
+      byG[g].push(node);
     }
-    for (const [g, list] of byG) {
-      list.sort((a,b) => secondOf(a.id) - secondOf(b.id) || a.id.localeCompare(b.id));
+    for (var gKey in byG) {
+      if (!byG.hasOwnProperty(gKey)) continue;
+      byG[gKey].sort(function (a, b) {
+        var diff = secondOf(a.id) - secondOf(b.id);
+        if (diff !== 0) return diff;
+        return a.id.localeCompare(b.id);
+      });
     }
 
-    const spans = {
-      3: { y0: h*0.12, y1: h*0.48 },
-      2: { y0: h*0.20, y1: h*0.50 },
-      1: { y0: h*0.62, y1: h*0.92 },
-      4: { y0: h*0.26, y1: h*0.78 },
-      5: { y0: h*0.12, y1: h*0.42 },
-      0: { y0: h*0.30, y1: h*0.70 },
+    var spans = {
+      3: { y0: h * 0.12, y1: h * 0.48 },
+      2: { y0: h * 0.20, y1: h * 0.50 },
+      1: { y0: h * 0.62, y1: h * 0.92 },
+      4: { y0: h * 0.26, y1: h * 0.78 },
+      5: { y0: h * 0.12, y1: h * 0.42 },
+      0: { y0: h * 0.30, y1: h * 0.70 }
     };
 
-    for (const [g, list] of byG) {
-      const colVal = (COL_X[g] !== undefined && COL_X[g] !== null) ? COL_X[g] : COL_X[0];
-      const span = (spans[g] !== undefined && spans[g] !== null) ? spans[g] : spans[0];
-      const colX = colVal * w;
-      const count = Math.max(1, list.length);
+    for (gKey in byG) {
+      if (!byG.hasOwnProperty(gKey)) continue;
+      var list = byG[gKey];
+      var colVal = (COL_X[gKey] !== undefined && COL_X[gKey] !== null) ? COL_X[gKey] : COL_X[0];
+      var span = (spans[gKey] !== undefined && spans[gKey] !== null) ? spans[gKey] : spans[0];
+      var colX = colVal * w;
+      var count = Math.max(1, list.length);
 
-      for (let i = 0; i < list.length; i++) {
-        const t = (count === 1) ? 0.5 : (i / (count - 1));
-        let ty = span.y0 + (span.y1 - span.y0) * t;
+      for (i = 0; i < list.length; i++) {
+        var t = (count === 1) ? 0.5 : (i / (count - 1));
+        var ty = span.y0 + (span.y1 - span.y0) * t;
 
-        if (list[i].id === "4-4") ty = h*0.72;
-        if (list[i].id === "4-5") ty = h*0.30;
+        if (list[i].id === "4-4") ty = h * 0.72;
+        if (list[i].id === "4-5") ty = h * 0.30;
 
         list[i].tx = colX;
         list[i].ty = ty;
       }
     }
 
-    for (const n of nodes) {
-      n.x = n.tx + (Math.random()-0.5)*30;
-      n.y = n.ty + (Math.random()-0.5)*30;
-      n.vx = 0; n.vy = 0;
+    for (i = 0; i < nodes.length; i++) {
+      nodes[i].x = nodes[i].tx + (Math.random() - 0.5) * 30;
+      nodes[i].y = nodes[i].ty + (Math.random() - 0.5) * 30;
+      nodes[i].vx = 0;
+      nodes[i].vy = 0;
     }
   }
 
-  function runForce(graph, steps = 650) {
-    const nodes = graph.nodes;
-    const edges = graph.edges;
+  function runForce(graph, steps) {
+    var nodes = graph.nodes;
+    var edges = graph.edges;
+    var totalSteps = (typeof steps === "number") ? steps : 650;
 
-    const REPULSE = 5200;
-    const SPRING = 0.010;
-    const SPRING_LEN = 160;
-    const DAMP = 0.86;
-    const ANCHOR = 0.020;
+    var REPULSE = 5200;
+    var SPRING = 0.010;
+    var SPRING_LEN = 160;
+    var DAMP = 0.86;
+    var ANCHOR = 0.020;
 
-    const byId = new Map(nodes.map(n => [n.id, n]));
+    var byId = {};
+    for (var i = 0; i < nodes.length; i++) {
+      byId[nodes[i].id] = nodes[i];
+    }
 
-    for (let iter = 0; iter < steps; iter++) {
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i+1; j < nodes.length; j++) {
-          const a = nodes[i], b = nodes[j];
-          let dx = a.x - b.x;
-          let dy = a.y - b.y;
-          let d2 = dx*dx + dy*dy + 0.01;
+    for (var iter = 0; iter < totalSteps; iter++) {
+      for (var aIdx = 0; aIdx < nodes.length; aIdx++) {
+        for (var bIdx = aIdx + 1; bIdx < nodes.length; bIdx++) {
+          var a = nodes[aIdx], b = nodes[bIdx];
+          var dx = a.x - b.x;
+          var dy = a.y - b.y;
+          var d2 = dx * dx + dy * dy + 0.01;
 
-          const minD = (a.r + b.r) * 1.20;
-          if (d2 < minD*minD) d2 = minD*minD;
+          var minD = (a.r + b.r) * 1.20;
+          if (d2 < minD * minD) d2 = minD * minD;
 
-          const f = REPULSE / d2;
-          const invD = 1 / Math.sqrt(d2);
-          const fx = dx * invD * f;
-          const fy = dy * invD * f;
+          var f = REPULSE / d2;
+          var invD = 1 / Math.sqrt(d2);
+          var fx = dx * invD * f;
+          var fy = dy * invD * f;
 
           a.vx += fx; a.vy += fy;
           b.vx -= fx; b.vy -= fy;
         }
       }
 
-      for (const e of edges) {
-        const a = byId.get(e.source);
-        const b = byId.get(e.target);
-        if (!a || !b) continue;
+      for (var eIdx = 0; eIdx < edges.length; eIdx++) {
+        var edge = edges[eIdx];
+        var aNode = byId[edge.source];
+        var bNode = byId[edge.target];
+        if (!aNode || !bNode) continue;
 
-        const dx = b.x - a.x;
-        const dy = b.y - a.y;
-        const dist = Math.sqrt(dx*dx + dy*dy) + 0.01;
-        const diff = dist - SPRING_LEN;
+        var dx2 = bNode.x - aNode.x;
+        var dy2 = bNode.y - aNode.y;
+        var dist = Math.sqrt(dx2 * dx2 + dy2 * dy2) + 0.01;
+        var diff = dist - SPRING_LEN;
 
-        const f = diff * SPRING;
-        const fx = (dx / dist) * f;
-        const fy = (dy / dist) * f;
+        var f2 = diff * SPRING;
+        var fx2 = (dx2 / dist) * f2;
+        var fy2 = (dy2 / dist) * f2;
 
-        a.vx += fx; a.vy += fy;
-        b.vx -= fx; b.vy -= fy;
+        aNode.vx += fx2; aNode.vy += fy2;
+        bNode.vx -= fx2; bNode.vy -= fy2;
       }
 
-      for (const n of nodes) {
+      for (var nIdx = 0; nIdx < nodes.length; nIdx++) {
+        var n = nodes[nIdx];
         n.vx += (n.tx - n.x) * ANCHOR;
         n.vy += (n.ty - n.y) * ANCHOR;
 
@@ -413,28 +459,33 @@ TXT;
   }
 
   // ===== State =====
-  let currentPortalRows = [];
-  let currentGraph = null;
-  let selectedId = null;
-  let cbsByMap = new Map(); // optional
+  var currentPortalRows = [];
+  var currentGraph = null;
+  var selectedId = null;
+  var cbsByMap = {}; // optional
 
   // ===== Render galaxy =====
   function drawGalaxy(graph) {
     clear(view);
 
-    const byId = new Map(graph.nodes.map(n => [n.id, n]));
-    const gEdges = document.createElementNS(NS, "g");
-    const gNodes = document.createElementNS(NS, "g");
+    var byId = {};
+    for (var i = 0; i < graph.nodes.length; i++) {
+      byId[graph.nodes[i].id] = graph.nodes[i];
+    }
+
+    var gEdges = document.createElementNS(NS, "g");
+    var gNodes = document.createElementNS(NS, "g");
     view.appendChild(gEdges);
     view.appendChild(gNodes);
 
-    const edgeEls = [];
-    for (const e of graph.edges) {
-      const a = byId.get(e.source);
-      const b = byId.get(e.target);
+    var edgeEls = [];
+    for (i = 0; i < graph.edges.length; i++) {
+      var e = graph.edges[i];
+      var a = byId[e.source];
+      var b = byId[e.target];
       if (!a || !b) continue;
 
-      const line = document.createElementNS(NS, "line");
+      var line = document.createElementNS(NS, "line");
       line.setAttribute("x1", a.x);
       line.setAttribute("y1", a.y);
       line.setAttribute("x2", b.x);
@@ -444,39 +495,44 @@ TXT;
       edgeEls.push({ el: line, s: e.source, t: e.target });
     }
 
-    const nodeEls = [];
-    for (const n of graph.nodes) {
-      const group = document.createElementNS(NS, "g");
+    var nodeEls = [];
+    for (i = 0; i < graph.nodes.length; i++) {
+      var n = graph.nodes[i];
+      var group = document.createElementNS(NS, "g");
       group.style.cursor = "pointer";
 
-      const poly = document.createElementNS(NS, "polygon");
-      const baseClass = colorClass(n.id);
+      var poly = document.createElementNS(NS, "polygon");
+      var baseClass = colorClass(n.id);
       poly.setAttribute("points", hexPoints(n.x, n.y, n.r));
-      poly.setAttribute("class", `hex ${baseClass}`);
+      poly.setAttribute("class", "hex " + baseClass);
       group.appendChild(poly);
 
-      const text = document.createElementNS(NS, "text");
+      var text = document.createElementNS(NS, "text");
       text.textContent = n.id;
       text.setAttribute("x", n.x);
       text.setAttribute("y", n.y + 1);
       text.setAttribute("class", "label");
       group.appendChild(text);
 
-      group.addEventListener("click", (ev) => {
-        ev.stopPropagation();
-        selectNode(n.id, graph, nodeEls, edgeEls);
-        openMapModal(n.id);
-      });
+      (function (id) {
+        group.addEventListener("click", function (ev) {
+          ev.stopPropagation();
+          selectNode(id, graph, nodeEls, edgeEls);
+          openMapModal(id);
+        });
+      })(n.id);
 
       gNodes.appendChild(group);
-      nodeEls.push({ id: n.id, poly, text, baseClass });
+      nodeEls.push({ id: n.id, poly: poly, text: text, baseClass: baseClass });
     }
 
     // background click to clear highlight
-    svg.addEventListener("click", () => {
+    var bgHandler = function () {
       selectedId = null;
       applyHighlight(graph, nodeEls, edgeEls);
-    }, { once: true });
+      svg.removeEventListener("click", bgHandler);
+    };
+    svg.addEventListener("click", bgHandler);
 
     applyHighlight(graph, nodeEls, edgeEls);
   }
@@ -487,115 +543,129 @@ TXT;
   }
 
   function applyHighlight(graph, nodeEls, edgeEls) {
+    var i;
     if (!selectedId) {
-      for (const ne of nodeEls) {
-        ne.poly.setAttribute("class", `hex ${ne.baseClass}`);
+      for (i = 0; i < nodeEls.length; i++) {
+        var ne = nodeEls[i];
+        ne.poly.setAttribute("class", "hex " + ne.baseClass);
         ne.text.setAttribute("class", "label");
       }
-      for (const ee of edgeEls) ee.el.setAttribute("class", "edge");
+      for (i = 0; i < edgeEls.length; i++) { edgeEls[i].el.setAttribute("class", "edge"); }
       return;
     }
 
-    const neighbors = new Set(graph.adj.get(selectedId) || []);
-    neighbors.add(selectedId);
+    var neighbors = {};
+    var adjList = graph.adj[selectedId] || [];
+    neighbors[selectedId] = true;
+    for (i = 0; i < adjList.length; i++) { neighbors[adjList[i]] = true; }
 
-    for (const ne of nodeEls) {
-      const hot = neighbors.has(ne.id);
-      ne.poly.setAttribute("class", hot ? `hex hot ${ne.baseClass}` : `hex dim ${ne.baseClass}`);
-      ne.text.setAttribute("class", hot ? "label" : "label dim");
+    for (i = 0; i < nodeEls.length; i++) {
+      var nodeEl = nodeEls[i];
+      var hot = !!neighbors[nodeEl.id];
+      nodeEl.poly.setAttribute("class", hot ? "hex hot " + nodeEl.baseClass : "hex dim " + nodeEl.baseClass);
+      nodeEl.text.setAttribute("class", hot ? "label" : "label dim");
     }
-    for (const ee of edgeEls) {
-      const hot = (ee.s === selectedId && neighbors.has(ee.t)) || (ee.t === selectedId && neighbors.has(ee.s));
-      ee.el.setAttribute("class", hot ? "edge hot" : "edge dim");
+    for (i = 0; i < edgeEls.length; i++) {
+      var ee = edgeEls[i];
+      var hotEdge = (ee.s === selectedId && neighbors[ee.t]) || (ee.t === selectedId && neighbors[ee.s]);
+      ee.el.setAttribute("class", hotEdge ? "edge hot" : "edge dim");
     }
   }
 
   // ===== Pan/Zoom =====
-  let viewX = 0, viewY = 0, viewS = 1;
-  function setTransform() { view.setAttribute("transform", `translate(${viewX},${viewY}) scale(${viewS})`); }
+  var viewX = 0, viewY = 0, viewS = 1;
+  function setTransform() { view.setAttribute("transform", "translate(" + viewX + "," + viewY + ") scale(" + viewS + ")"); }
   function resetView() { viewX = 0; viewY = 0; viewS = 1; setTransform(); }
 
-  let dragging = false;
-  let last = null;
+  var dragging = false;
+  var last = null;
 
-  svg.addEventListener("mousedown", (e) => {
+  svg.addEventListener("mousedown", function (e) {
     dragging = true;
     last = { x: e.clientX, y: e.clientY };
   });
-  window.addEventListener("mouseup", () => { dragging = false; last = null; });
-  window.addEventListener("mousemove", (e) => {
+  window.addEventListener("mouseup", function () { dragging = false; last = null; });
+  window.addEventListener("mousemove", function (e) {
     if (!dragging || !last) return;
-    const dx = e.clientX - last.x;
-    const dy = e.clientY - last.y;
+    var dx = e.clientX - last.x;
+    var dy = e.clientY - last.y;
     last = { x: e.clientX, y: e.clientY };
     viewX += dx;
     viewY += dy;
     setTransform();
   });
 
-  svg.addEventListener("wheel", (e) => {
+  svg.addEventListener("wheel", function (e) {
     e.preventDefault();
-    const delta = -e.deltaY;
-    const factor = delta > 0 ? 1.08 : 1/1.08;
+    var delta = -e.deltaY;
+    var factor = delta > 0 ? 1.08 : 1 / 1.08;
 
-    const rect = svg.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
+    var rect = svg.getBoundingClientRect();
+    var mx = e.clientX - rect.left;
+    var my = e.clientY - rect.top;
 
-    const prevS = viewS;
+    var prevS = viewS;
     viewS = Math.max(0.25, Math.min(3.5, viewS * factor));
-    const k = viewS / prevS;
+    var k = viewS / prevS;
 
     viewX = mx - (mx - viewX) * k;
     viewY = my - (my - viewY) * k;
 
     setTransform();
-  }, { passive:false });
+  }, false);
 
   // ===== Modal map view =====
   function openMapModal(mapName) {
-    const size = getMapSize(mapName);
-    modalTitle.textContent = `Térkép ${mapName} • portál + CBS pozíciók`;
-    mapSizeTag.textContent = `${size.w}×${size.h}`;
+    var size = getMapSize(mapName);
+    modalTitle.textContent = "Térkép " + mapName + " • portál + CBS pozíciók";
+    mapSizeTag.textContent = size.w + "×" + size.h;
 
-    const portals = currentPortalRows
-      .filter(r => r.from === mapName)
-      .map(r => ({
-        from: r.from,
-        pos: parsePos(r.fromPosRaw),
-        posRaw: r.fromPosRaw,
-        to: r.to,
-        toPosRaw: r.toPosRaw
-      }))
-      .filter(p => p.pos);
+    var portalsRaw = [];
+    for (var i = 0; i < currentPortalRows.length; i++) {
+      var row = currentPortalRows[i];
+      if (row.from === mapName) {
+        portalsRaw.push({
+          from: row.from,
+          pos: parsePos(row.fromPosRaw),
+          posRaw: row.fromPosRaw,
+          to: row.to,
+          toPosRaw: row.toPosRaw
+        });
+      }
+    }
 
-    const cbsList = cbsByMap.get(mapName) || [];
-    cbsTag.textContent = `CBS: ${cbsList.length}`;
-    portalCountTag.textContent = `Portálok: ${portals.length}`;
+    var portals = [];
+    for (var pIdx = 0; pIdx < portalsRaw.length; pIdx++) {
+      if (portalsRaw[pIdx].pos) portals.push(portalsRaw[pIdx]);
+    }
+
+    var cbsList = cbsByMap[mapName] || [];
+    cbsTag.textContent = "CBS: " + cbsList.length;
+    portalCountTag.textContent = "Portálok: " + portals.length;
 
     clear(mapWrap);
-    const mapSvg = document.createElementNS(NS, "svg");
-    mapSvg.classList.add("mapsvg");
-    mapSvg.setAttribute("viewBox", `0 0 ${size.w} ${size.h}`);
+    var mapSvg = document.createElementNS(NS, "svg");
+    if (mapSvg.classList && mapSvg.classList.add) mapSvg.classList.add("mapsvg");
+    mapSvg.setAttribute("viewBox", "0 0 " + size.w + " " + size.h);
     mapSvg.setAttribute("preserveAspectRatio", "xMidYMid meet");
 
-    const step = (size.w >= 400 || size.h >= 260) ? 20 : 10;
-    for (let x = step; x < size.w; x += step) {
-      const l = document.createElementNS(NS, "line");
+    var step = (size.w >= 400 || size.h >= 260) ? 20 : 10;
+    for (var x = step; x < size.w; x += step) {
+      var l = document.createElementNS(NS, "line");
       l.setAttribute("x1", x); l.setAttribute("y1", 0);
       l.setAttribute("x2", x); l.setAttribute("y2", size.h);
       l.setAttribute("class", "gridline");
       mapSvg.appendChild(l);
     }
-    for (let y = step; y < size.h; y += step) {
-      const l = document.createElementNS(NS, "line");
-      l.setAttribute("x1", 0); l.setAttribute("y1", y);
-      l.setAttribute("x2", size.w); l.setAttribute("y2", y);
-      l.setAttribute("class", "gridline");
-      mapSvg.appendChild(l);
+    for (var y = step; y < size.h; y += step) {
+      var l2 = document.createElementNS(NS, "line");
+      l2.setAttribute("x1", 0); l2.setAttribute("y1", y);
+      l2.setAttribute("x2", size.w); l2.setAttribute("y2", y);
+      l2.setAttribute("class", "gridline");
+      mapSvg.appendChild(l2);
     }
 
-    const frame = document.createElementNS(NS, "rect");
+    var frame = document.createElementNS(NS, "rect");
     frame.setAttribute("x", "0");
     frame.setAttribute("y", "0");
     frame.setAttribute("width", String(size.w));
@@ -603,90 +673,105 @@ TXT;
     frame.setAttribute("class", "mapframe");
     mapSvg.appendChild(frame);
 
-    for (const p of portals) {
-      const x = clamp(p.pos.x, 0, size.w);
-      const y = clamp(p.pos.y, 0, size.h);
+    for (var p = 0; p < portals.length; p++) {
+      var portal = portals[p];
+      var px = clamp(portal.pos.x, 0, size.w);
+      var py = clamp(portal.pos.y, 0, size.h);
 
-      const dot = document.createElementNS(NS, "circle");
-      dot.setAttribute("cx", String(x));
-      dot.setAttribute("cy", String(y));
+      var dot = document.createElementNS(NS, "circle");
+      dot.setAttribute("cx", String(px));
+      dot.setAttribute("cy", String(py));
       dot.setAttribute("r", String(Math.max(3.8, Math.min(size.w, size.h) * 0.012)));
       dot.setAttribute("class", "portalDot");
       mapSvg.appendChild(dot);
 
-      const label = document.createElementNS(NS, "text");
-      label.setAttribute("x", String(x + 7));
-      label.setAttribute("y", String(y + 4));
+      var label = document.createElementNS(NS, "text");
+      label.setAttribute("x", String(px + 7));
+      label.setAttribute("y", String(py + 4));
       label.setAttribute("class", "portalLabel");
-      label.textContent = (p.to || "?").trim() || "?";
+      var dest = portal.to ? String(portal.to).replace(/^\s+|\s+$/g, "") : "?";
+      label.textContent = dest || "?";
       mapSvg.appendChild(label);
     }
 
-    for (const c of cbsList) {
-      const x = clamp(c.x, 0, size.w);
-      const y = clamp(c.y, 0, size.h);
+    for (var c = 0; c < cbsList.length; c++) {
+      var cbs = cbsList[c];
+      var cx = clamp(cbs.x, 0, size.w);
+      var cy = clamp(cbs.y, 0, size.h);
 
-      const dot = document.createElementNS(NS, "circle");
-      dot.setAttribute("cx", String(x));
-      dot.setAttribute("cy", String(y));
-      dot.setAttribute("r", String(Math.max(4.2, Math.min(size.w, size.h) * 0.014)));
-      dot.setAttribute("class", "cbsDot");
-      mapSvg.appendChild(dot);
+      var cDot = document.createElementNS(NS, "circle");
+      cDot.setAttribute("cx", String(cx));
+      cDot.setAttribute("cy", String(cy));
+      cDot.setAttribute("r", String(Math.max(4.2, Math.min(size.w, size.h) * 0.014)));
+      cDot.setAttribute("class", "cbsDot");
+      mapSvg.appendChild(cDot);
 
-      const label = document.createElementNS(NS, "text");
-      label.setAttribute("x", String(x + 7));
-      label.setAttribute("y", String(y - 6));
-      label.setAttribute("class", "cbsLabel");
-      label.textContent = "CBS";
-      mapSvg.appendChild(label);
+      var cLabel = document.createElementNS(NS, "text");
+      cLabel.setAttribute("x", String(cx + 7));
+      cLabel.setAttribute("y", String(cy - 6));
+      cLabel.setAttribute("class", "cbsLabel");
+      cLabel.textContent = "CBS";
+      mapSvg.appendChild(cLabel);
     }
 
     mapWrap.appendChild(mapSvg);
 
     portalList.innerHTML = "";
     if (portals.length === 0) {
-      portalList.innerHTML = `<div class="item"><b>Nincs portál</b><div style="margin-top:6px;">Ehhez a térképhez nem találtunk érvényes FROM pozíciókat.</div></div>`;
+      var empty = document.createElement("div");
+      empty.className = "item";
+      empty.innerHTML = "<b>Nincs portál</b><div style=\"margin-top:6px;\">Ehhez a térképhez nem találtunk érvényes FROM pozíciókat.</div>";
+      portalList.appendChild(empty);
     } else {
-      for (const p of portals) {
-        const div = document.createElement("div");
+      for (p = 0; p < portals.length; p++) {
+        var entry = portals[p];
+        var div = document.createElement("div");
         div.className = "item";
-        div.innerHTML = `
-          <b>${p.from}</b> <span class="pill">${p.posRaw}</span>
-          <div style="margin-top:6px;color:rgba(233,251,255,.86)">
-            → <b>${p.to}</b> <span class="pill">${p.toPosRaw || "?"}</span>
-          </div>
-        `;
+        div.innerHTML =
+          "<b>" + entry.from + "</b> <span class=\"pill\">" + entry.posRaw + "</span>" +
+          "<div style=\"margin-top:6px;color:rgba(233,251,255,.86)\">" +
+          "→ <b>" + entry.to + "</b> <span class=\"pill\">" + (entry.toPosRaw || "?") + "</span>" +
+          "</div>";
         portalList.appendChild(div);
       }
     }
 
-    modal.classList.add("open");
+    if (modal.classList && modal.classList.add) {
+      modal.classList.add("open");
+    } else {
+      modal.className += " open";
+    }
   }
 
   function closeMapModal() {
-    modal.classList.remove("open");
+    if (modal.classList && modal.classList.remove) {
+      modal.classList.remove("open");
+    } else {
+      modal.className = modal.className.replace(/\s*open\b/, "");
+    }
     clear(mapWrap);
     portalList.innerHTML = "";
   }
 
   closeModalBtn.addEventListener("click", closeMapModal);
-  modal.addEventListener("click", (e) => { if (e.target === modal) closeMapModal(); });
+  modal.addEventListener("click", function (e) { if (e.target === modal) closeMapModal(); });
 
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      if (modal.classList.contains("open")) closeMapModal();
+  window.addEventListener("keydown", function (e) {
+    var key = e.key || e.keyCode;
+    if (key === "Escape" || key === "Esc" || key === 27) {
+      if (modal.classList && modal.classList.contains && modal.classList.contains("open")) closeMapModal();
       selectedId = null;
     }
   });
 
   // ===== Load functions =====
   function rebuildGalaxy() {
-    const graph = buildGraph(currentPortalRows);
+    var graph = buildGraph(currentPortalRows);
     assignOrderedTargets(graph.nodes);
     runForce(graph, 650);
     currentGraph = graph;
 
-    stat.textContent = `csomópontok: ${graph.nodes.length} • élek: ${graph.edges.length}`;
+    stat.textContent = "csomópontok: " + graph.nodes.length + " • élek: " + graph.edges.length;
     drawGalaxy(graph);
     resetView();
   }
@@ -700,31 +785,44 @@ TXT;
     cbsByMap = parseCbs(text);
   }
 
-  async function fetchText(url, fallback) {
-    if (!url) return fallback;
-    try {
-      const res = await fetch(url, { cache: "no-cache" });
-      if (!res.ok) return fallback;
-      const t = await res.text();
-      return t && t.trim() ? t : fallback;
-    } catch (err) {
-      console.warn("Fetch failed", url, err);
-      return fallback;
-    }
+  function fetchText(url, fallback, done) {
+    if (!url) { done(fallback); return; }
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    try { xhr.setRequestHeader("Cache-Control", "no-cache"); } catch (e) { /* ignore */ }
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState !== 4) return;
+      if (xhr.status >= 200 && xhr.status < 300) {
+        var t = xhr.responseText;
+        if (t && t.replace(/\s/g, "").length) {
+          done(t);
+        } else {
+          done(fallback);
+        }
+      } else {
+        done(fallback);
+      }
+    };
+    xhr.onerror = function () { done(fallback); };
+    try { xhr.send(); } catch (err) { done(fallback); }
   }
 
-  async function loadFromServer() {
-    const portalText = await fetchText(PORTAL_URL, SERVER_PORTAL_TEXT || SAMPLE_PORTALS);
-    const cbsText = await fetchText(CBS_URL, SERVER_CBS_TEXT || SAMPLE_CBS);
-    loadPortalText(portalText);
-    if (cbsText && cbsText.trim()) {
-      loadCbsText(cbsText);
-    } else {
-      cbsByMap = new Map();
-    }
+  function loadFromServer() {
+    var portalFallback = SERVER_PORTAL_TEXT || SAMPLE_PORTALS;
+    var cbsFallback = SERVER_CBS_TEXT || SAMPLE_CBS;
+    fetchText(PORTAL_URL, portalFallback, function (portalText) {
+      loadPortalText(portalText);
+      fetchText(CBS_URL, cbsFallback, function (cbsText) {
+        if (cbsText && cbsText.replace(/\s/g, "").length) {
+          loadCbsText(cbsText);
+        } else {
+          cbsByMap = {};
+        }
+      });
+    });
   }
 
-  relayoutBtn.addEventListener("click", () => {
+  relayoutBtn.addEventListener("click", function () {
     if (!currentGraph) return;
     assignOrderedTargets(currentGraph.nodes);
     runForce(currentGraph, 650);
