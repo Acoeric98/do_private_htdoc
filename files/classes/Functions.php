@@ -440,6 +440,7 @@ class Functions {
 			$clans[$key]['name'] = $value['name'];
 			$clans[$key]['rank'] = $value['rank'];
 			$clans[$key]['rankPoints'] = $value['rankPoints'];
+      $clans[$key]['recruiting'] = (bool)$value['recruiting'];
 		}
 
 		return json_encode($clans);
