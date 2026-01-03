@@ -39,27 +39,27 @@ FROM\tpos\tTO\tpos
 TXT;
 
 $sampleCbs = <<<TXT
-MAP\tPOS
-3-4\t45/90
-3-3\t105/25
-3-5\t110/90
-3-6\t95/80
-3-7\t105/45
-1-3\t106/24
-1-4\t44/90
-1-5\t170/25
-1-6\t100/60
-1-7\t100/72
-2-3\t105/25
-2-4\t160/85
-2-5\t105/90
-2-6\t85/65
-2-7\t105/55
-4-2\t115/60
-4-1\t100/55
-4-3\t88/60
-4-4\t90/55
-4-5\t120/55
+MAP\tPOS\tOWNER
+3-4\t45/90\tSzabad
+3-3\t105/25\t[EIC]
+3-5\t110/90\t[VRU]
+3-6\t95/80\t[VRU]
+3-7\t105/45\t[VRU]
+1-3\t106/24\t[MMO]
+1-4\t44/90\tSzabad
+1-5\t170/25\t[MMO]
+1-6\t100/60\t[MMO]
+1-7\t100/72\tSzabad
+2-3\t105/25\t[EIC]
+2-4\t160/85\tSzabad
+2-5\t105/90\t[EIC]
+2-6\t85/65\t[EIC]
+2-7\t105/55\t[EIC]
+4-2\t115/60\tSzabad
+4-1\t100/55\tSzabad
+4-3\t88/60\tSzabad
+4-4\t90/55\tSzabad
+4-5\t120/55\tSzabad
 TXT;
 ?>
 
@@ -75,7 +75,7 @@ TXT;
       Rendezett nézet: minden csoport (1-*,2-*,3-*,4-*,5-*) a második szám szerint (fentről lefelé) kerül sorba.
       Színek: 1-* piros, 2-* kék, 3-* zöld, PVP (4-1..4-5) narancs.
       Kattints egy hexára a szomszédok kiemeléséhez és a portálpozíciók megnyitásához.
-      A CBS opcionális (külön fájl): narancs <b>CBS</b> jelölők jelennek meg a térképen.
+      A CBS opcionális (külön fájl): narancs <b>CBS</b> jelölők jelennek meg a térképen. Formátum: <code>MAP POS [TULAJ]</code>, ha nincs tulaj megadva, "Szabad" jelenik meg.
       Kezelés: húzás = panoráma • görgő = nagyítás • Bezárás: <span class="kbd">Esc</span>
     </div>
   </div>
@@ -249,8 +249,8 @@ TXT;
     return rows;
   }
 
-  // ===== Parse CBS file (MAP POS) =====
-  // Supports format with header: MAP POS
+  // ===== Parse CBS file (MAP POS [OWNER]) =====
+  // Supports format with header: MAP POS [OWNER]
   function parseCbs(text) {
     var lines = text.split(/\r?\n/);
     var cleaned = [];
@@ -279,10 +279,13 @@ TXT;
 
       var map = parts[0];
       var pos = parsePos(parts[1]);
+      var ownerParts = parts.slice(2);
+      var ownerText = ownerParts.length ? ownerParts.join(" ") : "";
+      var owner = (ownerText && ownerText.replace(/^\s+|\s+$/g, "")) || "Szabad";
       if (!map || !pos) continue;
 
       if (!out[map]) out[map] = [];
-      out[map].push(pos);
+      out[map].push({ x: pos.x, y: pos.y, owner: owner });
     }
     return out;
   }
@@ -712,6 +715,13 @@ TXT;
       cLabel.setAttribute("class", "cbsLabel");
       cLabel.textContent = "CBS";
       mapSvg.appendChild(cLabel);
+
+      var cOwner = document.createElementNS(NS, "text");
+      cOwner.setAttribute("x", String(cx + 7));
+      cOwner.setAttribute("y", String(cy + 9));
+      cOwner.setAttribute("class", "cbsOwnerLabel");
+      cOwner.textContent = cbs.owner || "Szabad";
+      mapSvg.appendChild(cOwner);
     }
 
     mapWrap.appendChild(mapSvg);
