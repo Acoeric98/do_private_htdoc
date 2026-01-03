@@ -66,21 +66,17 @@ TXT;
 <div id="main" class="map-page">
   <div class="map-header">
     <div class="panel">
-      <input id="portalFile" type="file" accept=".txt,.tsv,.csv" title="Portal file (FROM pos TO pos)" />
-      <input id="cbsFile" type="file" accept=".txt,.tsv,.csv" title="CBS file (MAP POS)" />
-      <button id="serverBtn" type="button">Szerver fájlok</button>
-      <button id="sampleBtn" type="button">Minta betöltése</button>
       <button id="relayoutBtn" type="button">Re-layout</button>
       <button id="resetViewBtn" type="button">Nézet visszaállítása</button>
-      <span class="stat" id="stat">nodes: 0 • edges: 0</span>
+      <span class="stat" id="stat">csomópontok: 0 • élek: 0</span>
     </div>
     <div class="hint">
-      Automatikusan betölt a <b>maps.txt</b> és <b>cbs.txt</b> fájlokból (szerver gyökérmappa).<br/>
-      Ordered layout: each group (1-*,2-*,3-*,4-*,5-*) is placed in increasing order by the second number (top→bottom).
-      Colors: 1-* red, 2-* blue, 3-* green, PVP (4-1..4-5) orange.
-      Click a hex to highlight neighbors and open portal positions on that map.
-      CBS is optional (separate file): shows orange <b>CBS</b> markers inside the map view.
-      Pan: drag • Zoom: wheel • Close: <span class="kbd">Esc</span>
+      Automatikusan beolvas a <b>maps.txt</b> és <b>cbs.txt</b> fájlokból (szerver gyökérmappa).<br/>
+      Rendezett nézet: minden csoport (1-*,2-*,3-*,4-*,5-*) a második szám szerint (fentről lefelé) kerül sorba.
+      Színek: 1-* piros, 2-* kék, 3-* zöld, PVP (4-1..4-5) narancs.
+      Kattints egy hexára a szomszédok kiemeléséhez és a portálpozíciók megnyitásához.
+      A CBS opcionális (külön fájl): narancs <b>CBS</b> jelölők jelennek meg a térképen.
+      Kezelés: húzás = panoráma • görgő = nagyítás • Bezárás: <span class="kbd">Esc</span>
     </div>
   </div>
 
@@ -91,13 +87,13 @@ TXT;
   </div>
 
   <div class="legend">
-    <b>Legend</b><br/>
-    <span class="sw" style="background:rgba(255,75,75,.95)"></span>1-* VRU-ish
-    <span class="sw" style="background:rgba(47,140,255,.95);margin-left:12px;"></span>2-* MMO-ish
-    <span class="sw" style="background:rgba(46,234,122,.95);margin-left:12px;"></span>3-* EIC-ish
+    <b>Jelmagyarázat</b><br/>
+    <span class="sw" style="background:rgba(255,75,75,.95)"></span>1-* VRU
+    <span class="sw" style="background:rgba(47,140,255,.95);margin-left:12px;"></span>2-* MMO
+    <span class="sw" style="background:rgba(46,234,122,.95);margin-left:12px;"></span>3-* EIC
     <span class="sw" style="background:rgba(255,176,74,.95);margin-left:12px;"></span>PVP 4-*<br/>
-    Red dots in map view = portals (FROM positions). Orange dots labeled CBS = CBS markers (if CBS file loaded).<br/>
-    Map sizes: 4-4 & 4-5 are 418×260; others are 210×130.
+    Piros pont = portál (FROM pozíció). Narancs, CBS felirattal = CBS marker (ha a CBS fájl elérhető).<br/>
+    Térképméretek: 4-4 és 4-5: 418×260; a többi: 210×130.
   </div>
 </div>
 
@@ -110,11 +106,11 @@ TXT;
     <div class="modal-body">
       <div class="card">
         <div class="card-title">
-          <span>Map view</span>
+          <span>Térkép nézet</span>
           <span>
             <span id="mapSizeTag" class="pill">210×130</span>
             <span id="cbsTag" class="pill">CBS: 0</span>
-            <span id="portalCountTag" class="pill">Portals: 0</span>
+            <span id="portalCountTag" class="pill">Portálok: 0</span>
           </span>
         </div>
         <div class="mapwrap" id="mapWrap"></div>
@@ -122,8 +118,8 @@ TXT;
 
       <div class="card">
         <div class="card-title">
-          <span>Portals list (FROM → TO)</span>
-          <span class="pill">click map to open</span>
+          <span>Portál lista (FROM → TO)</span>
+          <span class="pill">a térképre kattintva nyílik</span>
         </div>
         <div class="list" id="portalList"></div>
       </div>
@@ -157,10 +153,6 @@ TXT;
   const view = document.getElementById("view");
   const stat = document.getElementById("stat");
 
-  const portalFileInput = document.getElementById("portalFile");
-  const cbsFileInput = document.getElementById("cbsFile");
-  const sampleBtn = document.getElementById("sampleBtn");
-  const serverBtn = document.getElementById("serverBtn");
   const relayoutBtn = document.getElementById("relayoutBtn");
   const resetViewBtn = document.getElementById("resetViewBtn");
 
@@ -560,7 +552,7 @@ TXT;
   // ===== Modal map view =====
   function openMapModal(mapName) {
     const size = getMapSize(mapName);
-    modalTitle.textContent = `Map ${mapName} • portal + CBS positions`;
+    modalTitle.textContent = `Térkép ${mapName} • portál + CBS pozíciók`;
     mapSizeTag.textContent = `${size.w}×${size.h}`;
 
     const portals = currentPortalRows
@@ -576,7 +568,7 @@ TXT;
 
     const cbsList = cbsByMap.get(mapName) || [];
     cbsTag.textContent = `CBS: ${cbsList.length}`;
-    portalCountTag.textContent = `Portals: ${portals.length}`;
+    portalCountTag.textContent = `Portálok: ${portals.length}`;
 
     clear(mapWrap);
     const mapSvg = document.createElementNS(NS, "svg");
@@ -650,7 +642,7 @@ TXT;
 
     portalList.innerHTML = "";
     if (portals.length === 0) {
-      portalList.innerHTML = `<div class="item"><b>No portals found</b><div style="margin-top:6px;">No valid FROM positions on this map (or positions were not numeric).</div></div>`;
+      portalList.innerHTML = `<div class="item"><b>Nincs portál</b><div style="margin-top:6px;">Ehhez a térképhez nem találtunk érvényes FROM pozíciókat.</div></div>`;
     } else {
       for (const p of portals) {
         const div = document.createElement("div");
@@ -691,7 +683,7 @@ TXT;
     runForce(graph, 650);
     currentGraph = graph;
 
-    stat.textContent = `nodes: ${graph.nodes.length} • edges: ${graph.edges.length}`;
+    stat.textContent = `csomópontok: ${graph.nodes.length} • élek: ${graph.edges.length}`;
     drawGalaxy(graph);
     resetView();
   }
@@ -729,19 +721,6 @@ TXT;
     }
   }
 
-  // ===== Inputs =====
-  portalFileInput.addEventListener("change", async () => {
-    const f = portalFileInput.files?.[0];
-    if (!f) return;
-    loadPortalText(await f.text());
-  });
-
-  cbsFileInput.addEventListener("change", async () => {
-    const f = cbsFileInput.files?.[0];
-    if (!f) { cbsByMap = new Map(); return; }
-    loadCbsText(await f.text());
-  });
-
   relayoutBtn.addEventListener("click", () => {
     if (!currentGraph) return;
     assignOrderedTargets(currentGraph.nodes);
@@ -750,13 +729,6 @@ TXT;
   });
 
   resetViewBtn.addEventListener("click", resetView);
-
-  sampleBtn.addEventListener("click", () => {
-    loadPortalText(SAMPLE_PORTALS);
-    loadCbsText(SAMPLE_CBS);
-  });
-
-  serverBtn.addEventListener("click", loadFromServer);
 
   loadFromServer();
 })();

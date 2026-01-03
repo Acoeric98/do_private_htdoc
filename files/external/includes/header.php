@@ -44,9 +44,8 @@
               <a class="nav-grid__item nav-grid__item--start" href="<?php echo DOMAIN; ?>map-revolution" target="_blank">Start</a>
               <a class="nav-grid__item nav-grid__item--map" href="<?php echo DOMAIN; ?>interactive_map">Térkép</a>
               <a class="nav-grid__item nav-grid__item--home" href="<?php echo DOMAIN; ?>home">Főoldal</a>
-              <a class="nav-grid__item nav-grid__item--chat" href="<?php echo DOMAIN; ?>chat">Chat</a>
-              <a class="nav-grid__item nav-grid__item--clan" href="<?php echo DOMAIN; ?>clan-hub">Clan</a>
               <a class="nav-grid__item nav-grid__item--settings" href="<?php echo DOMAIN; ?>settings">Settings</a>
+              <a class="nav-grid__item nav-grid__item--clan" href="<?php echo DOMAIN; ?>clan-hub">Clan</a>
               <a class="nav-grid__item nav-grid__item--company-change" href="<?php echo DOMAIN; ?>company-change">Megbízóváltás</a>
 
               <div class="nav-grid__empty nav-grid__empty--auction-gap" aria-hidden="true"></div>
