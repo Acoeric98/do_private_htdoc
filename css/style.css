@@ -164,8 +164,8 @@ nav {
     "hangar brand brand shop"
     "equipment company-change ships-boosters auction"
     "pet start start clan"
-    "skill-tree start start settings"
-    "galaxy home chat logout"
+    "skill-tree start start chat"
+    "galaxy map home logout"
     "uridium credit experience honor";
   grid-auto-flow: row dense;
   grid-auto-rows: 48px;
@@ -242,7 +242,8 @@ nav {
       "skill-tree start start"
       "home start start"
       "company-change ships-boosters galaxy"
-      "chat chat logout"
+      "map map chat"
+      "logout logout logout"
       "uridium credit experience"
       "honor honor honor";
     grid-auto-rows: minmax(48px, auto);
@@ -262,6 +263,7 @@ nav {
       "clan settings"
       "company-change ships-boosters"
       "galaxy galaxy"
+      "map map"
       "chat chat"
       "uridium credit"
       "experience honor"
@@ -357,17 +359,18 @@ nav {
 .nav-grid__item--auction { grid-area: auction; order: 7; }
 .nav-grid__item--pet { grid-area: pet; order: 8; }
 .nav-grid__item--start { grid-area: start; order: 9; }
-.nav-grid__item--home { grid-area: home; order: 10; }
-.nav-grid__item--clan { grid-area: clan; order: 11; }
-.nav-grid__item--skill-tree { grid-area: skill-tree; order: 12; }
-.nav-grid__item--settings { grid-area: settings; order: 13; }
-.nav-grid__item--galaxy { grid-area: galaxy; order: 14; }
-.nav-grid__item--chat { grid-area: chat; order: 15; }
-.nav-grid__item--logout { grid-area: logout; order: 16; }
-.nav-grid__item--uridium { grid-area: uridium; order: 17; }
-.nav-grid__item--credit { grid-area: credit; order: 18; }
-.nav-grid__item--experience { grid-area: experience; order: 19; }
-.nav-grid__item--honor { grid-area: honor; order: 20; }
+.nav-grid__item--map { grid-area: map; order: 10; }
+.nav-grid__item--home { grid-area: home; order: 11; }
+.nav-grid__item--clan { grid-area: clan; order: 12; }
+.nav-grid__item--skill-tree { grid-area: skill-tree; order: 13; }
+.nav-grid__item--settings { grid-area: settings; order: 14; }
+.nav-grid__item--galaxy { grid-area: galaxy; order: 15; }
+.nav-grid__item--chat { grid-area: chat; order: 16; }
+.nav-grid__item--logout { grid-area: logout; order: 17; }
+.nav-grid__item--uridium { grid-area: uridium; order: 18; }
+.nav-grid__item--credit { grid-area: credit; order: 19; }
+.nav-grid__item--experience { grid-area: experience; order: 20; }
+.nav-grid__item--honor { grid-area: honor; order: 21; }
 
 .nav-grid__stat-label {
   color: #99b6db;
