@@ -1,10 +1,7 @@
-hozzáadni az adatbázishoz a 
-ID "29" name="4-5"  mappot és a hozzá tartozó portálokat.
-
 hozzáadni az owned titles táblát az account-okhoz
 
 ALTER TABLE player_accounts
 ADD COLUMN owned_titles JSON NOT NULL DEFAULT '[]';
 
 
-megcsinálni a ranglistát a profilon belül, hozzáadni a saját profilt rangsorral mindennel együtt. klánt is hozzáadni
+megcsinálni a ranglistát a profilon belül, hozzáadni a saját profilt rangsorral mindennel együtt. klánt is hozzáadni, választható title-t kirakni
