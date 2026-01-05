@@ -13,7 +13,7 @@
     <?php if (Functions::IsLoggedIn() && ((isset($page[0]) && $page[0] === 'company_select') || (isset($page[0]) && $page[0] === 'company_change') || (isset($page[0]) && $page[0] === 'clan' && isset($page[1]) && $page[1] === 'company'))) { ?>
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/company-select.css"/>
     <?php } ?>
-    <?php if (Functions::IsLoggedIn() && (isset($page[0]) && $page[0] === 'skill_tree')) { ?>
+    <?php if (Functions::IsLoggedIn() && (isset($page[0]) && ($page[0] === 'skill_tree' || $page[0] === 'profile'))) { ?>
     <link type="text/css" rel="stylesheet" href="<?php echo DOMAIN; ?>css/skill-tree.css"/>
     <?php } ?>
     <?php if (Functions::IsLoggedIn() && (isset($page[0]) && ($page[0] === 'ships' || $page[0] === 'ships-boosters'))) { ?>
@@ -51,7 +51,7 @@
                   <td><a href="<?php echo DOMAIN; ?>clan-hub">CLAN</a></td>
                 </tr>
                 <tr>
-                  <td><a href="<?php echo DOMAIN; ?>skill_tree">SKILL TREE</a></td>
+                  <td><a href="<?php echo DOMAIN; ?>profile">PROFIL</a></td>
                   <td><a href="<?php echo DOMAIN; ?>settings">SETTINGS</a></td>
                 </tr>
                 <tr>
