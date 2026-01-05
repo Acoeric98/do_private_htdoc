@@ -1,87 +1,86 @@
-001: 1	1-1
-002: 2	1-2
-003: 3	1-3
-004: 4	1-4
-005: 5	2-1
-006: 6	2-2
-007: 7	2-3
-008: 8	2-4
-009: 9	3-1
-010: 10	3-2
-011: 11	3-3
-012: 12	3-4
-013: 13	4-1
-014: 14	4-2
-015: 15	4-3
-016: 16	4-4
-017: 17	1-5
-018: 18	1-6
-019: 19	1-7
-020: 20	1-8
-021: 21	2-5
-022: 22	2-6
-023: 23	2-7
-024: 24	2-8
-025: 25	3-5
-026: 26	3-6
-027: 27	3-7
-028: 28	3-8
-029: 29	4-5
-030: 42	'''
-031: 51	GG a
-032: 52	GG b
-033: 53	GG '
-034: 54	GG NC
-035: 55	GG d
-036: 56	Galaxy Gate 6
-037: 57	GG Y6
-038: 58	HSG
-039: 61	Invasion
-040: 62	Invasion
-041: 63	Invasion
-042: 64	Invasion
-043: 65	Invasion
-044: 66	Invasion
-045: 67	Invasion
-046: 68	Invasion
-047: 69	Invasion
-048: 70	GG Epsilon
-049: 71	GG Zeta 1
-050: 72	GG Zeta 2
-051: 73	GG Zeta 3
-052: 74	GG Kappa
-053: 75	GG Lambda
-054: 76	GG Kronos
-055: 81	TDM I
-056: 82	TDM II
-057: 91	5-1
-058: 92	5-2
-059: 93	5-3
-060: 101	JP
-061: 102	JP
-062: 103	JP
-063: 104	JP
-064: 105	JP
-065: 106	JP
-066: 107	JP
-067: 108	JP
-068: 109	JP
-069: 110	JP
-070: 111	JP
-071: 112	TA
-072: 113	TA
-073: 114	TA
-074: 115	TA
-075: 116	TA
-076: 117	TA
-077: 118	TA
-078: 119	TA
-079: 120	TA
-080: 121	TA
-081: 200	Lord of War
-082: 201	SC-1
-083: 202	SC-2
-084: 203	GG Hades
-085: 223	Devolarium Attack
-086: 224	« Custom Tournament »
-Total: 86
+1 - 1-1
+2 - 1-2
+3 - 1-3
+4 - 1-4
+5 - 2-1
+6 - 2-2
+7 - 2-3
+8 - 2-4
+9 - 3-1
+10 - 3-2
+11 - 3-3
+12 - 3-4
+13 - 4-1
+14 - 4-2
+15 - 4-3
+16 - 4-4
+17 - 1-5
+18 - 1-6
+19 - 1-7
+20 - 1-8
+21 - 2-5
+22 - 2-6
+23 - 2-7
+24 - 2-8
+25 - 3-5
+26 - 3-6
+27 - 3-7
+28 - 3-8
+29 - 4-5
+30 - 4-2
+31 - GG a
+32 - GG b
+33 - GG '
+34 - GG NC
+35 - GG d
+36 - Galaxy Gate 6
+37 - GG Y6
+38 - HSG
+39 - Invasion
+40 - Invasion
+41 - Invasion
+42 - Invasion
+43 - Invasion
+44 - Invasion
+45 - Invasion
+46 - Invasion
+47 - Invasion
+48 - GG Epsilon
+49 - GG Zeta 1
+50 - GG Zeta 2
+51 - GG Zeta 3
+52 - GG Kappa
+53 - GG Lambda
+54 - GG Kronos
+55 - TDM I
+56 - TDM II
+57 - 5-1
+58 - 5-2
+59 - 5-3
+60 - JP
+61 - JP
+62 - JP
+63 - JP
+64 - JP
+65 - JP
+66 - JP
+67 - JP
+68 - JP
+69 - JP
+70 - JP
+71 - TA
+72 - TA
+73 - TA
+74 - TA
+75 - TA
+76 - TA
+77 - TA
+78 - TA
+79 - TA
+80 - TA
+81 - Lord of War
+82 - SC-1
+83 - SC-2
+84 - GG Hades
+85 - Devolarium Attack
+86 - « Custom Tournament »
