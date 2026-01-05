@@ -1900,6 +1900,34 @@ class Functions {
     return $cost;
   }
 
+  public static function GetSkillTreeData($userId) {
+    $mysqli = Database::GetInstance();
+
+    $equipment = $mysqli->query('SELECT skill_points, items FROM player_equipment WHERE userId = '.$userId.'')->fetch_assoc();
+
+    if (!$equipment) {
+      return null;
+    }
+
+    $skillPoints = json_decode($equipment['skill_points']);
+    $items = json_decode($equipment['items']);
+
+    if (!isset($items->skillTree)) {
+      return null;
+    }
+
+    $skillTree = $items->skillTree;
+    $requiredLogdisks = Functions::GetRequiredLogdisks((array_sum((array)$skillPoints) + $skillTree->researchPoints) + 1);
+    $skills = Functions::GetSkills($skillPoints);
+
+    return [
+      'skillPoints' => $skillPoints,
+      'skillTree' => $skillTree,
+      'requiredLogdisks' => $requiredLogdisks,
+      'skills' => $skills
+    ];
+  }
+
   public static function GetSkillDescription($skill, $level) {
     $array = [
       'Engineering' => 'Lets your repair bots repair '.($level <= 1 ? '5' : ($level == 2 ? '10' : ($level == 3 ? '15' : ($level == 4 ? '20' : ($level == 5 ? '30' : '0'))))).'% more HP<br> per second',

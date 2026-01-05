@@ -330,7 +330,7 @@ function safeParseJson(response) {
 </script>
 <?php } ?>
 
-<?php if (Functions::IsLoggedIn() && $page[0] === 'skill_tree') { ?>
+<?php if (Functions::IsLoggedIn() && ($page[0] === 'skill_tree' || $page[0] === 'profile')) { ?>
 <script type="text/javascript">
   $('#exchangeLogdisks').click(function() {
     var button = $(this);
