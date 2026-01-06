@@ -464,6 +464,24 @@ function safeParseJson(response) {
       }
     });
   });
+
+  <?php if ($page[0] === 'profile') { ?>
+  (function() {
+    var tabsElement = document.querySelector('.tabs');
+
+    if (tabsElement && window.location.hash.indexOf('#profile-') === 0) {
+      var tabsInstance = M.Tabs.getInstance(tabsElement);
+
+      if (tabsInstance) {
+        tabsInstance.select(window.location.hash.substring(1));
+      }
+    }
+
+    $('#ranking-type-selector').on('change', function() {
+      $(this).closest('form').trigger('submit');
+    });
+  })();
+  <?php } ?>
 </script>
 <?php } ?>
 

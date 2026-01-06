@@ -218,10 +218,10 @@ if (isset($mysqli) && !$mysqli->connect_errno) {
                       <p>Válaszd ki, hogy melyik rangsort szeretnéd látni, és lapozz 10-es bontásban a teljes lista megtekintéséhez.</p>
 
                       <div class="row">
-                        <form method="get" action="<?php echo $rankingBaseUrl; ?>#profile-ranking" class="col s12 m6">
+                        <form id="ranking-filter-form" method="get" action="<?php echo $rankingBaseUrl; ?>#profile-ranking" class="col s12 m6">
                           <input type="hidden" name="ranking_page" value="1">
                           <div class="input-field">
-                            <select name="ranking_type" onchange="this.form.submit()">
+                            <select id="ranking-type-selector" name="ranking_type" onchange="this.form.submit()">
                               <?php foreach ($rankingOptions as $typeKey => $typeLabel) { ?>
                                 <option value="<?php echo $typeKey; ?>" <?php echo ($rankingType === $typeKey ? 'selected' : ''); ?>><?php echo $typeLabel; ?></option>
                               <?php } ?>
