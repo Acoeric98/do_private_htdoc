@@ -439,6 +439,31 @@ function safeParseJson(response) {
       });
     }
   });
+
+  $('#title-selector').on('change', function() {
+    var selectedTitle = $(this).val();
+
+    $.ajax({
+      type: 'POST',
+      url: '<?php echo DOMAIN; ?>api/',
+      data: { action: 'set_title', title: selectedTitle },
+      success: function(response) {
+        var json = safeParseJson(response);
+
+        if (!json) {
+          return;
+        }
+
+        if (json.newTitle) {
+          $('#current-title').text(json.newTitle.label ? json.newTitle.label : 'Nincs beállítva cím');
+        }
+
+        if (json.message != '') {
+          M.toast({html: '<span>'+ json.message +'</span>'});
+        }
+      }
+    });
+  });
 </script>
 <?php } ?>
 

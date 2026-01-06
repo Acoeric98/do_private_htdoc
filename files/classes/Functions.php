@@ -1900,6 +1900,163 @@ class Functions {
     return $cost;
   }
 
+  public static function GetTitlesList() {
+    static $titles = null;
+
+    if ($titles !== null) {
+      return $titles;
+    }
+
+    $titlesPath = dirname(ROOT) . DIRECTORY_SEPARATOR . 'titles.json';
+
+    if (!file_exists($titlesPath)) {
+      return [];
+    }
+
+    $fileContent = file_get_contents($titlesPath);
+    $decoded = json_decode($fileContent, true);
+
+    if (!is_array($decoded)) {
+      return [];
+    }
+
+    $cleaned = [];
+
+    foreach ($decoded as $category => $categoryTitles) {
+      if (!is_array($categoryTitles)) {
+        continue;
+      }
+
+      foreach ($categoryTitles as $key => $label) {
+        if (!is_string($key) || !is_string($label) || $key === '' || $label === '') {
+          continue;
+        }
+
+        if (!isset($cleaned[$category])) {
+          $cleaned[$category] = [];
+        }
+
+        $cleaned[$category][$key] = $label;
+      }
+    }
+
+    $titles = $cleaned;
+
+    return $titles;
+  }
+
+  public static function GetTitleLabel($titleKey, $titlesList = []) {
+    $titlesList = empty($titlesList) ? Functions::GetTitlesList() : $titlesList;
+
+    foreach ($titlesList as $categoryTitles) {
+      if (isset($categoryTitles[$titleKey])) {
+        return $categoryTitles[$titleKey];
+      }
+    }
+
+    return null;
+  }
+
+  public static function GetPlayerTitles($userId) {
+    $mysqli = Database::GetInstance();
+
+    $userId = (int)$userId;
+    $result = $mysqli->query('SELECT titles FROM player_titles WHERE userID = '.$userId.'');
+
+    if ($result && $result->num_rows >= 1) {
+      $row = $result->fetch_assoc();
+      $titles = json_decode($row['titles'], true);
+
+      return is_array($titles) ? $titles : [];
+    }
+
+    $mysqli->query('INSERT INTO player_titles (userID) VALUES ('.$userId.')');
+
+    return [];
+  }
+
+  public static function SetPlayerTitle($titleKey) {
+    $mysqli = Database::GetInstance();
+
+    $player = Functions::GetPlayer();
+    $titleKey = $mysqli->real_escape_string($titleKey);
+
+    $json = [
+      'status' => false,
+      'message' => '',
+      'newTitle' => null
+    ];
+
+    if (!$player) {
+      $json['message'] = 'Be kell jelentkezned a cím módosításához.';
+      return json_encode($json);
+    }
+
+    if ($titleKey === '') {
+      $mysqli->query("UPDATE player_accounts SET title = '' WHERE userId = ".$player['userId'].'');
+
+      $json['status'] = true;
+      $json['message'] = 'A cím törölve.';
+      $json['newTitle'] = [
+        'key' => '',
+        'label' => null
+      ];
+
+      return json_encode($json);
+    }
+
+    $titlesList = Functions::GetTitlesList();
+    $titleLabel = Functions::GetTitleLabel($titleKey, $titlesList);
+
+    if ($titleLabel === null) {
+      $json['message'] = 'A kiválasztott cím nem érhető el.';
+      return json_encode($json);
+    }
+
+    $playerTitles = Functions::GetPlayerTitles($player['userId']);
+    $playerTitles[] = $titleKey;
+    $playerTitles = array_values(array_unique(array_filter($playerTitles)));
+
+    $encodedTitles = json_encode($playerTitles);
+
+    if ($encodedTitles === false || mb_strlen($encodedTitles) > 255) {
+      $playerTitles = [$titleKey];
+      $encodedTitles = json_encode($playerTitles);
+    }
+
+    $encodedTitles = $mysqli->real_escape_string($encodedTitles);
+
+    $mysqli->begin_transaction();
+
+    try {
+      $mysqli->query("UPDATE player_accounts SET title = '".$titleKey."' WHERE userId = ".$player['userId'].'');
+
+      $titlesResult = $mysqli->query('SELECT userID FROM player_titles WHERE userID = '.$player['userId'].'');
+
+      if ($titlesResult && $titlesResult->num_rows >= 1) {
+        $mysqli->query("UPDATE player_titles SET titles = '".$encodedTitles."' WHERE userID = ".$player['userId'].'');
+      } else {
+        $mysqli->query("INSERT INTO player_titles (userID, titles) VALUES (".$player['userId'].", '".$encodedTitles."')");
+      }
+
+      $json['status'] = true;
+      $json['message'] = 'A cím beállítása sikeres.';
+      $json['newTitle'] = [
+        'key' => $titleKey,
+        'label' => $titleLabel
+      ];
+
+      $mysqli->commit();
+    } catch (Exception $e) {
+      $json['message'] = 'Hiba történt a cím mentésekor.';
+      $mysqli->rollback();
+    }
+
+    $mysqli->close();
+
+    return json_encode($json);
+  }
+
   public static function GetSkillTreeData($userId) {
     $mysqli = Database::GetInstance();
 

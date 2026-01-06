@@ -114,11 +114,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 		echo Functions::DeleteClan();
 	} else if ($request === 'leave_clan') {
 		echo Functions::LeaveClan();
-	} else if ($request === 'change_ship') {
-		if (isset($_POST['ship'])) {
-			echo Functions::ChangeShip(Functions::s($_POST['ship']));
-		}
-	} else {
+        } else if ($request === 'change_ship') {
+                if (isset($_POST['ship'])) {
+                        echo Functions::ChangeShip(Functions::s($_POST['ship']));
+                }
+        } else if ($request === 'set_title') {
+                if (isset($_POST['title'])) {
+                        echo Functions::SetPlayerTitle(Functions::s($_POST['title']));
+                }
+        } else {
     require_once(EXTERNALS . 'error.php');
   }
 

@@ -1,5 +1,8 @@
 <?php
 $skillData = Functions::GetSkillTreeData($player['userId']);
+$titlesList = Functions::GetTitlesList();
+$currentTitleKey = $player['title'];
+$currentTitleLabel = Functions::GetTitleLabel($currentTitleKey, $titlesList);
 ?>
       <div id="main" class="profile">
         <div class="container">
@@ -43,7 +46,52 @@ $skillData = Functions::GetSkillTreeData($player['userId']);
                   <div id="profile-titles">
                     <div class="card white-text grey darken-4 padding-15">
                       <h6>Címek</h6>
-                      <p>Dummy tartalom: itt lesznek listázva a megszerzett és aktív címek, külön szűrőkkel és statisztikákkal.</p>
+                      <?php if (!empty($titlesList)) { ?>
+                      <p>Válassz címet a listából. A játékban az alábbi olvasható cím jelenik meg:</p>
+                      <p><strong>Aktuális cím:</strong> <span id="current-title"><?php echo $currentTitleLabel ? $currentTitleLabel : 'Nincs beállítva cím'; ?></span></p>
+
+                      <div class="row">
+                        <div class="input-field col s12 m6">
+                          <select id="title-selector">
+                            <option value="" <?php echo ($currentTitleKey === '' ? 'selected' : ''); ?>>Nincs cím</option>
+                            <?php foreach ($titlesList as $category => $categoryTitles) { ?>
+                              <?php if (!empty($categoryTitles)) { ?>
+                                <optgroup label="<?php echo ucfirst($category); ?>">
+                                  <?php foreach ($categoryTitles as $titleKey => $titleLabel) { ?>
+                                    <option value="<?php echo $titleKey; ?>" <?php echo ($titleKey === $currentTitleKey ? 'selected' : ''); ?>>
+                                      <?php echo $titleLabel; ?>
+                                    </option>
+                                  <?php } ?>
+                                </optgroup>
+                              <?php } ?>
+                            <?php } ?>
+                          </select>
+                          <label>Cím kiválasztása</label>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col s12">
+                          <h6>Elérhető címek</h6>
+                          <ul class="collection grey darken-4">
+                            <?php foreach ($titlesList as $category => $categoryTitles) { ?>
+                              <?php if (!empty($categoryTitles)) { ?>
+                              <li class="collection-item grey darken-3 white-text">
+                                <strong><?php echo ucfirst($category); ?>:</strong>
+                                <div class="chip-container">
+                                  <?php foreach ($categoryTitles as $titleLabel) { ?>
+                                    <span class="chip grey darken-2 white-text"><?php echo $titleLabel; ?></span>
+                                  <?php } ?>
+                                </div>
+                              </li>
+                              <?php } ?>
+                            <?php } ?>
+                          </ul>
+                        </div>
+                      </div>
+                      <?php } else { ?>
+                      <p class="red-text text-lighten-2">Nem találhatók elérhető címek.</p>
+                      <?php } ?>
                     </div>
                   </div>
 
