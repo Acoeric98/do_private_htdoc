@@ -11,6 +11,69 @@ $currentRankPosition = ($player['rank'] > 0) ? $player['rank'] : null;
 $profileAvatar = DOMAIN.'img/avatar.png';
 $currentShipRow = isset($mysqli) ? $mysqli->query('SELECT name FROM server_ships WHERE shipID = '.(int)$player['shipId'].'')->fetch_assoc() : null;
 $currentShipName = $currentShipRow && isset($currentShipRow['name']) ? $currentShipRow['name'] : 'Ismeretlen hajó';
+$rankingType = isset($_GET['ranking_type']) ? strtolower($_GET['ranking_type']) : 'pilots';
+$rankingOptions = [
+  'pilots' => 'Játékosok',
+  'clans' => 'Klánok',
+  'warranks' => 'War Rank',
+];
+
+if (!array_key_exists($rankingType, $rankingOptions)) {
+  $rankingType = 'pilots';
+}
+
+$itemsPerPage = 10;
+$currentRankingPage = isset($_GET['ranking_page']) ? (int)$_GET['ranking_page'] : 1;
+
+if ($currentRankingPage < 1) {
+  $currentRankingPage = 1;
+}
+
+$rankingData = [];
+$totalRankingItems = 0;
+$totalRankingPages = 1;
+$rankingBaseUrl = DOMAIN.'profile';
+
+if (isset($mysqli) && !$mysqli->connect_errno) {
+  switch ($rankingType) {
+    case 'clans':
+      $totalResult = $mysqli->query('SELECT COUNT(*) as total FROM server_clans WHERE rank > 0');
+      $totalRankingItems = $totalResult ? (int)$totalResult->fetch_assoc()['total'] : 0;
+      break;
+    case 'warranks':
+      $totalResult = $mysqli->query('SELECT COUNT(*) as total FROM player_accounts WHERE rankId != 21 AND warRank > 0');
+      $totalRankingItems = $totalResult ? (int)$totalResult->fetch_assoc()['total'] : 0;
+      break;
+    default:
+      $totalResult = $mysqli->query('SELECT COUNT(*) as total FROM player_accounts WHERE rankId != 21 AND rank > 0');
+      $totalRankingItems = $totalResult ? (int)$totalResult->fetch_assoc()['total'] : 0;
+      break;
+  }
+
+  $totalRankingPages = max(1, (int)ceil($totalRankingItems / $itemsPerPage));
+
+  if ($currentRankingPage > $totalRankingPages) {
+    $currentRankingPage = $totalRankingPages;
+  }
+
+  $offset = ($currentRankingPage - 1) * $itemsPerPage;
+
+  switch ($rankingType) {
+    case 'clans':
+      $result = $mysqli->query('SELECT id, name, tag, rank, rankPoints FROM server_clans WHERE rank > 0 ORDER BY rank ASC LIMIT '.$itemsPerPage.' OFFSET '.$offset);
+      break;
+    case 'warranks':
+      $result = $mysqli->query('SELECT userId, pilotName, factionId, warRank, warPoints FROM player_accounts WHERE rankId != 21 AND warRank > 0 ORDER BY warRank ASC LIMIT '.$itemsPerPage.' OFFSET '.$offset);
+      break;
+    default:
+      $result = $mysqli->query('SELECT userId, pilotName, factionId, rank, rankPoints FROM player_accounts WHERE rankId != 21 AND rank > 0 ORDER BY rank ASC LIMIT '.$itemsPerPage.' OFFSET '.$offset);
+      break;
+  }
+
+  if ($result) {
+    $rankingData = $result->fetch_all(MYSQLI_ASSOC);
+  }
+}
 ?>
       <div id="main" class="profile">
         <div class="container">
@@ -152,7 +215,75 @@ $currentShipName = $currentShipRow && isset($currentShipRow['name']) ? $currentS
                   <div id="profile-ranking">
                     <div class="card white-text grey darken-4 padding-15">
                       <h6>Összesített rangsor</h6>
-                      <p>Dummy tartalom: itt fog megjelenni az összesített ranglista (pilóták, klánok, frakciók) szűrhető táblázatokkal.</p>
+                      <p>Válaszd ki, hogy melyik rangsort szeretnéd látni, és lapozz 10-es bontásban a teljes lista megtekintéséhez.</p>
+
+                      <div class="row">
+                        <form method="get" action="<?php echo $rankingBaseUrl; ?>#profile-ranking" class="col s12 m6">
+                          <input type="hidden" name="ranking_page" value="1">
+                          <div class="input-field">
+                            <select name="ranking_type" onchange="this.form.submit()">
+                              <?php foreach ($rankingOptions as $typeKey => $typeLabel) { ?>
+                                <option value="<?php echo $typeKey; ?>" <?php echo ($rankingType === $typeKey ? 'selected' : ''); ?>><?php echo $typeLabel; ?></option>
+                              <?php } ?>
+                            </select>
+                            <label>Rangsor típusa</label>
+                          </div>
+                        </form>
+                      </div>
+
+                      <?php if (!empty($rankingData)) { ?>
+                      <table class="striped highlight responsive-table">
+                        <thead>
+                          <tr>
+                            <th>Helyezés</th>
+                            <th><?php echo ($rankingType === 'clans') ? 'Klán' : 'Név'; ?></th>
+                            <?php if ($rankingType !== 'clans') { ?>
+                            <th>Cég</th>
+                            <?php } ?>
+                            <th>Pont</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php foreach ($rankingData as $entry) { ?>
+                            <?php if ($rankingType === 'clans') { ?>
+                            <tr>
+                              <td><?php echo (int)$entry['rank']; ?></td>
+                              <td><a href="<?php echo DOMAIN; ?>clan/clan-details/<?php echo (int)$entry['id']; ?>">[<?php echo htmlspecialchars($entry['tag'], ENT_QUOTES, 'UTF-8'); ?>] <?php echo htmlspecialchars($entry['name'], ENT_QUOTES, 'UTF-8'); ?></a></td>
+                              <td><?php echo number_format((int)$entry['rankPoints'], 0, ',', '.'); ?></td>
+                            </tr>
+                            <?php } else { ?>
+                            <tr>
+                              <td><?php echo ($rankingType === 'warranks') ? (int)$entry['warRank'] : (int)$entry['rank']; ?></td>
+                              <td><?php echo htmlspecialchars($entry['pilotName'], ENT_QUOTES, 'UTF-8'); ?></td>
+                              <td><img src="/img/companies/logo_<?php echo($entry['factionId'] == 1 ? 'mmo' : ($entry['factionId'] == 2 ? 'eic' : 'vru')); ?>_mini.png" alt="Cég"></td>
+                              <td><?php echo number_format(($rankingType === 'warranks') ? (int)$entry['warPoints'] : (int)$entry['rankPoints'], 0, ',', '.'); ?></td>
+                            </tr>
+                            <?php } ?>
+                          <?php } ?>
+                        </tbody>
+                      </table>
+
+                      <?php if ($totalRankingPages > 1) { ?>
+                      <div class="center-align" style="margin-top: 15px;">
+                        <ul class="pagination">
+                          <li class="<?php echo ($currentRankingPage <= 1) ? 'disabled' : 'waves-effect'; ?>">
+                            <a href="<?php echo $rankingBaseUrl; ?>?ranking_type=<?php echo $rankingType; ?>&ranking_page=<?php echo $currentRankingPage - 1; ?>#profile-ranking"><i class="material-icons">chevron_left</i></a>
+                          </li>
+                          <?php for ($pageIndex = max(1, $currentRankingPage - 2); $pageIndex <= min($totalRankingPages, $currentRankingPage + 2); $pageIndex++) { ?>
+                          <li class="<?php echo ($pageIndex == $currentRankingPage) ? 'active grey darken-2' : 'waves-effect'; ?>">
+                            <a href="<?php echo $rankingBaseUrl; ?>?ranking_type=<?php echo $rankingType; ?>&ranking_page=<?php echo $pageIndex; ?>#profile-ranking"><?php echo $pageIndex; ?></a>
+                          </li>
+                          <?php } ?>
+                          <li class="<?php echo ($currentRankingPage >= $totalRankingPages) ? 'disabled' : 'waves-effect'; ?>">
+                            <a href="<?php echo $rankingBaseUrl; ?>?ranking_type=<?php echo $rankingType; ?>&ranking_page=<?php echo $currentRankingPage + 1; ?>#profile-ranking"><i class="material-icons">chevron_right</i></a>
+                          </li>
+                        </ul>
+                        <p class="grey-text text-lighten-1">Oldal <?php echo $currentRankingPage; ?> / <?php echo $totalRankingPages; ?> • <?php echo $totalRankingItems; ?> találat</p>
+                      </div>
+                      <?php } ?>
+                      <?php } else { ?>
+                      <p class="red-text text-lighten-2">Nem található megjeleníthető bejegyzés ehhez a rangsorhoz.</p>
+                      <?php } ?>
                     </div>
                   </div>
                 </div>
