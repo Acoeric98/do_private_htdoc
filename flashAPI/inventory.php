@@ -2,6 +2,34 @@
 require_once('../files/config.php');
 $mysqli = Database::GetInstance();
 
+if (isset($_GET['action']) && $_GET['action'] === 'lootIds') {
+	if (!Functions::IsLoggedIn()) {
+		http_response_code(401);
+		header('Content-Type: application/json; charset=utf-8');
+		echo json_encode(['error' => 'not_logged_in']);
+		exit;
+	}
+
+	$lootIds = [];
+	$result = $mysqli->query('SELECT lootID FROM server_ships');
+	if ($result) {
+		$rows = $result->fetch_all(MYSQLI_ASSOC);
+		foreach ($rows as $row) {
+			if (isset($row['lootID'])) {
+				$lootIds[] = $row['lootID'];
+			}
+		}
+	}
+
+	header('Content-Type: application/json; charset=utf-8');
+	echo json_encode([
+		'count' => count($lootIds),
+		'lootIds' => $lootIds,
+		'generatedAt' => date('c')
+	]);
+	exit;
+}
+
 $mysqli->begin_transaction();
 
 try {
