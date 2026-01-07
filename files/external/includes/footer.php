@@ -467,15 +467,21 @@ function safeParseJson(response) {
 
   <?php if ($page[0] === 'profile') { ?>
   (function() {
-    var tabsElement = document.querySelector('.tabs');
+    function selectProfileTabFromHash() {
+      var tabsElement = document.querySelector('.tabs');
 
-    if (tabsElement && window.location.hash.indexOf('#profile-') === 0) {
-      var tabsInstance = M.Tabs.getInstance(tabsElement);
+      if (!tabsElement) {
+        return;
+      }
 
-      if (tabsInstance) {
+      var tabsInstance = M.Tabs.getInstance(tabsElement) || M.Tabs.init(tabsElement);
+
+      if (tabsInstance && window.location.hash.indexOf('#profile-') === 0) {
         tabsInstance.select(window.location.hash.substring(1));
       }
     }
+
+    document.addEventListener('DOMContentLoaded', selectProfileTabFromHash);
 
     $('#ranking-type-selector').on('change', function() {
       $(this).closest('form').trigger('submit');
