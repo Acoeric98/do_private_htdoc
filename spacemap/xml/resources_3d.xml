@@ -5,6 +5,7 @@
     <location path="3d/meshes/" id="3d_meshes"/>
     <location path="3d/meshes/textures/" id="3d_meshes_textures"/>
     <location path="3d/textures/" id="3d_textures"/>
+	
     <file version="1" type="awd" name="_placeholder-building" location="3d_meshes" id="_placeholder-building" hash="3bc5748d69ee1e34ed109c4d3c8bf100" debugView="false"/>
     <file version="1" type="awd" name="_placeholder-building_complex" location="3d_meshes" id="_placeholder-building_complex" hash="ac8f328bf6e48a3b413806b599bb9800" debugView="false"/>
     <file version="1" type="awd" name="_placeholder-drone" location="3d_meshes" id="_placeholder-drone" hash="6e08ac91844710b58bb24b13d210ea00" debugView="false"/>
@@ -15,6 +16,16 @@
     <file version="1" type="awd" name="_placeholder-zone" location="3d_meshes" id="_placeholder-zone" hash="02ce147deefd4cd321d469e2a85dd500" debugView="false"/>
     <file version="1" type="awd" name="_placeholder-zone1" location="3d_meshes" id="_placeholder-zone1" hash="11f63295b55412ee89571b54b547eb00" debugView="false"/>
     <file version="1" type="awd" name="_placeholder-zone2" location="3d_meshes" id="_placeholder-zone2" hash="d50afa1e1d71580a357096f678e3a700" debugView="false"/>
+	
+	<file version="1" type="atf" name="g-surgeon_design_g-surgeon-locust_diffuse_128" location="3d_textures" id="g-surgeon_design_g-surgeon-locust_diffuse_128" hash="c37e9f7033d3430aa5a29d2f6f86455f" debugView="false"/>
+    <file version="1" type="atf" name="g-surgeon_design_g-surgeon-locust_diffuse_256" location="3d_textures" id="g-surgeon_design_g-surgeon-locust_diffuse_256" hash="b001e13a73aa9ac64d361dccde0c5134" debugView="false"/>
+    <file version="1" type="atf" name="g-surgeon_design_g-surgeon-locust_diffuse_512" location="3d_textures" id="g-surgeon_design_g-surgeon-locust_diffuse_512" hash="92617e221195649bdde0c418b47ce796" debugView="false"/>
+	
+	<file version="1" type="atf" name="surgeon-cicada_diffuse_128" location="3d_textures" id="surgeon-cicada_diffuse_128" hash="2ef66f9425c5c69c785425627ddb8c54" debugView="false"/>
+    <file version="1" type="atf" name="surgeon-cicada_diffuse_256" location="3d_textures" id="surgeon-cicada_diffuse_256" hash="f88a032d59496ac91005c660e40655a7" debugView="false"/>
+    <file version="1" type="atf" name="surgeon-cicada_diffuse_512" location="3d_textures" id="surgeon-cicada_diffuse_512" hash="a65027fa427eaa01790b610d0166ddec" debugView="false"/>
+	
+
     <file version="1" type="awd" name="aegis" location="3d_meshes" id="aegis" hash="b162e8ef7bab2685e4c10d3e88df3800" debugView="false"/>
     <file version="1" type="atf" name="aegis-eic-elite_diffuse_128" location="3d_textures" id="aegis-eic-elite_diffuse_128" hash="3e89c9a5f630a47ebb06b91b3dee9e00" debugView="false"/>
     <file version="1" type="atf" name="aegis-eic-elite_diffuse_256" location="3d_textures" id="aegis-eic-elite_diffuse_256" hash="2c128753b350e0c9a4b02ba12a373500" debugView="false"/>

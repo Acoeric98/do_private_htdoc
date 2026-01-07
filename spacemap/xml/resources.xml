@@ -1822,8 +1822,10 @@
     <file version="1" type="swf" name="ship_goliath_design_bronze" location="graphics_ships" id="ship_goliath_design_bronze" hash="d2a691b974d4649a69fd0ec726cd5000" debugView="false"/>
     <file version="1" type="swf" name="ship_goliath_design_gold" location="graphics_ships" id="ship_goliath_design_gold" hash="e2749a9cb41494c625b7eca7d3b5a300" debugView="false"/>
     <file version="1" type="swf" name="ship_goliath_design_iron" location="graphics_ships" id="ship_goliath_design_iron" hash="7ba84e74886325914de866567f0c2f00" debugView="false"/>
-    <file version="1" type="swf" name="ship_goliath_design_peacemaker" location="graphics_ships" id="ship_goliath_design_peacemaker" hash="0aed58258fdd393bd096393423591100" debugView="false"/>
-    <file version="1" type="swf" name="ship_goliath_design_surgeon" location="graphics_ships" id="ship_goliath_design_surgeon" hash="d22e6b9f647807ea32dfb48b099a0e00" debugView="false"/>
+    <file version="1" type="swf" name="ship_goliath_design_peacemaker" location="graphics_ships" id="ship_goliath_design_peacemaker" hash="0aed58258fdd393bd096393423591100" debugView="false"/>	
+    <file version="1" type="swf" name="ship_goliath-surgeon-cicada" location="graphics_ships" id="ship_goliath-surgeon-cicada" hash="aee6aa611c76140b01691ebeef86e56c" debugView="false"/>
+	<file version="1" type="swf" name="ship_goliath-surgeon-locust" location="graphics_ships" id="ship_goliath-surgeon-locust" hash="5bc2ac9b27fe9ff1a2fe391c70e94d05" debugView="false"/>
+	<file version="1" type="swf" name="ship_goliath-surgeon-plague" location="graphics_ships" id="ship_goliath-surgeon-plague" hash="d22e6b9f647807ea32dfb48b099a0e91" debugView="false"/>	
     <file version="1" type="swf" name="ship_goliath_design_goliath-razer" location="graphics_ships" id="ship_goliath_design_goliath-razer" hash="9032bd2bf6ad36a56f7f23dea7094700" debugView="false"/>
     <file version="1" type="swf" name="ship_goliath_design_silver" location="graphics_ships" id="ship_goliath_design_silver" hash="2195395e350ad7d7df455c3fc3c3d700" debugView="false"/>
     <file version="1" type="swf" name="ship_goliath_design_sovereign" location="graphics_ships" id="ship_goliath_design_sovereign" hash="e9e4bb5672b549e8a5d705e688329d00" debugView="false"/>
