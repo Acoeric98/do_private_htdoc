@@ -1631,6 +1631,10 @@
     <file version="1" type="swf" name="ship107" location="graphics_ships" id="ship107" hash="54dc6e6063b6520bb3b75830b2301f00" debugView="false"/>
     <file version="1" type="swf" name="ship108" location="graphics_ships" id="ship108" hash="5988b78d3f720ac70f0305aad21d6f00" debugView="false"/>
     <file version="1" type="swf" name="ship109" location="graphics_ships" id="ship109" hash="da6d24e2e0053b04fb55c0c9eb751800" debugView="false"/>
+	<file version="1" type="swf" name="ship147" location="graphics_ships" id="ship147" hash="b6445c3fc18d42b57343bc74fb21aec0" debugView="false"/>
+	<file version="1" type="swf" name="ship148" location="graphics_ships" id="ship148" hash="d3575de7af3cc56f1271c45677a21552" debugView="false"/>
+	<file version="1" type="swf" name="ship149" location="graphics_ships" id="ship149" hash="009c709c1fc04fede2e752a23a299b59" debugView="false"/>
+	<file version="1" type="swf" name="ship150" location="graphics_ships" id="ship150" hash="00099ccf5a5fb455336e2c66b98eae3c" debugView="false"/>
     <file version="1" type="swf" name="ship10_Ecombat" location="graphics_expansions" id="ship10_Ecombat" hash="e859d8c75c1382477426066398196f00" debugView="false"/>
     <file version="1" type="swf" name="ship10_Emax" location="graphics_expansions" id="ship10_Emax" hash="3b7ef3d46a3875ec74925842bb351900" debugView="false"/>
     <file version="1" type="swf" name="ship10_Emed" location="graphics_expansions" id="ship10_Emed" hash="25698bd88a435dbc3a17a8f2cb0dc400" debugView="false"/>
@@ -1763,7 +1767,7 @@
     <file version="1" type="swf" name="ship76" location="graphics_ships" id="ship76" hash="bed3cd02dca1d4c59e1eb9ddf1a40000" debugView="false"/>
     <file version="1" type="swf" name="ship77" location="graphics_ships" id="ship77" hash="75055bb641d61e7cfc164c6e33a25c00" debugView="false"/>
     <file version="1" type="swf" name="ship78" location="graphics_ships" id="ship78" hash="78d8aee32ef336615f6f25b044d99100" debugView="false"/>
-    <file version="1" type="swf" name="ship79" location="graphics_ships" id="ship79" hash="a1b95b0d58d928236d94f01a50733400" debugView="false"/>
+    <file version="1" type="swf" name="ship79" location="graphics_ships" id="ship79" hash="a1b95b0d58d928236d94f01a50733400" debugView="false"/>	
     <file version="1" type="swf" name="ship7_Emax" location="graphics_expansions" id="ship7_Emax" hash="28acd0000962470c45882d9d4c924900" debugView="false"/>
     <file version="1" type="swf" name="ship7_Emed" location="graphics_expansions" id="ship7_Emed" hash="d70f4230922fbdd4ca2f75b080cd4600" debugView="false"/>
     <file version="1" type="swf" name="ship8" location="graphics_ships" id="ship8" hash="3490aac9b7667c18198cefeac5cbb000" debugView="false"/>
