@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<param name="lang" value="de" />
+<!-- TEST SERVER 1 -->	
+	<!-- 0x90 NOP -->
+	<!-- 
+	<param name="userID" value="31473373" />
+	 -->
+	 
+	<param name="userID" value="160594326" />
+	<param name="user"><![CDATA[RORROL]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	
+	<!-- joenase 
+	<param name="userID" value="59903066" />
+	<param name="user"><![CDATA[joenase]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	-->
+	
+	<!-- SgtRipley03 
+	<param name="userID" value="87657986" />
+	<param name="user"><![CDATA[SgtRipley03]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	 -->
+	 
+	<!-- nop0x91 
+	<param name="userID" value="94095359" />
+	<param name="user"><![CDATA[nop0x91]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	-->
+	
+	<!--  IDIV0xF7 
+	<param name="userID" value="160223952" />
+	<param name="userID"    value="160223736" />
+	<param name="projectID" value="175" />
+	<param name="host"      value="dbikowski-contacts-175.bpdevsys-darkorbit3.bigpoint.net" />
+	<param name="sessionID" value="darkorbit_ruins_starwars" />
+	-->
+	
+	<!--  jmp0xEB 
+	<param name="userID"    value="160223736" />
+	<param name="projectID" value="175" />
+	<param name="host"      value="dbikowski-contacts-175.bpdevsys-darkorbit3.bigpoint.net" />
+	<param name="sessionID" value="darkorbit_ruins_starwars" />
+	-->
+	
+	<!-- 
+	<param name="employee" value="dbikowski" />
+	<param name="server" value="bpdevsys-darkorbit3.bigpoint.net" />
+	<param name="instance" value="175" />
+	<param name="project" value="darkorbit" />
+	<param name="host" value="dbikowski-darkorbit-175.bpdevsys-darkorbit3.bigpoint.net" />
+	 -->
+	  
+	<!-- NOP0x94 
+	<param name="userID" value="97203133" />
+	<param name="user"><![CDATA[nop0x94]]></param>
+	-->
+	  
+	  
+<!-- TEST SERVER 2 -->
+	<!-- 0x90 NOP - test 1 server
+	<param name="userID" value="82785261" />
+	<param name="user"><![CDATA[nop0x90]]></param>
+	 -->
+	 
+	<!-- 
+	<param name="userID" value="82876891" />
+	<param name="user"><![CDATA[nop0x90]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	 -->
+	
+	<!-- 0x92 NOP
+	<param name="userID" value="94137078" />
+	<param name="user"><![CDATA[nop0x92]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+		http://tgarschke-darkorbit-175.bpdevsys-darkorbit2.bigpoint.net
+	 	-->
+	<param name="instance" value="175" />
+	<param name="employee" value="dbikowski" />
+	<param name="server"   value="bpdevsys-darkorbit2.bigpoint.net" />
+	<param name="host"     value="bachi-featbranch-175.bpdevsys-darkorbit2.bigpoint.net/" />  
+	<param name="project"  value="equipmentClient" />
+	
+	<!-- 
+	<param name="employee" value="dbikowski" />
+	<param name="server" value="bpdevsys-darkorbit3.bigpoint.net" />
+	<param name="host"     value="tgarschke-darkorbit-175.bpdevsys-darkorbit2.bigpoint.net/" />  
+	<param name="host" value="dbikowski-darkorbit-175.bpdevsys-darkorbit3.bigpoint.net" />  
+	<param name="project" value="darkorbit" />
+	 -->
+	
+	<!-- 
+	<param name="host" value="dbikowski-battle-679.bpdevsys-darkorbit3.bigpoint.net" />  
+	<param name="host" value="dbikowski-darkorbit-679.bpdevsys-darkorbit3.bigpoint.net" />  
+	<param name="project" value="darkorbit" />
+	 -->
+	
+	<!-- .xeoninc. - dkopp - userID - 92389028
+	<param name="employee" value="dkopp" />
+	<param name="userID" value="92389028" />
+	<param name="user"><![CDATA[.xeoninc.]]></param>
+	<param name="server" value="bpdevsys-darkorbit3.bigpoint.net" />
+	<param name="host" value="test2.bpdevsys-darkorbit3.bigpoint.net" />  
+	 -->
+	 
+	<!-- harle80 - terence check out
+	http://tviban-trunk-175.bpdevsys-darkorbit2.bigpoint.net/
+	<param name="employee" value="tviban" />
+	<param name="userID" value="60809570" />
+	<param name="user"><![CDATA[harle80]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	<param name="instance" value="175" />
+	<param name="project" value="trunk" />
+	<param name="server" value="bpdevsys-darkorbit2.bigpoint.net" />
+	<param name="host" value="tviban-trunk-175.bpdevsys-darkorbit2.bigpoint.net" /> 	 
+	 -->
+	
+	
+	 <!--  Pogrim - T.Garschke http://tgarschke-darkorbit-175.bpdevsys-darkorbit2.bigpoint.net/indexInternal.es?action=internalStart
+	<param name="employee" value="tgarschke" />
+	<param name="userID" value="85029002" />
+	<param name="user"><![CDATA[Pogrim]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	<param name="instance" value="175" />
+	<param name="project" value="darkorbit" />
+	<param name="server" value="bpdevsys-darkorbit2.bigpoint.net" />
+	<param name="host" value="tgarschke-darkorbit-175.bpdevsys-darkorbit2.bigpoint.net" />  
+	 -->
+	 
+	<!-- »»WΛЯ•MΛĈĦłИЭ««
+	<param name="userID" value="61555932" />
+	<param name="user"><![CDATA[»»WΛЯ•MΛĈĦłИЭ««]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	 -->
+	 
+	<!-- vicens
+	<param name="instance" value="175" />
+	<param name="project" value="darkorbit" />
+	<param name="server" value="bpdevsys-darkorbit3.bigpoint.net" />
+	<param name="host" value="ddumrauf-darkorbit-175.bpdevsys-darkorbit3.bigpoint.net" />  
+	
+	<param name="userID" value="78242536" />
+	<param name="user"><![CDATA[tigris70]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	 -->	
+	  
+	<!-- Fryderrik
+	<param name="userID" value="87838841" />
+	<param name="user"><![CDATA[Blastamuffin]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	 -->
+	
+	<!-- Kathrin Schulte
+	<param name="userID" value="63309828" />
+	<param name="user"><![CDATA[..Lysi..]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	-->	
+	
+	<!-- Sebastian Jauert 1
+	<param name="userID" value="80340833" />
+	<param name="user"><![CDATA[luttz]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	 -->
+	 
+	 <!-- Sebastian Jauert 2
+	<param name="userID" value="81015734" />
+	<param name="user"><![CDATA[luttz2]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	 -->
+	
+	<!-- matthias böttcher
+	<param name="userID" value="30843809" />
+	<param name="user"><![CDATA[mblpz]]></param>
+	<param name="password"><![CDATA[b2F4MjdhISE=]]></param>
+	-->
+	
+	<!-- ronny gericke
+	<param name="user"><![CDATA[duckydev3]]></param>
+	<param name="password"><![CDATA[ZHVja3lkZXYz=]]></param>  
+	<param name="userID" value="81044108" />
+	-->
+	
+	<!-- ronny gericke
+	<param name="userID" value="87021883" />
+	<param name="user"><![CDATA[ducky_hs3]]></param>
+	<param name="password"><![CDATA[bZHVja3lfaHMz]]></param> 
+	-->
+
+	<!-- ronny gericke
+	<param name="userID" value="87023938" />
+	<param name="user"><![CDATA[ducky_hs4]]></param>
+	<param name="password"><![CDATA[ZHVja3lfaHM0]]></param>  
+	-->
+	
+</config>
