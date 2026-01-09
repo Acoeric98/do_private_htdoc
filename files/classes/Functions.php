@@ -1310,9 +1310,6 @@ class Functions {
     return [
       0 => ['name' => 'DMG_B01', 'category' => 2],
       1 => ['name' => 'DMG_B02', 'category' => 2],
-      2 => ['name' => 'EP_B01', 'category' => 3],
-      3 => ['name' => 'EP_B02', 'category' => 3],
-      4 => ['name' => 'EP50', 'category' => 3],
       5 => ['name' => 'HON_B01', 'category' => 1],
       6 => ['name' => 'HON_B02', 'category' => 1],
       7 => ['name' => 'HON50', 'category' => 1],
@@ -1321,20 +1318,8 @@ class Functions {
       10 => ['name' => 'REP_B01', 'category' => 4],
       11 => ['name' => 'REP_B02', 'category' => 4],
       12 => ['name' => 'REP_S01', 'category' => 4],
-      13 => ['name' => 'RES_B01', 'category' => 5],
-      14 => ['name' => 'RES_B02', 'category' => 5],
       15 => ['name' => 'SHD_B01', 'category' => 6],
-      16 => ['name' => 'SHD_B02', 'category' => 6],
-      17 => ['name' => 'SREG_B01', 'category' => 8],
-      18 => ['name' => 'SREG_B02', 'category' => 8],
-      19 => ['name' => 'BB_01', 'category' => 9],
-      20 => ['name' => 'QR_01', 'category' => 10],
-      21 => ['name' => 'CD_B01', 'category' => 11],
-      22 => ['name' => 'CD_B02', 'category' => 11],
-      23 => ['name' => 'KAPPA_B01', 'category' => 12],
-      24 => ['name' => 'HONM_1', 'category' => 1],
-      25 => ['name' => 'XPM_1', 'category' => 3],
-      26 => ['name' => 'DMGM_1', 'category' => 2]
+      16 => ['name' => 'SHD_B02', 'category' => 6]
     ];
   }
 
