@@ -14,7 +14,7 @@ if (!Functions::IsLoggedIn()) {
 $mysqli = Database::GetInstance();
 
 $lootIds = [];
-$result = $mysqli->query('SELECT lootID FROM server_ships');
+$result = $mysqli->query('SELECT lootID FROM server_ships WHERE respawnable = 0 AND (lootID LIKE "ship_%" OR lootID = "pet")');
 if ($result) {
   $rows = $result->fetch_all(MYSQLI_ASSOC);
   foreach ($rows as $row) {

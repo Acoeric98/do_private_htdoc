@@ -11,7 +11,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'lootIds') {
 	}
 
 	$lootIds = [];
-	$result = $mysqli->query('SELECT lootID FROM server_ships');
+	$result = $mysqli->query('SELECT lootID FROM server_ships WHERE respawnable = 0 AND (lootID LIKE "ship_%" OR lootID = "pet")');
 	if ($result) {
 		$rows = $result->fetch_all(MYSQLI_ASSOC);
 		foreach ($rows as $row) {
@@ -824,11 +824,8 @@ function GetCurrentShipLootId()
 }
 
 function GetAllShipInformations() {
-	global $mysqli;
-
 	$ships = '';
-
-	$array = $mysqli->query('SELECT id, shipID FROM server_ships')->fetch_all(MYSQLI_ASSOC);
+	$array = GetInventoryShips();
 	foreach ($array as $key => $ship) {
 		$ships .= GetShipInformation($ship['id'], $ship['shipID']) . ($key != count($array) - 1 ? ',' : '');
 	}
@@ -837,16 +834,26 @@ function GetAllShipInformations() {
 }
 
 function GetAllShipLootIds() {
-	global $mysqli;
-
-	$lootIds = '';
-
-	$array = $mysqli->query('SELECT lootID FROM server_ships')->fetch_all(MYSQLI_ASSOC);
-	foreach ($array as $key => $ship) {
-		$lootIds .= '"'.$ship['lootID'].'"'. ($key != count($array) - 1 ? ',' : '');
+	$lootIds = [];
+	$array = GetInventoryShips();
+	foreach ($array as $ship) {
+		if (isset($ship['lootID'])) {
+			$lootIds[] = json_encode($ship['lootID']);
+		}
 	}
 
-	return $lootIds;
+	return implode(',', $lootIds);
+}
+
+function GetInventoryShips() {
+	global $mysqli;
+
+	$result = $mysqli->query('SELECT id, shipID, lootID FROM server_ships WHERE respawnable = 0 AND (lootID LIKE "ship_%" OR lootID = "pet")');
+	if (!$result) {
+		return [];
+	}
+
+	return $result->fetch_all(MYSQLI_ASSOC);
 }
 
 function GetShipInformation($itemId, $shipId) {
