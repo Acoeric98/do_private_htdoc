@@ -2020,6 +2020,10 @@ Renew your Premium membership on the Uridium page at a special price!]]></item>
  <item name="msg_booty-key-silver_received_p"><![CDATA[You have acquired %AMOUNT% silver Booty Keys.]]></item>
  <item name="msg_booty-key-green_auto_purchased"><![CDATA[A green booty key will be purchased automatically to open this booty.]]></item>
  <item name="msg_booty-key-green_auto_buy_not_active"><![CDATA[You do not have a green booty key. Purchase them in the shop or activate the auto purchase feature in settings.]]></item>
+ <item name="msg_booty-key-gold_auto_buy_not_active"><![CDATA[You do not have a gold booty key. Purchase them in the shop or activate the auto purchase feature in settings.]]></item>
+ <item name="msg_booty-key-silver_auto_buy_not_active"><![CDATA[You do not have a silver booty key. Purchase them in the shop or activate the auto purchase feature in settings.]]></item>
+ <item name="msg_booty-key-red_auto_buy_not_active"><![CDATA[You do not have a red booty key. Purchase them in the shop or activate the auto purchase feature in settings.]]></item>
+ <item name="msg_booty-key-blue_auto_buy_not_active"><![CDATA[You do not have a blue booty key. Purchase them in the shop or activate the auto purchase feature in settings.]]></item>
  <item name="msg_booty-key-green_no_uridium_for_auto_buy"><![CDATA[You do not have sufficient Uridium to automatically purchase a green booty key.]]></item>
  <item name="ttip_highscoregate_time_left"><![CDATA[Remaining time]]></item>
  <item name="ttip_highscoregate_wave"><![CDATA[Current wave]]></item>
