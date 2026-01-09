@@ -15,7 +15,7 @@
                   $ownedShips = array_map('intval', $items->ships);
                 }
 
-                $shipIdsForSale = [1, 2, 3, 4, 5, 6, 7, 9, 49, 69, 70, 156, 81];
+                $shipIdsForSale = [1, 2, 3, 4, 5, 6, 7, 9, 49, 69, 70, 156, 420];
                 $shipsForSale = [];
 
                 $shipIdList = implode(',', $shipIdsForSale);
