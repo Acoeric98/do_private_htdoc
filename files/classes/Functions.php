@@ -1334,7 +1334,7 @@ class Functions {
       'message' => ''
     ];
 
-    $availableShips = [1, 2, 3, 4, 5, 6, 7, 9, 49, 69, 70, 81, 156];
+    $availableShips = [1, 2, 3, 4, 5, 6, 7, 9, 49, 69, 70, 420, 156];
 
     if (!in_array($shipId, $availableShips)) {
       $json['message'] = 'Something went wrong!';
