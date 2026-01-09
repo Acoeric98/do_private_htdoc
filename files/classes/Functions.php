@@ -1318,8 +1318,8 @@ class Functions {
       10 => ['name' => 'REP_B01', 'category' => 4],
       11 => ['name' => 'REP_B02', 'category' => 4],
       12 => ['name' => 'REP_S01', 'category' => 4],
-      15 => ['name' => 'SHD_B01', 'category' => 6],
-      16 => ['name' => 'SHD_B02', 'category' => 6]
+      15 => ['name' => 'SHD_B01', 'category' => 3],
+      16 => ['name' => 'SHD_B02', 'category' => 3]
     ];
   }
 
