@@ -1,8 +1,11 @@
 # DarkOrbit CMS
 
-## Megjegyzés a Flashről
+#Flash
+nem a flash a probléma és az elavult technológia. alapvetően tökéletesen működik minden. a hibát a json-be, az adatbázisba vagy a kódba kell keresni
 
-A beépített játék chat üres képernyője nem Flash-player problémából fakad. Az equipment modul ugyanúgy Flash alapú és rendben betölt, ezért a hiba forrása máshol keresendő. NEM A FLASH A PROBLÉMA.
+#Adatbázis
+server_actual.sql 
+Ezt használom jelenleg aktív adatbázisnak, a server.sql egy dummy alap sql. NEM HASZNÁLOM ÉS NEM IS KELL NÉZNI. 2 hetente mentem le az adatbázist
 
 ## Projektstruktúra gyorsfa
 
@@ -38,6 +41,6 @@ A beépített játék chat üres képernyője nem Flash-player problémából fa
 - **Oldalbetöltés és routing:** Az `index.php` → `files/redirect.php` páros a `Functions::LoadPage` metódust hívja. Ez a függvény választja ki a `files/external/*.php` oldalakat, és automatikusan becsatolja a `includes/header.php`/`footer.php` fájlokat.
 - **API műveletek:** A `files/api.php` POST paraméter alapján hívja a megfelelő `Functions::*` metódusokat. Új API végpontnál itt adj végződést, a logikát pedig a `files/classes/Functions.php`-ba tedd.
 - **Alapbeállítások:** A `files/config.php` kezeli a domain, adatbázis, socket és session beállításokat, valamint itt töltődnek be a core osztályok.
-- **Adatbázis:** A `server.sql` tartalmazza a séma alapját. Új táblák vagy mezők bevezetésekor ezt érdemes frissíteni.
+- **Adatbázis:** A `server.sql` tartalmazza a séma alapját!!! Viszont a server_actual.sql-t az új táblák vagy mezők bevezetésekor ezt érdemes frissíteni és nézni.
 - **Ütemezett feladatok:** A `files/external/cronjobs/` könyvtárban lévő skriptek (`pushing.php`, `ranking.php`) kapják az időzített futtatásokat.
 - **Játék kliens és assetek:** A játékhoz kapcsolódó SWF/XML és grafikus erőforrások a `spacemap/`, `swf_global/`, `flashinput/` és `gamechat/` mappákban találhatók.
