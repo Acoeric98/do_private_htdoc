@@ -13,3 +13,6 @@ hozzá lehetne adni egy profil keresőt.
 
 egyedi rangokat lepróbálni hogy hozzá lehet e adni az xml-en keresztül 
   elvileg nem pofázik bele a hash hogy ha hozzáírok valamit ( ez mondjuk a dobozoknál valamiért nem érvényesült)
+
+<item name="title_achievement_acotest"><![CDATA[Server owener]]></item>
+      ezt le kell majd tesztelni hogy működik e
