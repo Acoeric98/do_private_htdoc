@@ -1,7 +1,15 @@
 hozzáadni az owned titles táblát az account-okhoz
-
 ALTER TABLE player_accounts
 ADD COLUMN owned_titles JSON NOT NULL DEFAULT '[]';
+      később jó lesz most nem kell
+
 
 
 megcsinálni a ranglistát a profilon belül, hozzáadni a saját profilt rangsorral mindennel együtt. klánt is hozzáadni, választható title-t kirakni
+  igazából kész csak az oldal reload miatt folyamatosan a playereket dobja vaissza a klán helyett is. választható title kész
+  finomhangolni kell az összes playeres listát
+
+hozzá lehetne adni egy profil keresőt. 
+
+egyedi rangokat lepróbálni hogy hozzá lehet e adni az xml-en keresztül 
+  elvileg nem pofázik bele a hash hogy ha hozzáírok valamit ( ez mondjuk a dobozoknál valamiért nem érvényesült)
