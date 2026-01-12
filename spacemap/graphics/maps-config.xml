@@ -564,7 +564,7 @@
 		<starfield>true</starfield>
 		<backgrounds>
 			<background typeID="2001" pFactor="10" layer="0" hideLensflare="false" scale="1.6" />
-			<background typeID="29" pFactor="10" isMain="true" layer="1"/>
+			<background typeID="29" pFactor="10" isMain="true" layer="1" region="4096,2600"/>
 			<background typeID="2015" pFactor="8" layer="3" hideLensflare="false" maskID="17" scale="1.6" />
 			<background typeID="2023" pFactor="6" layer="4" hideLensflare="false" maskID="18" scale="1.8" />
 		</backgrounds>
