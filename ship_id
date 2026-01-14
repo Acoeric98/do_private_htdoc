@@ -1,0 +1,142 @@
+ID	lootID	Name
+1	ship_phoenix	Phoenix
+2	ship_yamato	Yamato
+3	ship_leonov	Leonov
+4	ship_defcom	Defcom
+5	ship_liberator	Liberator
+6	ship_piranha	Piranha
+7	ship_nostromo	Nostromo
+8	ship_vengeance	Vengeance
+9	ship_bigboy	Bigboy
+10	ship_goliath	Goliath
+11	ship11	..::{ DeMaNeR }::..
+12	pet	P.E.T. Level 1-3
+13	pet	P.E.T. Red
+14	pet	P.E.T. Green
+15	pet	P.E.T. Frozen
+16	ship_vengeance_design_adept	Adept
+17	ship_vengeance_design_corsair	Corsair
+18	ship_vengeance_design_lightning	Lightning
+19	ship_goliath_design_jade	Jade
+20	ship20	..::{ UFO }::..
+21	ship21	..::{ UFO }::..
+22	pet	P.E.T. Normal
+23	ship23	..::{ Boss Streuner }::..
+24	ship24	..::{ Boss Lordakia }::..
+25	ship25	..::{ Boss Saimon }::..
+26	ship26	..::{ Boss Devolarium }::..
+27	ship27	..::{ Boss Sibelonit }::..
+28	ship28	..::{ Boss Lordakium }::..
+29	ship29	..::{ Boss Kristallin }::..
+31	ship31	..::{ Boss Mordon }::..
+32	ship32	..::{ Santa-Bot }::..
+33	ship33	..::{ Super Ice Meteor }::..
+34	ship34	..::{ Boss Streuner }::..
+35	ship35	..::{ Boss Kristallon }::..
+42	ship42	..::{ Uber Kristallin }::..
+45	ship45	..::{ Uber Kristallon }::..
+46	ship46	..::{ Boss Sibelon }::..
+48	ship48	..::{ Disguiser-Bot }::..
+49	ship_aegis	Aegis
+50	ship50	..::{ Enemy Bigboy }::..
+52	ship_goliath_design_amber	Amber
+53	ship_goliath_design_crimson	Crimson
+54	ship_goliath_design_sapphire	Sapphire
+55	ship55	..::{ Enemy Goliath }::..
+56	ship_goliath_design_enforcer	Enforcer
+57	ship_goliath_design_independence	Independence
+58	ship_vengeance_design_revenge	Revenge
+59	ship_goliath_design_bastion	Bastion
+60	ship_vengeance_design_avenger	Avenger
+61	ship_goliath_design_veteran	Veteran
+62	ship_goliath_design_exalted	Exalted
+63	ship_goliath_design_solace	Solace
+64	ship_goliath_design_diminisher	Diminisher
+65	ship_goliath_design_spectrum	Spectrum
+66	ship_goliath_design_sentinel	Sentinel
+67	ship_goliath_design_venom	Venom
+68	ship_goliath_design_ignite	Ignite
+69	ship_citadel	Citadel
+70	ship_spearhead	Spearhead
+71	ship71	..::{ Lordakia }::..
+72	ship72	..::{ Devolarium }::..
+73	ship73	..::{ Mordon }::..
+74	ship74	..::{ Sibelon }::..
+75	ship75	..::{ Saimon }::..
+76	ship76	..::{ Sibelonit }::..
+77	ship77	..::{ Lordakium }::..
+78	ship78	-=[ Kristallin ]=-
+79	ship79	-=[ Kristallon ]=-
+80	ship80	..::{ Cubikon }::..
+81	ship81	..::{ Protegit }::..
+82	ship82	..::{ Kucurbium }::..
+83	ship83	..::{ Boss Kucurbium }::..
+84	ship84	..::{ Streuner }::..
+85	ship85	..::{ StreuneR }::..
+86	ship_goliath_design_kick	Kick
+87	ship_goliath_design_referee	Referee
+88	ship_goliath_design_goal	Goal
+90	ship90	..::{ Century Falcon }::..
+91	ship91	..::{ Corsair }::..
+92	ship92	..::{ Outcast }::..
+93	ship93	..::{ Marauder }::..
+94	ship94	..::{ Vagrant }::..
+95	ship95	..::{ Convict }::..
+96	ship96	..::{ Ravager }::..
+97	ship97	..::{ Hooligan }::..
+98	ship_police	PoliceShip
+99	ship99	..::{ Scorcher }::..
+100	ship100	..::{ Infernal }::..
+101	ship101	..::{ Ice Meteor }::..
+102	ship102	..::{ Melter }::..
+103	ship103	..::{ Icy }::..
+104	ship104	..::{ Binary-Bot }::..
+105	ship105	..::{ Devourer }::..
+106	ship106	..::{ Lordakium Spore }::..
+107	ship107	..::{ Sunburst Lordakium }::..
+108	ship108	..::{ Evil Iris }::..
+109	ship_goliath_design_saturn	Saturn
+110	ship_goliath_design_centaur	Centaur
+111	ship111	..::{ Interceptor }::..
+112	ship112	..::{ Barracuda }::..
+113	ship113	..::{ Saboteur }::..
+114	ship114	..::{ Annihilator }::..
+115	ship115	..::{ Battleray }::..
+116	ship116	..::{ Hitac-Mothership }::..
+117	ship117	..::{ Hitac Minion }::..
+118	ship118	..::{ Boss Curcubitor }::..
+119	ship119	..::{ Curcubitor }::..
+120	ship120	..::{ Chicken NPC }::..
+121	ship121	..::{ Snowman NPC }::..
+122	ship122	..::{ Emperor Kristallon }::..
+123	ship123	..::{ Emperor Lordakium }::..
+124	ship124	..::{ Emperor Sibelon }::..
+125	ship125	..::{ Rakétás kiskocsi }::..
+126	ship126	..::{ Demaner Freighter }::..
+127	ship127	..::{ Skoll }::..
+128	ship128	..::{ Blighted Gygerthrall }::..
+129	ship129	..::{ Gygerim Overlord }::..
+140	ship_goliath_design_vanquisher	Vanquisher
+141	ship_goliath_design_sovereign	Sovereign
+142	ship_goliath_design_peacemaker	Peacemaker
+147	ship147	..::{ Soldier Streuner }::..
+148	ship148	..::{ Streuner Rocket Turret }::..
+149	ship149	..::{ Aider Streuner }::..
+150	ship150	..::{ Rocketeer Streuner }::..
+151	ship_nostromo_design_envoy	Nostromo Envoy
+152	ship_nostromo_design_ambassador	Nostromo Ambassador
+153	ship_goliath_design_goliath-razer	Razer
+154	ship_nostromo_design_nostromo-razer	Nostromo Razer
+155	ship_goliath_design_turkish	Hezarfen
+156	ship_goliath_design_kick	Surgeon
+157	ship_aegis_design_aegis-elite	Aegis Veteran
+158	ship_aegis_design_aegis-superelite	Aegis Super Elite
+159	ship_citadel_design_citadel-elite	Citadel Veteran
+160	ship_citadel_design_citadel-superelite	Citadel Super Elite
+161	ship_aegis_design_aegis-elite	Spearhead Veteran
+162	ship_aegis_design_aegis-superelite	Spearhead Super Elite
+419	ship_nostromo_design_diplomat	Nostromo Diplomat
+420	ship_vengeance_design_pusat	Pusat
+442	spaceball_summer	..::{ Spaceball }::..
+443	spaceball_winter	..::{ Spaceball }::..
+444	spaceball_soccer	..::{ Spaceball }::..
