@@ -313,7 +313,11 @@
  <item name="achievement_collect_uridium_4_description"><![CDATA[Collect %COUNT% Uridium.]]></item>
  <item name="achievement_collect_uridium_5_name"><![CDATA[King Midas]]></item>
  <item name="title_achievement_collect_uridium-2"><![CDATA[King Midas]]></item>
+	
  <item name="title_achievement_acotest"><![CDATA[Server owener]]></item>
+ <item name="title_porkolt"><![CDATA[Pörkölt]]></item>
+
+	
  <item name="achievement_collect_uridium_5_description"><![CDATA[Collect %COUNT% Uridium.]]></item>
  <item name="achievement_factory_chaindestroyer_progress"><![CDATA[%CURRENT% of %TARGET% targets destroyed.]]></item>
  <item name="achievement_factory_chaindestroyer_1_name"><![CDATA[Lightning raid]]></item>
