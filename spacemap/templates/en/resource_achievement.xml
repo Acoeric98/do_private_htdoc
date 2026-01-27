@@ -317,7 +317,7 @@
  <item name="title_achievement_acotest"><![CDATA[Server owener]]></item>
  <item name="title_porkolt"><![CDATA[Pörkölt]]></item>
  <item name="title_npc_csillag"><![CDATA[NPC-s nagycsillag]]></item>
-
+ <item name="title_veteran"><![CDATA[Veterán]]></item>
 	
  <item name="achievement_collect_uridium_5_description"><![CDATA[Collect %COUNT% Uridium.]]></item>
  <item name="achievement_factory_chaindestroyer_progress"><![CDATA[%CURRENT% of %TARGET% targets destroyed.]]></item>
